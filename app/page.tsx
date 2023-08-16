@@ -1,4 +1,5 @@
-import Container from "@/components/container"
+import Home from "@/components/home"
+import Container from "@/components/home"
 
 interface UserData {
   id: number
@@ -7,12 +8,12 @@ interface UserData {
   email: string
 }
 
-export default async function Home() {
+export default async function HomePage() {
   const data = await getData()
 
   return (
     <section className='h-full flex flex-col items-center justify-center gap-4 '>
-      <Container data={data}/>
+      <Home data={data}/>
     </section>
   )
 }

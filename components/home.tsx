@@ -23,12 +23,12 @@ interface ContainerProps {
   data: UserData[]
 }
 
-export default function Container({data}: ContainerProps) {
+export default function Home({data}: ContainerProps) {
   return (
     <div className=' w-full flex flex-grow flex-wrap '>
       <div className='flex w-full flex-col items-center  pt-4'>
         <Tabs aria-label='Options'>
-          <Tab key='ipads' title='iPads' className='w-3/4'>
+          <Tab key='ipads' title='iPads' className='w-5/6'>
             {data.map((user) => (
               <Card key={user.id} className='w-full mt-2 mb-4 py-2 px-8'>
                 <CardHeader className='flex gap-3 '>
