@@ -32,7 +32,7 @@ export const Navbar = () => {
         input: "text-sm",
       }}
       endContent={
-        <Kbd className='hidden lg:inline-block' keys={["command"]}>
+        <Kbd className='hidden md:inline-block' keys={["command"]}>
           K
         </Kbd>
       }
@@ -54,14 +54,10 @@ export const Navbar = () => {
             <p className='font-bold text-inherit'>ACME</p>
           </NextLink>
         </NavbarBrand>
-        <ul className='hidden lg:flex gap-4 justify-start ml-2'>
+        <ul className='hidden md:flex gap-4 justify-start ml-2'>
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
-                className={clsx(
-                  linkStyles({color: "foreground"}),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium"
-                )}
                 color='foreground'
                 href={item.href}
               >
@@ -79,7 +75,7 @@ export const Navbar = () => {
         <NavbarItem className='hidden sm:flex gap-2'>
           <ThemeSwitch />
         </NavbarItem>
-        <NavbarItem className='hidden lg:flex'>{searchInput}</NavbarItem>
+        <NavbarItem className='hidden md:flex'>{searchInput}</NavbarItem>
         <NavbarItem className='hidden md:flex'></NavbarItem>
       </NavbarContent>
 
@@ -94,15 +90,9 @@ export const Navbar = () => {
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
-                    ? "danger"
-                    : "foreground"
-                }
+                color="foreground"
                 href='#'
-                size='lg'
+                size='md'
               >
                 {item.label}
               </Link>
