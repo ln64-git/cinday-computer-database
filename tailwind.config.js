@@ -31,6 +31,8 @@ module.exports = {
               DEFAULT: "var(--primary)",
               foreground: "#000000",
             },
+            foreground: "#a8a8a8",
+
             background: "#111115",
             focus: "var(--primary)",
           },
