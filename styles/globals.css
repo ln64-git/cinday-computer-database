@@ -3,11 +3,30 @@
 @tailwind utilities;
 
 :root {
-  --background-dark: #9393b8;
+  --background-dark: #24242c;
   --primary: rgb(199, 70, 66);
 
   --background-1: #9393b8;
   --background-2: green;
   --background-3: purple;
   --background-4: pink;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: #00000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #353535ae;
+  outline: 2px solid #00000000;
+  outline-offset: -2px;
+  border: 0.1px solid #00000000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #909090;
 }

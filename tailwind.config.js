@@ -15,7 +15,7 @@ module.exports = {
           DEFAULT: "var(--primary)",
           foreground: "#000000",
         },
-        // background: "var(--background-dark)",
+        // content1: "var(--background-dark)",
 
         focus: "dark-red",
       },
@@ -32,8 +32,8 @@ module.exports = {
               foreground: "#000000",
             },
             foreground: "#a8a8a8",
-
-            background: "#111115",
+            background: "#1c1c23",
+            content1: "#24242c",
             focus: "var(--primary)",
           },
         },

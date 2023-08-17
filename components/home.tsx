@@ -28,9 +28,13 @@ export default function Home({data}: ContainerProps) {
     <div className=' w-full flex flex-grow flex-wrap '>
       <div className='flex w-full flex-col items-center  pt-4'>
         <Tabs aria-label='Options'>
-          <Tab key='ipads' title='iPads' className='w-5/6'>
+          <Tab
+            key='ipads'
+            title='iPads'
+            className='w-full flex flex-wrap justify-center'
+          >
             {data.map((user) => (
-              <Card key={user.id} className='w-full mt-2 mb-4 py-2 px-8'>
+              <Card key={user.id} className=' w-2/5 mt-4 mb-6 mx-4 py-2'>
                 <CardHeader className='flex gap-3 '>
                   <Image
                     alt='nextui logo'
