@@ -60,7 +60,7 @@ export const Navbar = () => {
         className='hidden sm:flex basis-1/5 sm:basis-full'
         justify='center'
       >
-        <NavbarItem className=' md:flex w-3/4'>{searchInput}</NavbarItem>
+        <NavbarItem className=' md:flex w-3/5'>{searchInput}</NavbarItem>
       </NavbarContent>
 
       <NavbarContent className='basis-1' justify='end'>
