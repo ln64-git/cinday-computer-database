@@ -5,14 +5,22 @@ import {
   NavbarBrand,
   NavbarItem,
 } from '@nextui-org/navbar'
-import { Kbd } from '@nextui-org/kbd'
 import { Input } from '@nextui-org/input'
 import NextLink from 'next/link'
-import { Logo, SearchIcon } from './icons'
+import { Logo, SearchIcon, DownArrowIcon } from './icons'
 import { ThemeSwitch } from './theme-switch'
 import { useContext } from 'react'
 import SearchContext from '@/lib/util/context/search-context'
 import RepairContext from '@/lib/util/context/repair-context'
+import {
+  Button,
+  Checkbox,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownSection,
+  DropdownTrigger,
+} from '@nextui-org/react'
 
 export const Navbar = () => {
   const repairContext = useContext(RepairContext)
@@ -28,11 +36,6 @@ export const Navbar = () => {
         inputWrapper: 'bg-default-100',
         input: 'text-sm',
       }}
-      endContent={
-        <Kbd className="hidden lg:inline-block" keys={['command']}>
-          K
-        </Kbd>
-      }
       labelPlacement="outside"
       placeholder="Search..."
       startContent={
@@ -41,6 +44,43 @@ export const Navbar = () => {
       type="search"
       value={searchText}
       onChange={(e) => setSearchText(e.target.value)}
+      endContent={
+        <Dropdown>
+          <DropdownTrigger>
+            <Button variant={'light'} isIconOnly>
+              <DownArrowIcon />
+            </Button>
+          </DropdownTrigger>
+
+          <DropdownMenu aria-label="Static Actions" closeOnSelect={false}>
+            <DropdownSection title="filter">
+              <DropdownItem>
+                <Checkbox defaultSelected>filter by Name</Checkbox>
+              </DropdownItem>
+              <DropdownItem>
+                <Checkbox defaultSelected>filter by Internal Model ID</Checkbox>
+              </DropdownItem>
+              <DropdownItem>
+                <Checkbox defaultSelected>filter by External Model ID</Checkbox>
+              </DropdownItem>
+              <DropdownItem>
+                <Checkbox defaultSelected>filter by Serial Number</Checkbox>
+              </DropdownItem>
+            </DropdownSection>
+
+            <DropdownSection title="sort">
+              {/* <RadioGroup>
+                <DropdownItem>
+                  <Radio value="name">Name</Radio>
+                </DropdownItem>
+                <DropdownItem>
+                  <Radio value="date-modified">Date Modified</Radio>
+                </DropdownItem>
+              </RadioGroup> */}
+            </DropdownSection>
+          </DropdownMenu>
+        </Dropdown>
+      }
     />
   )
 
