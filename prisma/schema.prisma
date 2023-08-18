@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("POSTGRES_PRISMA_URL")
+  directUrl         = env("POSTGRES_URL_NON_POOLING")
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Account {
+  id                String  @id
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  User              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  repair       Boolean  @default(false)
+  User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String        @id
+  name          String?
+  email         String?       @unique
+  emailVerified DateTime?
+  image         String?
+  Account       Account[]
+  Session       Session[]
+  VerifiedUser  VerifiedUser?
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model VerifiedUser {
+  id    String  @id
+  name  String?
+  email String? @unique
+  User  User?   @relation(fields: [email], references: [email])
+}
+
+model ipad {
+  ipad_id           Int      @id @default(autoincrement())
+  name              String
+  software_version  String
+  internal_model_id String
+  external_model_id String
+  serial_number     String
+  date_created      DateTime @default(now())
+  date_modified     DateTime
+  flag_repair       Boolean  @default(false)
+}
+
+model ipad_note {
+  note_id       Int      @id @default(autoincrement())
+  ipad_id       Int
+  name          String
+  summary       String
+  date_created  DateTime @default(now())
+  date_modified DateTime
+}
+
+model laptop {
+  laptop_id         Int      @id @default(autoincrement())
+  model             String
+  description       String?
+  serial_number     String
+  springboro_tag_id String?
+  aux_funds_po_id   String?
+  cinday_id         String
+  date_created      DateTime @default(now())
+  date_modified     DateTime
+  flag_repair       Boolean  @default(false)
+}
+
+model laptop_note {
+  note_id       Int      @id @default(autoincrement())
+  laptop_id     Int
+  name          String
+  summary       String
+  date_created  DateTime @default(now())
+  date_modified DateTime
+}

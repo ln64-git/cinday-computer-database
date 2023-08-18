@@ -1,27 +1,18 @@
-import Home from "@/components/home"
-import Container from "@/components/home"
-
-interface UserData {
-  id: number
-  name: string
-  username: string
-  email: string
-}
+import Home from '@/components/home/home'
+import { PrismaClient } from '@prisma/client'
 
 export default async function HomePage() {
   const data = await getData()
-
   return (
-    <section className='h-full flex flex-col items-center justify-center gap-4 '>
-      <Home data={data}/>
+    <section className="h-full flex flex-col items-center justify-center gap-4 ">
+      <Home {...data} />
     </section>
   )
 }
 
 async function getData() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users")
-  if (!res.ok) {
-    throw new Error("Failed to fetch data")
-  }
-  return res.json()
+  const prisma = new PrismaClient()
+  const deviceArray = await prisma.ipad.findMany()
+  const deviceNotesArray = await prisma.ipad_note.findMany()
+  return { deviceArray, deviceNotesArray }
 }
