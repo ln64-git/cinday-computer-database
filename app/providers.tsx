@@ -1,19 +1,31 @@
-"use client";
-
-import * as React from "react";
-import { NextUIProvider } from "@nextui-org/system";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { ThemeProviderProps } from "next-themes/dist/types";
+'use client'
+import { NextUIProvider } from '@nextui-org/system'
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import { useState } from 'react'
+import { ThemeProviderProps } from 'next-themes/dist/types'
+import RepairContext from '@/lib/util/context/repair-context'
+import SearchContext from '@/lib/util/context/search-context'
 
 export interface ProvidersProps {
-	children: React.ReactNode;
-	themeProps?: ThemeProviderProps;
+  children: React.ReactNode
+  themeProps?: ThemeProviderProps
 }
 
 export function Providers({ children, themeProps }: ProvidersProps) {
-	return (
-		<NextUIProvider>
-			<NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
-		</NextUIProvider>
-	);
+  const [searchText, setSearchText] = useState('')
+  const [repairFlag, setRepairFlag] = useState(false)
+
+  const toggleRepairFlag = () => {
+    setRepairFlag((prevFlag) => !prevFlag)
+  }
+
+  return (
+    <SearchContext.Provider value={{ searchText, setSearchText }}>
+      <RepairContext.Provider value={{ repairFlag, toggleRepairFlag }}>
+        <NextUIProvider>
+          <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+        </NextUIProvider>
+      </RepairContext.Provider>
+    </SearchContext.Provider>
+  )
 }

@@ -1,11 +1,10 @@
-import "@/styles/globals.css"
-import {Metadata} from "next"
-import {siteConfig} from "@/config/site"
-import {fontSans} from "@/config/fonts"
-import {Providers} from "./providers"
-import {Navbar} from "@/components/interface/navbar"
-import {Link} from "@nextui-org/link"
-import clsx from "clsx"
+import '@/styles/globals.css'
+import { Metadata } from 'next'
+import { siteConfig } from '@/config/site'
+import { fontSans } from '@/config/fonts'
+import { Providers } from './providers'
+import { Navbar } from '@/components/interface/navbar'
+import clsx from 'clsx'
 
 export const metadata: Metadata = {
   title: {
@@ -14,30 +13,34 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   themeColor: [
-    {media: "(prefers-color-scheme: light)", color: "white"},
-    {media: "(prefers-color-scheme: dark)", color: "black"},
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
   ],
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
   },
 }
 
-export default function RootLayout({children}: {children: React.ReactNode}) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head />
       <body
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased flex flex-col h-full",
-          fontSans.variable
+          'min-h-screen bg-background font-sans antialiased flex flex-col h-full',
+          fontSans.variable,
         )}
       >
-        <Providers themeProps={{attribute: "class", defaultTheme: "dark"}}>
+        <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
           <div>
             <Navbar />
-            <main className=''>{children}</main>
+            {children}
           </div>
         </Providers>
       </body>
