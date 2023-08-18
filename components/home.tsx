@@ -9,8 +9,9 @@ import {
   CardFooter,
   Divider,
   Link,
-  Image,
+  Button,
 } from "@nextui-org/react"
+import {Image} from "@nextui-org/react"
 
 interface UserData {
   id: number
@@ -31,11 +32,14 @@ export default function Home({data}: ContainerProps) {
           <Tab
             key='ipads'
             title='iPads'
-            className='w-full flex flex-wrap justify-center'
+            className='w-full flex flex-wrap justify-center '
           >
             {data.map((user) => (
-              <Card key={user.id} className=' w-2/5 mt-4 mb-6 mx-4 py-2'>
-                <CardHeader className='flex gap-3 '>
+              <Card
+                key={user.id}
+                className='w-full lg:w-2/5 2xl:w-1/4 mx-10 lg:mx-4 mt-2 mb-4  py-2'
+              >
+                <CardHeader className='flex gap-3 justify-start mx-12'>
                   <Image
                     alt='nextui logo'
                     height={40}
@@ -47,18 +51,16 @@ export default function Home({data}: ContainerProps) {
                     <p className='text-md'>{user.name}</p>
                   </div>
                 </CardHeader>
-                <Divider />
-                <CardBody className='px-8'>
+                {/* <Divider /> */}
+                <CardBody className=''>
                   <p>{user.id}</p>
                 </CardBody>
-                <Divider />
+                {/* <Divider /> */}
                 <CardFooter className='flex justify-center'>
-                  <Link
-                    isExternal
-                    showAnchorIcon
-                    href='https://github.com/nextui-org/nextui'
-                  >
-                    {user.email}
+                  <Link href={`/ipads/${user.id}`}>
+                    <Button color='default' className=''>
+                      Details
+                    </Button>
                   </Link>
                 </CardFooter>
               </Card>

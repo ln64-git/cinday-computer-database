@@ -15,8 +15,6 @@ module.exports = {
           DEFAULT: "var(--primary)",
           foreground: "#000000",
         },
-        // content1: "var(--background-dark)",
-
         focus: "dark-red",
       },
     },
@@ -28,19 +26,16 @@ module.exports = {
         dark: {
           colors: {
             primary: {
-              DEFAULT: "var(--primary)",
               foreground: "#000000",
             },
             foreground: "#a8a8a8",
             background: "#1c1c23",
             content1: "#24242c",
-            focus: "var(--primary)",
           },
         },
         light: {
           colors: {
             primary: {
-              DEFAULT: "var(--primary)",
               foreground: "#000000",
             },
             foreground: "#000000",
@@ -53,7 +48,6 @@ module.exports = {
             // secondary: "#e1f",
 
             background: "#6a6a97",
-            focus: "var(--primary)",
           },
         },
       },
