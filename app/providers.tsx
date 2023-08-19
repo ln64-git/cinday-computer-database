@@ -11,6 +11,8 @@ import LaptopNoteListContext from '@/lib/util/context/laptop/laptop-note-array-c
 import IPadNoteListContext from '@/lib/util/context/ipad/ipad-note-array-context'
 import DeviceContext from '@/lib/util/context/interface/device-context'
 
+import { motion, AnimatePresence } from 'framer-motion'
+
 export interface ProvidersProps {
   children: React.ReactNode
   themeProps?: ThemeProviderProps
@@ -43,11 +45,20 @@ export function Providers({ children, themeProps }: ProvidersProps) {
                     setLaptopNoteArray,
                   }}
                 >
-                  <NextUIProvider>
-                    <NextThemesProvider {...themeProps}>
-                      {children}
-                    </NextThemesProvider>
-                  </NextUIProvider>
+                  <AnimatePresence>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                    >
+                      <NextUIProvider>
+                        <NextThemesProvider {...themeProps}>
+                          {children}
+                        </NextThemesProvider>
+                      </NextUIProvider>
+                    </motion.div>
+                  </AnimatePresence>
                 </LaptopNoteListContext.Provider>
               </IPadNoteListContext.Provider>
             </LaptopListContext.Provider>

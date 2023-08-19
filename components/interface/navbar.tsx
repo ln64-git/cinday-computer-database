@@ -18,6 +18,8 @@ import {
   DropdownMenu,
   DropdownSection,
   DropdownTrigger,
+  Radio,
+  RadioGroup,
 } from '@nextui-org/react'
 import RepairContext from '@/lib/util/context/interface/repair-context'
 import SearchContext from '@/lib/util/context/interface/search-context'
@@ -69,14 +71,13 @@ export const Navbar = () => {
             </DropdownSection>
 
             <DropdownSection title="sort">
-              {/* <RadioGroup>
-                <DropdownItem>
-                  <Radio value="name">Name</Radio>
-                </DropdownItem>
-                <DropdownItem>
+              <DropdownItem variant="light">
+                <RadioGroup>
                   <Radio value="date-modified">Date Modified</Radio>
-                </DropdownItem>
-              </RadioGroup> */}
+                  <Radio value="date-created">Date Created</Radio>
+                  <Radio value="name">Name</Radio>
+                </RadioGroup>
+              </DropdownItem>
             </DropdownSection>
           </DropdownMenu>
         </Dropdown>

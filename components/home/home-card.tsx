@@ -62,6 +62,6 @@ export default function HomeCard(data: HomeCardProps) {
       </Card>
     )
   } else {
-    return <div>Sorry try again</div>
+    return
   }
 }
