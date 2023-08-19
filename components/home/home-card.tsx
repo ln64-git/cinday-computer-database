@@ -57,7 +57,7 @@ export default function HomeCard(data: HomeCardProps) {
       className="w-full lg:w-2/5 2xl:w-1/4 mx-10 lg:mx-4 mt-2 mb-4"
     >
       <CardHeader className="flex gap-3 justify-start">
-        <DeviceImage size={0} isIPad={data.isIPad} />
+        <DeviceImage size={60} isIPad={data.isIPad} />
         <div className="flex flex-row justify-between w-full">
           <div className="flex flex-col">
             <p className="text-md">
