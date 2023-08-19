@@ -102,13 +102,13 @@ export const Navbar = () => {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent
-        className="flex justify-center items-center w-full "
+        className="flex  w-full"
         justify="center"
       >
         {/* <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0 invisible" /> */}
         <AnimatePresence>
           {viewSearch && (
-            <NavbarItem className="md:flex w-full justify-center ">
+            <NavbarItem className="flex w-full justify-center ">
               <motion.div
                 key="search-input"
                 initial={{ opacity: 0 }}

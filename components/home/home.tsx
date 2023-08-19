@@ -70,7 +70,7 @@ export default function Home(data: HomeProps) {
               <Tab
                 key="laptops"
                 title="Laptops"
-                className="w-full flex flex-wrap justify-center"
+                className="w-full flex flex-wrap  "
               >
                 {filteredLaptopArray.map((device: laptop) => (
                   <HomeCard
