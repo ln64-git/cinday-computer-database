@@ -10,8 +10,6 @@ import NextLink from 'next/link'
 import { Logo, SearchIcon, DownArrowIcon } from './icons'
 import { ThemeSwitch } from './theme-switch'
 import { useContext } from 'react'
-import SearchContext from '@/lib/util/context/search-context'
-import RepairContext from '@/lib/util/context/repair-context'
 import {
   Button,
   Checkbox,
@@ -21,13 +19,15 @@ import {
   DropdownSection,
   DropdownTrigger,
 } from '@nextui-org/react'
+import RepairContext from '@/lib/util/context/interface/repair-context'
+import SearchContext from '@/lib/util/context/interface/search-context'
 
 export const Navbar = () => {
   const repairContext = useContext(RepairContext)
   const searchContext = useContext(SearchContext)
 
   const { searchText, setSearchText } = searchContext
-  const { repairFlag, toggleRepairFlag } = repairContext
+  const { repairFlag, setRepairFlag } = repairContext
 
   const searchInput = (
     <Input
@@ -106,7 +106,7 @@ export const Navbar = () => {
         <ThemeSwitch />
         <button
           onClick={() => {
-            toggleRepairFlag()
+            setRepairFlag(!repairFlag)
           }}
         >
           {repairFlag && (

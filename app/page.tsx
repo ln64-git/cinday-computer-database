@@ -12,7 +12,9 @@ export default async function HomePage() {
 
 async function getData() {
   const prisma = new PrismaClient()
-  const deviceArray = await prisma.ipad.findMany()
-  const deviceNotesArray = await prisma.ipad_note.findMany()
-  return { deviceArray, deviceNotesArray }
+  const iPadArray = await prisma.ipad.findMany()
+  const iPadNotesArray = await prisma.ipad_note.findMany()
+  const laptopArray = await prisma.laptop.findMany()
+  const laptopNotesArray = await prisma.laptop_note.findMany()
+  return { iPadArray, iPadNotesArray, laptopArray, laptopNotesArray }
 }

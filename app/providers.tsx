@@ -3,8 +3,13 @@ import { NextUIProvider } from '@nextui-org/system'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import { useState } from 'react'
 import { ThemeProviderProps } from 'next-themes/dist/types'
-import RepairContext from '@/lib/util/context/repair-context'
-import SearchContext from '@/lib/util/context/search-context'
+import SearchContext from '@/lib/util/context/interface/search-context'
+import RepairContext from '@/lib/util/context/interface/repair-context'
+import IPadListContext from '@/lib/util/context/ipad/ipad-array-context'
+import LaptopListContext from '@/lib/util/context/laptop/laptop-array-context'
+import LaptopNoteListContext from '@/lib/util/context/laptop/laptop-note-array-context'
+import IPadNoteListContext from '@/lib/util/context/ipad/ipad-note-array-context'
+import DeviceContext from '@/lib/util/context/interface/device-context'
 
 export interface ProvidersProps {
   children: React.ReactNode
@@ -14,18 +19,41 @@ export interface ProvidersProps {
 export function Providers({ children, themeProps }: ProvidersProps) {
   const [searchText, setSearchText] = useState('')
   const [repairFlag, setRepairFlag] = useState(false)
-
-  const toggleRepairFlag = () => {
-    setRepairFlag((prevFlag) => !prevFlag)
-  }
+  const [iPadArray, setIPadArray] = useState([])
+  const [iPadNoteArray, setIPadNoteArray] = useState([])
+  const [laptopArray, setLaptopArray] = useState([])
+  const [laptopNoteArray, setLaptopNoteArray] = useState([])
+  const [isIPad, setIsIPad] = useState(true)
 
   return (
-    <SearchContext.Provider value={{ searchText, setSearchText }}>
-      <RepairContext.Provider value={{ repairFlag, toggleRepairFlag }}>
-        <NextUIProvider>
-          <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
-        </NextUIProvider>
+    <DeviceContext.Provider value={{ isIPad, setIsIPad }}>
+      <RepairContext.Provider value={{ repairFlag, setRepairFlag }}>
+        <SearchContext.Provider value={{ searchText, setSearchText }}>
+          <IPadListContext.Provider value={{ iPadArray, setIPadArray }}>
+            <LaptopListContext.Provider value={{ laptopArray, setLaptopArray }}>
+              <IPadNoteListContext.Provider
+                value={{
+                  iPadNoteArray: iPadNoteArray,
+                  setIPadNoteArray,
+                }}
+              >
+                <LaptopNoteListContext.Provider
+                  value={{
+                    laptopNoteArray,
+                    setLaptopNoteArray,
+                  }}
+                >
+                  <NextUIProvider>
+                    <NextThemesProvider {...themeProps}>
+                      {children}
+                    </NextThemesProvider>
+                  </NextUIProvider>
+                </LaptopNoteListContext.Provider>
+              </IPadNoteListContext.Provider>
+            </LaptopListContext.Provider>
+          </IPadListContext.Provider>
+        </SearchContext.Provider>
       </RepairContext.Provider>
-    </SearchContext.Provider>
+    </DeviceContext.Provider>
   )
 }
