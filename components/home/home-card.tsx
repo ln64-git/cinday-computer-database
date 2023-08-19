@@ -54,31 +54,35 @@ export default function HomeCard(data: HomeCardProps) {
   return (
     <Card
       key={data.isIPad ? device.ipad_id : device.laptop_id}
-      className="w-full lg:w-2/5 2xl:w-1/4 mx-10 lg:mx-4 mt-2 mb-4  "
+      className="w-full lg:w-2/5 2xl:w-1/4 mx-10 lg:mx-4 mt-2 mb-4"
     >
       <CardHeader className="flex gap-3 justify-start">
-        <DeviceImage isIPad={data.isIPad} />
-        <div className="flex flex-row justify-between w-full ">
+        <DeviceImage size={0} isIPad={data.isIPad} />
+        <div className="flex flex-row justify-between w-full">
           <div className="flex flex-col">
             <p className="text-md">
               {data.isIPad ? device.name : device.model}
             </p>
-            {latestModifiedNote ? (
-              <p className="font-bold">{latestModifiedNote.name}</p>
-            ) : null}
+            <p className="font-bold ">
+              {latestModifiedNote ? latestModifiedNote.name : '\u00A0'}
+            </p>
           </div>
           <Link
-            href={`/ipads/${data.isIPad ? device.ipad_id : device.laptop_id}`}
+            href={`/${
+              data.isIPad
+                ? 'ipads/' + device.ipad_id
+                : 'laptops/' + device.laptop_id
+            }`}
           >
-            <Button color="default" className="">
-              Details
-            </Button>
+            <Button color="default">Details</Button>
           </Link>
         </div>
       </CardHeader>
       {latestModifiedNote?.summary ? (
         <p className="mx-8 my-4">{latestModifiedNote.summary}</p>
-      ) : null}
+      ) : (
+        <div></div>
+      )}
     </Card>
   )
 }

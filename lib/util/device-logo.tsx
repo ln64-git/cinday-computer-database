@@ -3,6 +3,7 @@ import { Image } from '@nextui-org/react'
 
 interface DeviceImageProps {
   isIPad: boolean
+  size: number
 }
 
 export default function DeviceImage(props: DeviceImageProps) {
@@ -11,10 +12,10 @@ export default function DeviceImage(props: DeviceImageProps) {
       <div>
         <Image
           alt="image of iPad"
-          height={40}
+          height={props.size}
+          width={props.size}
           radius="sm"
           src="/ipad.png"
-          width={40}
         />
       </div>
     )
@@ -23,10 +24,10 @@ export default function DeviceImage(props: DeviceImageProps) {
       <div>
         <Image
           alt="image of Laptop"
-          height={100}
+          height={props.size + props.size / 10}
+          width={props.size + props.size / 10}
           radius="sm"
           src="/laptop.png"
-          width={40}
         />
       </div>
     )
