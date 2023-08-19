@@ -6,7 +6,6 @@ interface DeviceImageProps {
 }
 
 export default function DeviceImage(props: DeviceImageProps) {
-  console.log(props.isIPad)
   if (props.isIPad) {
     return (
       <div>

@@ -38,10 +38,8 @@ export default function RootLayout({
         )}
       >
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
-          <div>
-            <Navbar />
-            {children}
-          </div>
+          <Navbar />
+          {children}
         </Providers>
       </body>
     </html>
