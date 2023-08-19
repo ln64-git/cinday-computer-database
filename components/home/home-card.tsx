@@ -22,7 +22,11 @@ export default function HomeCard(data: HomeCardProps) {
   const deviceNotes = data.isIPad ? iPadNoteArray : laptopNoteArray
 
   const device =
-    devices.find((device) => device.ipad_id === data.deviceId) || {}
+    devices.find((device) =>
+      data.isIPad
+        ? device.ipad_id === data.deviceId
+        : device.laptop_id === data.deviceId,
+    ) || {}
 
   const deviceRelatedNotes = deviceNotes.filter(
     (note: ipad_note | laptop_note) => {
