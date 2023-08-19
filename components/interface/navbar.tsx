@@ -9,7 +9,7 @@ import { Input } from '@nextui-org/input'
 import NextLink from 'next/link'
 import { Logo, SearchIcon, DownArrowIcon } from './icons'
 import { ThemeSwitch } from './theme-switch'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import {
   Button,
   Checkbox,
@@ -88,6 +88,22 @@ export const Navbar = () => {
     />
   )
 
+  const handleScreenSizeChange = () => {
+    if (window.innerWidth < 720) {
+      setViewSearch(false)
+    } else {
+      setViewSearch(true)
+    }
+  }
+
+  useEffect(() => {
+    handleScreenSizeChange()
+    window.addEventListener('resize', handleScreenSizeChange)
+    return () => {
+      window.removeEventListener('resize', handleScreenSizeChange)
+    }
+  }, [])
+
   return (
     <NextUINavbar maxWidth="xl" position="sticky" className="py-6">
       <NavbarContent
@@ -101,10 +117,7 @@ export const Navbar = () => {
           </NextLink>
         </NavbarBrand>
       </NavbarContent>
-      <NavbarContent
-        className="flex  w-full"
-        justify="center"
-      >
+      <NavbarContent className="flex  w-full" justify="center">
         {/* <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0 invisible" /> */}
         <AnimatePresence>
           {viewSearch && (

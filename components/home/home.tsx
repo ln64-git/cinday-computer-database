@@ -45,19 +45,16 @@ export default function Home(data: HomeProps) {
 
   return (
     <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0, y: 50 }} // Start with opacity 0 and y offset
-        animate={{ opacity: 1, y: 0 }} // Fade-in and move up to original position
-        exit={{ opacity: 0, y: -50 }} // Fade-out and move up during exit
-        transition={{ duration: 0.5, type: 'tween' }} // Animation duration and type
-      >
-        <div className="w-full flex flex-grow flex-wrap">
-          <div className="flex w-full flex-col items-center pt-4">
-            <Tabs aria-label="Options">
-              <Tab
-                key="ipads"
-                title="iPads"
-                className="w-full flex flex-wrap justify-center"
+      <div className="h-full w-full flex flex-grow flex-wrap">
+        <div className="h-full w-full flex flex-col items-center pt-4">
+          <Tabs aria-label="Options">
+            <Tab key="ipads" title="iPads">
+              <motion.div
+                initial={{ opacity: 0 }} // Start with opacity 0 and y offset
+                animate={{ opacity: 1 }} // Fade-in and move up to original position
+                exit={{ opacity: 0 }} // Fade-out and move up during exit
+                transition={{ duration: 0.5 }} // Animation duration and type
+                className="w-full h-full flex flex-wrap justify-center "
               >
                 {filteredIPadArray.map((device: ipad) => (
                   <HomeCard
@@ -66,11 +63,19 @@ export default function Home(data: HomeProps) {
                     key={device.ipad_id}
                   />
                 ))}
-              </Tab>
-              <Tab
-                key="laptops"
-                title="Laptops"
-                className="w-full flex flex-wrap  "
+              </motion.div>
+            </Tab>
+            <Tab
+              key="laptops"
+              title="laptops"
+              className="h-full w-full flex flex-wrap justify-center "
+            >
+              <motion.div
+                initial={{ opacity: 0 }} // Start with opacity 0 and y offset
+                animate={{ opacity: 1 }} // Fade-in and move up to original position
+                exit={{ opacity: 0 }} // Fade-out and move up during exit
+                transition={{ duration: 0.5 }} // Animation duration and type
+                className="h-full w-full flex flex-wrap justify-center "
               >
                 {filteredLaptopArray.map((device: laptop) => (
                   <HomeCard
@@ -79,11 +84,11 @@ export default function Home(data: HomeProps) {
                     key={device.laptop_id}
                   />
                 ))}
-              </Tab>
-            </Tabs>
-          </div>
+              </motion.div>
+            </Tab>
+          </Tabs>
         </div>
-      </motion.div>
+      </div>
     </AnimatePresence>
   )
 }

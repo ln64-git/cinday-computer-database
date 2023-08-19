@@ -1,24 +1,28 @@
 import React from 'react'
-import { Image } from '@nextui-org/react'
 
 interface DeviceImageProps {
   isIPad: boolean
   size: number
 }
 
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+
 export default function DeviceImage(props: DeviceImageProps) {
-  console.log(props.size)
   if (props.isIPad) {
     return (
-      <div>
+      <motion.div
+        initial={{ opacity: 0,  }} // Initial state
+        animate={{ opacity: 1, }} // Animation state
+        transition={{ duration: .5, delay: .2 }} // Animation configuration
+      >
         <Image
           alt="image of iPad"
           height={props.size}
           width={props.size}
-          radius="sm"
           src="/ipad.png"
         />
-      </div>
+      </motion.div>
     )
   } else {
     return (
@@ -27,7 +31,6 @@ export default function DeviceImage(props: DeviceImageProps) {
           alt="image of Laptop"
           height={props.size + props.size / 10}
           width={props.size + props.size / 10}
-          radius="sm"
           src="/laptop.png"
         />
       </div>

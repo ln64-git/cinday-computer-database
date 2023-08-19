@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client'
 export default async function HomePage() {
   const data = await getData()
   return (
-    <section className="h-full flex flex-col items-center justify-center gap-4 ">
+    <section className="h-full  flex flex-col items-center justify-center gap-4 ">
       <Home {...data} />
     </section>
   )
