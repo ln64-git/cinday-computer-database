@@ -54,7 +54,7 @@ export default function HomeCard(data: HomeCardProps) {
   return (
     <Card
       key={data.isIPad ? device.ipad_id : device.laptop_id}
-      className="w-full lg:w-2/5 2xl:w-1/4 mx-10 lg:mx-4 mt-2 mb-4 justify-center  min-h-[100px]"
+      className="w-full lg:w-2/5 2xl:w-1/4 mx-10 lg:mx-4 mt-2 mb-4 justify-center min-h-[95px]"
     >
       <CardHeader className="flex gap-3 justify-start">
         <DeviceImage size={60} isIPad={data.isIPad} />

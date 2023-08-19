@@ -9,7 +9,7 @@ import { Input } from '@nextui-org/input'
 import NextLink from 'next/link'
 import { Logo, SearchIcon, DownArrowIcon } from './icons'
 import { ThemeSwitch } from './theme-switch'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import {
   Button,
   Checkbox,
@@ -23,6 +23,7 @@ import {
 } from '@nextui-org/react'
 import RepairContext from '@/lib/util/context/interface/repair-context'
 import SearchContext from '@/lib/util/context/interface/search-context'
+import { motion } from 'framer-motion'
 
 export const Navbar = () => {
   const repairContext = useContext(RepairContext)
@@ -30,6 +31,8 @@ export const Navbar = () => {
 
   const { searchText, setSearchText } = searchContext
   const { repairFlag, setRepairFlag } = repairContext
+
+  const [viewSearch, setViewSearch] = useState(false)
 
   const searchInput = (
     <Input
@@ -87,7 +90,10 @@ export const Navbar = () => {
 
   return (
     <NextUINavbar maxWidth="xl" position="sticky" className="py-6">
-      <NavbarContent className="basis-1/5 sm:basis-full " justify="start">
+      <NavbarContent
+        className="flex justify-center items-center mr-10 "
+        justify="start"
+      >
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
@@ -95,25 +101,42 @@ export const Navbar = () => {
           </NextLink>
         </NavbarBrand>
       </NavbarContent>
-
       <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
+        className="flex justify-center items-center w-full "
         justify="center"
       >
-        <NavbarItem className=" md:flex w-3/5">{searchInput}</NavbarItem>
+        {/* <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0 invisible" /> */}
+        {viewSearch && (
+          <NavbarItem className="md:flex w-full  justify-center ">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="w-3/4"
+            >
+              {searchInput}
+            </motion.div>
+          </NavbarItem>
+        )}
       </NavbarContent>
-
-      <NavbarContent className="basis-1" justify="end">
+      <button
+        onClick={() => {
+          setViewSearch(!viewSearch)
+        }}
+      >
+        <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
+      </button>
+      <NavbarContent className="flex justify-center items-center" justify="end">
         <ThemeSwitch />
         <button
           onClick={() => {
             setRepairFlag(!repairFlag)
           }}
         >
-          {repairFlag && (
+          {repairFlag ? (
             <NavbarItem className="flex text-red-500">Repairs</NavbarItem>
-          )}
-          {!repairFlag && (
+          ) : (
             <NavbarItem className="flex text-inherit">Repairs</NavbarItem>
           )}
         </button>

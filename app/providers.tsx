@@ -11,6 +11,7 @@ import LaptopNoteListContext from '@/lib/util/context/laptop/laptop-note-array-c
 import IPadNoteListContext from '@/lib/util/context/ipad/ipad-note-array-context'
 import DeviceContext from '@/lib/util/context/interface/device-context'
 
+
 import { motion, AnimatePresence } from 'framer-motion'
 
 export interface ProvidersProps {
