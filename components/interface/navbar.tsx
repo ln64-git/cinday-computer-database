@@ -23,7 +23,7 @@ import {
 } from '@nextui-org/react'
 import RepairContext from '@/lib/util/context/interface/repair-context'
 import SearchContext from '@/lib/util/context/interface/search-context'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export const Navbar = () => {
   const repairContext = useContext(RepairContext)
@@ -106,19 +106,22 @@ export const Navbar = () => {
         justify="center"
       >
         {/* <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0 invisible" /> */}
-        {viewSearch && (
-          <NavbarItem className="md:flex w-full  justify-center ">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
-              className="w-3/4"
-            >
-              {searchInput}
-            </motion.div>
-          </NavbarItem>
-        )}
+        <AnimatePresence>
+          {viewSearch && (
+            <NavbarItem className="md:flex w-full justify-center ">
+              <motion.div
+                key="search-input"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.1 }}
+                className="w-3/4"
+              >
+                {searchInput}
+              </motion.div>
+            </NavbarItem>
+          )}
+        </AnimatePresence>
       </NavbarContent>
       <button
         onClick={() => {

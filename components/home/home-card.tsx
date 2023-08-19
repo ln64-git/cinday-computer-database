@@ -6,6 +6,7 @@ import IPadArrayContext from '@/lib/util/context/ipad/ipad-array-context'
 import IPadNoteArrayContext from '@/lib/util/context/ipad/ipad-note-array-context'
 import LaptopArrayContext from '@/lib/util/context/laptop/laptop-array-context'
 import LaptopNoteArrayContext from '@/lib/util/context/laptop/laptop-note-array-context'
+import { motion } from 'framer-motion'
 
 interface HomeCardProps {
   deviceId: number
@@ -52,37 +53,45 @@ export default function HomeCard(data: HomeCardProps) {
     null,
   )
   return (
-    <Card
-      key={data.isIPad ? device.ipad_id : device.laptop_id}
-      className="w-full lg:w-2/5 2xl:w-1/4 mx-10 lg:mx-4 mt-2 mb-4 justify-center min-h-[95px]"
+    <motion.div
+      initial={{ opacity: 0 }} // Start with opacity 0 and slight y offset
+      animate={{ opacity: 1 }} // Fade-in and move up to original position
+      exit={{ opacity: 0 }} // Fade-out and move up during exit
+      transition={{ duration: 0.3, type: 'tween' }}
+      className="w-full lg:w-2/5 2xl:w-1/4 mx-10 lg:mx-4 mt-2 mb-4"
     >
-      <CardHeader className="flex gap-3 justify-start">
-        <DeviceImage size={60} isIPad={data.isIPad} />
-        <div className="flex flex-row justify-between w-full">
-          <div className="flex flex-col">
-            <p className="text-md">
-              {data.isIPad ? device.name : device.model}
-            </p>
-            <p className="font-bold ">
-              {latestModifiedNote ? latestModifiedNote.name : '\u00A0'}
-            </p>
+      <Card
+        key={data.isIPad ? device.ipad_id : device.laptop_id}
+        className="min-h-[95px] justify-center h-full"
+      >
+        <CardHeader className="flex gap-3 justify-start">
+          <DeviceImage size={60} isIPad={data.isIPad} />
+          <div className="flex flex-row justify-between w-full">
+            <div className="flex flex-col ">
+              <p className="text-md">
+                {data.isIPad ? device.name : device.model}
+              </p>
+              <p className="font-bold ">
+                {latestModifiedNote ? latestModifiedNote.name : '\u00A0'}
+              </p>
+            </div>
+            <Link
+              href={`/${
+                data.isIPad
+                  ? 'ipads/' + device.ipad_id
+                  : 'laptops/' + device.laptop_id
+              }`}
+            >
+              <Button color="default">Details</Button>
+            </Link>
           </div>
-          <Link
-            href={`/${
-              data.isIPad
-                ? 'ipads/' + device.ipad_id
-                : 'laptops/' + device.laptop_id
-            }`}
-          >
-            <Button color="default">Details</Button>
-          </Link>
-        </div>
-      </CardHeader>
-      {latestModifiedNote?.summary ? (
-        <p className="mx-8 my-4">{latestModifiedNote.summary}</p>
-      ) : (
-        <div></div>
-      )}
-    </Card>
+        </CardHeader>
+        {latestModifiedNote?.summary ? (
+          <p className="mx-8 my-4">{latestModifiedNote.summary}</p>
+        ) : (
+          <div className="h-full"></div>
+        )}
+      </Card>
+    </motion.div>
   )
 }
