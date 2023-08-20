@@ -1,15 +1,6 @@
 'use client'
-import {
-  Navbar as NextUINavbar,
-  NavbarContent,
-  NavbarBrand,
-  NavbarItem,
-} from '@nextui-org/navbar'
-import { Input } from '@nextui-org/input'
-import NextLink from 'next/link'
-import { Logo, SearchIcon, DownArrowIcon } from './icons'
-import { ThemeSwitch } from './theme-switch'
-import { useContext, useEffect, useState } from 'react'
+
+import { AnimatePresence, motion } from 'framer-motion'
 import {
   Button,
   Checkbox,
@@ -21,18 +12,34 @@ import {
   Radio,
   RadioGroup,
 } from '@nextui-org/react'
-import RepairContext from '@/lib/util/context/interface/repair-context'
-import SearchContext from '@/lib/util/context/interface/search-context'
-import { AnimatePresence, motion } from 'framer-motion'
+import { DownArrowIcon, Logo, SearchIcon } from './icons'
+import {
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Navbar as NextUINavbar,
+} from '@nextui-org/navbar'
+import { setSearchText, setSearchToggle } from '@/lib/redux-toolkit/reducers/interface/search-slice'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { Input } from '@nextui-org/input'
+import NextLink from 'next/link'
+import type { RootState } from '@/lib/redux-toolkit/store'
+import { ThemeSwitch } from './theme-switch'
+import { setRepairFlag } from '@/lib/redux-toolkit/reducers/interface/repair-slice'
+import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 export const Navbar = () => {
-  const repairContext = useContext(RepairContext)
-  const searchContext = useContext(SearchContext)
-
-  const { searchText, setSearchText } = searchContext
-  const { repairFlag, setRepairFlag } = repairContext
-
-  const [viewSearch, setViewSearch] = useState(false)
+  const dispatch = useDispatch()
+  const path = usePathname()
+  const repairStatus = useSelector((state: RootState) => state.repair.status)
+  const searchToggle = useSelector(
+    (state: RootState) => state.search.status,
+  )
+  const searchText = useSelector(
+    (state: RootState) => state.search.text,
+  )
 
   const searchInput = (
     <Input
@@ -48,7 +55,7 @@ export const Navbar = () => {
       }
       type="search"
       value={searchText}
-      onChange={(e) => setSearchText(e.target.value)}
+      onChange={(e) => dispatch(setSearchText(e.target.value))}
       endContent={
         <Dropdown>
           <DropdownTrigger>
@@ -88,21 +95,20 @@ export const Navbar = () => {
     />
   )
 
-  const handleScreenSizeChange = () => {
-    if (window.innerWidth < 720) {
-      setViewSearch(false)
-    } else {
-      setViewSearch(true)
-    }
-  }
-
   useEffect(() => {
+    const handleScreenSizeChange = () => {
+      if (window.innerWidth < 720) {
+        dispatch(setSearchToggle(false))
+      } else {
+        dispatch(setSearchToggle(true))
+      }
+    }
     handleScreenSizeChange()
     window.addEventListener('resize', handleScreenSizeChange)
     return () => {
       window.removeEventListener('resize', handleScreenSizeChange)
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <NextUINavbar maxWidth="xl" position="sticky" className="py-6">
@@ -120,7 +126,7 @@ export const Navbar = () => {
       <NavbarContent className="flex  w-full" justify="center">
         {/* <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0 invisible" /> */}
         <AnimatePresence>
-          {viewSearch && (
+          {searchToggle && path === '/' && (
             <NavbarItem className="flex w-full justify-center ">
               <motion.div
                 key="search-input"
@@ -136,26 +142,43 @@ export const Navbar = () => {
           )}
         </AnimatePresence>
       </NavbarContent>
-      <button
-        onClick={() => {
-          setViewSearch(!viewSearch)
-        }}
-      >
-        <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-      </button>
-      <NavbarContent className="flex justify-center items-center" justify="end">
-        <ThemeSwitch />
+      {path === '/' && (
         <button
           onClick={() => {
-            setRepairFlag(!repairFlag)
+            dispatch(setSearchToggle(!searchToggle))
           }}
         >
-          {repairFlag ? (
-            <NavbarItem className="flex text-red-500">Repairs</NavbarItem>
-          ) : (
-            <NavbarItem className="flex text-inherit">Repairs</NavbarItem>
-          )}
+          <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
         </button>
+      )}
+      <NavbarContent className="flex justify-center items-center" justify="end">
+        <ThemeSwitch />
+        {path === '/' && (
+          <button
+            onClick={() => {
+              dispatch(setRepairFlag(!repairStatus)) // Toggle the repairFlag state using Redux action
+            }}
+          >
+            {repairStatus ? (
+              <NavbarItem className="flex text-red-500">Repairs</NavbarItem>
+            ) : (
+              <NavbarItem className="flex text-inherit">Repairs</NavbarItem>
+            )}
+          </button>
+        )}
+        {path !== '/' && (
+          <button
+            onClick={() => {
+              setRepairFlag(!repairStatus)
+            }}
+          >
+            {repairStatus ? (
+              <NavbarItem className="flex text-red-500">Repairs</NavbarItem>
+            ) : (
+              <NavbarItem className="flex text-inherit">Repairs</NavbarItem>
+            )}
+          </button>
+        )}
       </NavbarContent>
     </NextUINavbar>
   )

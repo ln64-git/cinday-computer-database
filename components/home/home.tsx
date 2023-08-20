@@ -1,15 +1,16 @@
 'use client'
-import { useContext } from 'react'
+
+import { AnimatePresence, motion } from 'framer-motion'
 import { Tab, Tabs } from '@nextui-org/react'
 import { ipad, ipad_note, laptop, laptop_note } from '@prisma/client'
+import { useDispatch, useSelector } from 'react-redux'
+
 import HomeCard from './home-card'
-import IPadListContext from '@/lib/util/context/ipad/ipad-array-context'
-import IPadNoteListContext from '@/lib/util/context/ipad/ipad-note-array-context'
-import LaptopListContext from '@/lib/util/context/laptop/laptop-array-context'
-import LaptopNoteListContext from '@/lib/util/context/laptop/laptop-note-array-context'
-import SearchContext from '@/lib/util/context/interface/search-context'
-import RepairContext from '@/lib/util/context/interface/repair-context'
-import { motion, AnimatePresence } from 'framer-motion'
+import { RootState } from '@/lib/redux-toolkit/store'
+import { setIPadArray } from '@/lib/redux-toolkit/reducers/ipad-array-slice'
+import { setIPadNoteArray } from '@/lib/redux-toolkit/reducers/ipad-note-array-slice'
+import { setLaptopArray } from '@/lib/redux-toolkit/reducers/laptop-array-slice'
+import { setLaptopNoteArray } from '@/lib/redux-toolkit/reducers/laptop-note-array-slice'
 
 interface HomeProps {
   iPadArray: ipad[]
@@ -19,18 +20,15 @@ interface HomeProps {
 }
 
 export default function Home(data: HomeProps) {
-  const { setIPadArray } = useContext(IPadListContext)
-  const { setIPadNoteArray } = useContext(IPadNoteListContext)
-  const { setLaptopArray } = useContext(LaptopListContext)
-  const { setLaptopNoteArray } = useContext(LaptopNoteListContext)
+  const dispatch = useDispatch()
+  dispatch(setIPadArray(data.iPadArray))
+  dispatch(setIPadNoteArray(data.iPadNotesArray))
+  dispatch(setLaptopArray(data.laptopArray))
+  dispatch(setLaptopNoteArray(data.laptopNotesArray))
 
-  setIPadArray(data.iPadArray)
-  setIPadNoteArray(data.iPadNotesArray)
-  setLaptopArray(data.laptopArray)
-  setLaptopNoteArray(data.laptopNotesArray)
 
-  const { searchText } = useContext(SearchContext)
-  const { repairFlag } = useContext(RepairContext)
+  const searchText = useSelector((state: RootState) => state.search.text)
+  const repairFlag = useSelector((state: RootState) => state.repair.status)
 
   const filteredIPadArray = data.iPadArray.filter(
     (device) =>
@@ -40,7 +38,7 @@ export default function Home(data: HomeProps) {
   const filteredLaptopArray = data.laptopArray.filter(
     (device) =>
       device.flag_repair === repairFlag &&
-      device.model.toLowerCase().includes(searchText.toLowerCase()),
+      device.name.toLowerCase().includes(searchText.toLowerCase()),
   )
 
   return (
