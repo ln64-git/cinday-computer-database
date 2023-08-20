@@ -85,8 +85,7 @@ model ipad_note {
 
 model laptop {
   laptop_id         Int      @id @default(autoincrement())
-  model             String
-  description       String?
+  name             String
   serial_number     String
   springboro_tag_id String?
   aux_funds_po_id   String?

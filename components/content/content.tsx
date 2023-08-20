@@ -1,38 +1,28 @@
 'use client'
-import React, { useContext, useEffect, useState } from 'react'
-import RepairContext from '@/lib/util/context/interface/repair-context'
-import IPadArrayContext from '@/lib/util/context/ipad/ipad-array-context'
-import LaptopArrayContext from '@/lib/util/context/laptop/laptop-array-context'
-import DeviceImage from '@/lib/util/device-logo'
-import { useParams, usePathname } from 'next/navigation'
+import React from 'react'
+import { usePathname } from 'next/navigation'
+import { Button } from '@nextui-org/react'
+import DeviceImage from '@/util/device-logo'
+import AddAllIPadNotes from '../server/iPadNote/AddAllIPadNotes'
 
 export default function Content() {
   const pathname = usePathname()
-  const { iPadArray } = useContext(IPadArrayContext)
-  const { laptopArray } = useContext(LaptopArrayContext)
-
   const isIPad = pathname.startsWith('/ipads')
-  const { repairFlag } = useContext(RepairContext)
-  const [device, setDevice] = useState(null)
-  const deviceId = useParams().ipad_id
 
-  useEffect(() => {
-    if (isIPad) {
-      const deviceFound = iPadArray.some((ipad) => ipad.id === deviceId)
-      setDevice(deviceFound)
-    } else {
-      const deviceFound = laptopArray.some((laptop) => laptop.id === deviceId)
-      setDevice(deviceFound)
+  const handleSubmit = async (event: any) => {
+    event.preventDefault()
+    try {
+      await AddAllIPadNotes() // Correct function name and use await
+      console.log('Clicked!')
+    } catch (error) {
+      console.log('Error adding iPads to the database:', error)
     }
-  }, [isIPad, iPadArray, laptopArray, deviceId])
-
-  console.log(repairFlag)
-  console.log(iPadArray)
-  console.log(device)
+  }
 
   return (
-    <div className="h-full">
+    <div className="h-full flex flex-col justify-center">
       <DeviceImage size={200} isIPad={isIPad} />
+      <Button onClick={handleSubmit}>CLICK ME DAMNIT</Button>
       <div className=" flex flex-grow h-full">Content</div>
       <div className=" flex flex-grow h-full">Content</div>
     </div>

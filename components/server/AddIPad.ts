@@ -1,4 +1,5 @@
-import prisma from '../util/prisma'
+'use server'
+import prisma from '@/util/prisma'
 import { ipad } from '@prisma/client'
 
 export default async function AddIPad(newIPad: ipad) {
@@ -21,8 +22,7 @@ export default async function AddIPad(newIPad: ipad) {
     await prisma.ipad.create({
       data: inputData,
     })
-
-    console.log(`${inputData} Added to ipad database.`)
+    console.log(`${inputData.name} Added to ipad database.`)
   } catch (error) {
     console.log(`${newIPad} Failed to add to ipad database.`)
     console.log(error)
