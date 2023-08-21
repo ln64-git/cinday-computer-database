@@ -27,9 +27,10 @@ export default function Home(data: HomeProps) {
   dispatch(setIPadNoteArray(prepIPadNoteArray(data.iPadNotesArray)));
   dispatch(setLaptopNoteArray(prepLaptopNoteArray(data.laptopNotesArray)));
 
-
   const searchText = useSelector((state: RootState) => state.search.text)
   const repairFlag = useSelector((state: RootState) => state.repair.status)
+
+
 
   const filteredIPadArray = data.iPadArray.filter(
     (device) =>
@@ -55,6 +56,9 @@ export default function Home(data: HomeProps) {
                 transition={{ duration: 0.5 }} // Animation duration and type
                 className="w-full h-full flex flex-wrap justify-center "
               >
+
+      
+
                 {filteredIPadArray.map((device: ipad) => (
                   <HomeCard
                     isIPad={true}

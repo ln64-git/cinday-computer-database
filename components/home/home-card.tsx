@@ -6,6 +6,10 @@ import { RootState } from '@/lib/redux-toolkit/store'
 import { motion } from 'framer-motion'
 import { useSelector } from 'react-redux'
 import DeviceImage from '@/util/device-logo'
+import { redux_ipad } from '@/util/types/redux-ipad'
+import { redux_laptop } from '@/util/types/redux.laptop'
+import { redux_ipad_note } from '@/util/types/redux-ipad-note'
+import { redux_laptop_note } from '@/util/types/redux-laptop-note'
 
 interface HomeCardProps {
   deviceId: number
@@ -15,6 +19,8 @@ interface HomeCardProps {
 export default function HomeCard(data: HomeCardProps) {
   const deviceData = GetDeviceData()
   const { iPadArray, laptopArray, iPadNoteArray, laptopNoteArray } = deviceData
+
+
 
   let iPadDevice: ipad | undefined = undefined
   let iPadNote: ipad_note | null = null
@@ -33,9 +39,8 @@ export default function HomeCard(data: HomeCardProps) {
         : null
   } else {
     laptopDevice = GetLaptopDevice(laptopArray, data.deviceId) as laptop
-    laptopNote = GetLatestLaptopNote(laptopNoteArray)
+    laptopNote = GetLatestLaptopNote(laptopNoteArray)received
   }
-  console.log(iPadNote);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -46,12 +51,12 @@ export default function HomeCard(data: HomeCardProps) {
     >
       <Card
         key={data.isIPad ? iPadDevice?.ipad_id : laptopDevice?.laptop_id}
-        className="min-h-[95px] justify-center w-full h-full"
+        className="min-h-[95px] flex justify-between items-center w-full h-full"
       >
         <CardHeader className="flex gap-3 justify-start">
           <DeviceImage size={60} isIPad={data.isIPad} />
           <div className="flex flex-row justify-between w-full">
-            <div className="flex flex-col">
+            <div className="flex flex-col ">
               <p className="text-md">
                 {data.isIPad ? iPadDevice?.name : laptopDevice?.name}
               </p>
@@ -93,15 +98,16 @@ function GetDeviceData() {
     (state: RootState) => state.laptopArray.array,
   )
   const localIPadNoteArray = useSelector(
-    (state: RootState) => state.search.text,
+    (state: RootState) => state.iPadNoteArray.array,
   )
   const localLaptopNoteArray = useSelector(
-    (state: RootState) => state.search.text,
+    (state: RootState) => state.laptopNoteArray.array,
   )
-  let iPadArray: ipad[] = []
-  let laptopArray: laptop[] = []
-  let iPadNoteArray: ipad_note[] = []
-  let laptopNoteArray: laptop_note[] = []
+
+  let iPadArray: redux_ipad[] = []
+  let laptopArray: redux_laptop[] = []
+  let iPadNoteArray: redux_ipad_note[] = []
+  let laptopNoteArray: redux_laptop_note[] = []
   if (Array.isArray(localIPadArray) && localIPadArray.length > 0) {
     iPadArray = localIPadArray
   }
@@ -114,20 +120,28 @@ function GetDeviceData() {
   if (Array.isArray(localLaptopNoteArray) && localLaptopNoteArray.length > 0) {
     laptopNoteArray = localLaptopNoteArray
   }
+
+  iPadArray = restoreIPadArray(iPadArray)
+  laptopArray = restoreLaptopArray(laptopArray)
+  iPadNoteArray = restoreIPadNoteArray(iPadNoteArray)
+  laptopNoteArray = restoreLaptopNoteArray(laptopNoteArray)
+
   return { iPadArray, laptopArray, iPadNoteArray, laptopNoteArray }
 }
 
-function GetIPadDevice(devices: ipad[], deviceId: number): ipad | undefined {
+function GetIPadDevice(devices: any[], deviceId: number): ipad | undefined {
   return devices.find((device) => device.ipad_id === deviceId)
 }
 
 function GetLatestIPadNote(
-  notes: ipad_note[],
+  notes: any[],
   deviceId: number,
 ): ipad_note | null {
   const deviceNotes = notes.filter(
-    (note: ipad_note) => 'ipad_id' in note && note.ipad_id === deviceId,
+    (note: ipad_note) => note.ipad_id === deviceId,
   )
+
+
   const latestModifiedNote = deviceNotes.reduce(
     (latestNote: ipad_note | null, currentNote: ipad_note) => {
       if (!latestNote || currentNote.date_modified > latestNote.date_modified) {
@@ -142,13 +156,13 @@ function GetLatestIPadNote(
 }
 
 function GetLaptopDevice(
-  devices: laptop[],
+  devices: any[],
   deviceId: number,
 ): laptop | undefined {
   return devices.find((device) => device.laptop_id === deviceId)
 }
 
-function GetLatestLaptopNote(notes: laptop_note[]): laptop_note | null {
+function GetLatestLaptopNote(notes: any[]): laptop_note | null {
   const latestModifiedNote = notes.reduce(
     (latestNote: laptop_note | null, currentNote: laptop_note) => {
       if (!latestNote || currentNote.date_modified > latestNote.date_modified) {
@@ -161,3 +175,55 @@ function GetLatestLaptopNote(notes: laptop_note[]): laptop_note | null {
   )
   return latestModifiedNote
 }
+
+const restoreIPadArray = (convertedArray) => {
+  const restoredArray = convertedArray.map(iPad => {
+    if (typeof iPad.date_created === 'string') {
+      return { ...iPad, date_created: new Date(iPad.date_created) }; // Create new object with converted date
+    }
+    if (typeof iPad.date_modified === 'string') {
+      return { ...iPad, date_modified: new Date(iPad.date_modified) }; // Create new object with converted date
+    }
+    return iPad;
+  });
+  return restoredArray;
+};
+
+const restoreIPadNoteArray = (convertedArray) => {
+  const restoredArray = convertedArray.map(note => {
+    if (typeof note.date_created === 'string') {
+      return { ...note, date_created: new Date(note.date_created) }; // Create new object with converted date
+    }
+    if (typeof note.date_modified === 'string') {
+      return { ...note, date_modified: new Date(note.date_modified) }; // Create new object with converted date
+    }
+    return note;
+  });
+  return restoredArray;
+};
+
+const restoreLaptopNoteArray = (convertedArray) => {
+  const restoredArray = convertedArray.map(note => {
+    if (typeof note.date_created === 'string') {
+      return { ...note, date_created: new Date(note.date_created) }; // Create new object with converted date
+    }
+    if (typeof note.date_modified === 'string') {
+      return { ...note, date_modified: new Date(note.date_modified) }; // Create new object with converted date
+    }
+    return note;
+  });
+  return restoredArray;
+};
+
+const restoreLaptopArray = (convertedArray) => {
+  const restoredArray = convertedArray.map(laptop => {
+    if (typeof laptop.date_created === 'string') {
+      return { ...laptop, date_created: new Date(laptop.date_created) }; // Create new object with converted date
+    }
+    if (typeof laptop.date_modified === 'string') {
+      return { ...laptop, date_modified: new Date(laptop.date_modified) }; // Create new object with converted date
+    }
+    return laptop;
+  });
+  return restoredArray;
+};
