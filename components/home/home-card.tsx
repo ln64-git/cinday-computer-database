@@ -39,7 +39,7 @@ export default function HomeCard(data: HomeCardProps) {
         : null
   } else {
     laptopDevice = GetLaptopDevice(laptopArray, data.deviceId) as laptop
-    laptopNote = GetLatestLaptopNote(laptopNoteArray)received
+    laptopNote = GetLatestLaptopNote(laptopNoteArray)
   }
   return (
     <motion.div
