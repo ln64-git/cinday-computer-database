@@ -1,9 +1,9 @@
+import { redux_laptop } from '@/util/types/redux.laptop'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { laptop } from '@prisma/client'
 
 interface LaptopArrayState {
-  array: laptop[]
+  array: redux_laptop[]
 }
 
 const initialState: LaptopArrayState = {
@@ -14,7 +14,7 @@ const laptopArraySlice = createSlice({
   name: 'laptopArray',
   initialState,
   reducers: {
-    setLaptopArray: (state, action: PayloadAction<laptop[]>) => {
+    setLaptopArray: (state, action: PayloadAction<redux_laptop[]>) => {
       state.array = action.payload
     },
   },

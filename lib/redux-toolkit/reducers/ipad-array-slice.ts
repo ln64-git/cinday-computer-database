@@ -1,9 +1,9 @@
+import { redux_ipad } from '@/util/types/redux-ipad'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { ipad } from '@prisma/client'
 
 interface IPadArrayState {
-  array: ipad[]
+  array: redux_ipad[]
 }
 
 const initialState: IPadArrayState = {
@@ -14,7 +14,7 @@ const ipadArraySlice = createSlice({
   name: 'ipadArray',
   initialState,
   reducers: {
-    setIPadArray: (state, action: PayloadAction<ipad[]>) => {
+    setIPadArray: (state, action: PayloadAction<redux_ipad[]>) => {
       state.array = action.payload
     },
   },

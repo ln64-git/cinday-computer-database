@@ -1,9 +1,9 @@
+import { redux_ipad_note } from '@/util/types/redux-ipad-note'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { ipad_note } from '@prisma/client'
 
 interface IPadNoteArrayState {
-  array: ipad_note[]
+  array: redux_ipad_note[]
 }
 
 const initialState: IPadNoteArrayState = {
@@ -14,7 +14,7 @@ const ipadNoteArraySlice = createSlice({
   name: 'ipadNoteArray',
   initialState,
   reducers: {
-    setIPadNoteArray: (state, action: PayloadAction<ipad_note[]>) => {
+    setIPadNoteArray: (state, action: PayloadAction<redux_ipad_note[]>) => {
       state.array = action.payload
     },
   },

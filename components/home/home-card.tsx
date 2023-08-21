@@ -35,7 +35,7 @@ export default function HomeCard(data: HomeCardProps) {
     laptopDevice = GetLaptopDevice(laptopArray, data.deviceId) as laptop
     laptopNote = GetLatestLaptopNote(laptopNoteArray)
   }
-
+  console.log(iPadNote);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -60,11 +60,10 @@ export default function HomeCard(data: HomeCardProps) {
               </p>
             </div>
             <Link
-              href={`/${
-                data.isIPad
-                  ? 'ipads/' + (iPadDevice?.ipad_id || '')
-                  : 'laptops/' + (laptopDevice?.laptop_id || '')
-              }`}
+              href={`/${data.isIPad
+                ? 'ipads/' + (iPadDevice?.ipad_id || '')
+                : 'laptops/' + (laptopDevice?.laptop_id || '')
+                }`}
             >
               <Button color="default">Details</Button>
             </Link>

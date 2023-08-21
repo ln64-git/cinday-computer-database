@@ -9,22 +9,23 @@ import HomeCard from './home-card'
 import { RootState } from '@/lib/redux-toolkit/store'
 import { setIPadArray } from '@/lib/redux-toolkit/reducers/ipad-array-slice'
 import { setIPadNoteArray } from '@/lib/redux-toolkit/reducers/ipad-note-array-slice'
-import { setLaptopArray } from '@/lib/redux-toolkit/reducers/laptop-array-slice'
+import laptopArraySlice, { setLaptopArray } from '@/lib/redux-toolkit/reducers/laptop-array-slice'
 import { setLaptopNoteArray } from '@/lib/redux-toolkit/reducers/laptop-note-array-slice'
 
 interface HomeProps {
-  iPadArray: ipad[]
-  iPadNotesArray: ipad_note[]
-  laptopArray: laptop[]
-  laptopNotesArray: laptop_note[]
+  iPadArray: any[]
+  iPadNotesArray: any[]
+  laptopArray: any[]
+  laptopNotesArray: any[]
 }
 
 export default function Home(data: HomeProps) {
   const dispatch = useDispatch()
-  dispatch(setIPadArray(data.iPadArray))
-  dispatch(setIPadNoteArray(data.iPadNotesArray))
-  dispatch(setLaptopArray(data.laptopArray))
-  dispatch(setLaptopNoteArray(data.laptopNotesArray))
+
+  dispatch(setIPadArray(prepIPadArray(data.iPadArray)));
+  dispatch(setLaptopArray(prepLaptopArray(data.laptopArray)));
+  dispatch(setIPadNoteArray(prepIPadNoteArray(data.iPadNotesArray)));
+  dispatch(setLaptopNoteArray(prepLaptopNoteArray(data.laptopNotesArray)));
 
 
   const searchText = useSelector((state: RootState) => state.search.text)
@@ -75,7 +76,7 @@ export default function Home(data: HomeProps) {
                 transition={{ duration: 0.5 }} // Animation duration and type
                 className="h-full w-full flex flex-wrap justify-center "
               >
-                {filteredLaptopArray.map((device: laptop) => (
+                {filteredLaptopArray.map((device: any) => (
                   <HomeCard
                     isIPad={false}
                     deviceId={device.laptop_id}
@@ -90,3 +91,57 @@ export default function Home(data: HomeProps) {
     </AnimatePresence>
   )
 }
+
+const prepIPadArray = (iPadArray: any) => {
+  const convertedArray = iPadArray.map(iPad => {
+    if (iPad.date_created instanceof Date) {
+      iPad.date_created = iPad.date_created.toISOString(); // Convert Date to string
+    }
+    if (iPad.date_modified instanceof Date) {
+      iPad.date_modified = iPad.date_modified.toISOString(); // Convert Date to string
+    }
+    return iPad;
+  });
+  return convertedArray;
+};
+
+const prepIPadNoteArray = (ipadNotesArray: any) => {
+  const convertedArray = ipadNotesArray.map(note => {
+    if (note.date_created instanceof Date) {
+      note.date_created = note.date_created.toISOString(); // Convert Date to string
+    }
+    if (note.date_modified instanceof Date) {
+      note.date_modified = note.date_modified.toISOString(); // Convert Date to string
+    }
+    return note;
+  });
+  return convertedArray;
+};
+
+const prepLaptopNoteArray = (laptopNotesArray: any) => {
+  const convertedArray = laptopNotesArray.map(note => {
+    if (note.date_created instanceof Date) {
+      note.date_created = note.date_created.toISOString(); // Convert Date to string
+    }
+    if (note.date_modified instanceof Date) {
+      note.date_modified = note.date_modified.toISOString(); // Convert Date to string
+    }
+    return note;
+  });
+  return convertedArray;
+};
+
+const prepLaptopArray = (laptopArray: any) => {
+  const convertedArray = laptopArray.map(laptop => {
+    if (laptop.date_created instanceof Date) {
+      laptop.date_created = laptop.date_created.toISOString(); // Convert Date to string
+    }
+    if (laptop.date_modified instanceof Date) {
+      laptop.date_modified = laptop.date_modified.toISOString(); // Convert Date to string
+    }
+    return laptop;
+  });
+  return convertedArray;
+};
+
+
