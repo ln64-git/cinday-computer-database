@@ -6,7 +6,7 @@ import { ThemeProviderProps } from 'next-themes/dist/types'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { Provider } from 'react-redux'
-import { store } from '@/lib/redux-toolkit/store'
+import { store } from '@/util/lib/redux-toolkit/store'
 
 export interface ProvidersProps {
   children: React.ReactNode

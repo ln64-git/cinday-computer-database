@@ -1,6 +1,6 @@
 "use server"
 import { revalidatePath } from "next/cache"
-import prisma from "../../util/prisma"
+import prisma from "../../../util/config/prisma"
 
 export default async function FlagIPadRepair({ iPad }) {
   try {

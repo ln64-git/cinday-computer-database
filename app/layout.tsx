@@ -1,7 +1,7 @@
-import '@/styles/globals.css'
+import '@/util/styles/globals.css'
 import { Metadata } from 'next'
-import { siteConfig } from '@/config/site'
-import { fontSans } from '@/config/fonts'
+import { siteConfig } from '@/util/config/site'
+import { fontSans } from '@/util/config/fonts'
 import { Providers } from './providers'
 import { Navbar } from '@/components/interface/navbar'
 import clsx from 'clsx'
@@ -33,7 +33,7 @@ export default function RootLayout({
       <head />
       <body
         className={clsx(
-          'min-h-screen bg-background font-sans antialiased flex flex-col h-full',
+          'min-h-screen bg-background font-sans antialiased',
           fontSans.variable,
         )}
       >

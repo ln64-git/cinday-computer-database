@@ -2,14 +2,14 @@ import { Button, Card, CardHeader } from '@nextui-org/react'
 import { ipad, ipad_note, laptop, laptop_note } from '@prisma/client'
 
 import Link from 'next/link'
-import { RootState } from '@/lib/redux-toolkit/store'
+import { RootState } from '@/util/lib/redux-toolkit/store'
 import { motion } from 'framer-motion'
 import { useSelector } from 'react-redux'
-import DeviceImage from '@/util/device-logo'
 import { redux_ipad } from '@/util/types/redux-ipad'
 import { redux_laptop } from '@/util/types/redux.laptop'
 import { redux_ipad_note } from '@/util/types/redux-ipad-note'
 import { redux_laptop_note } from '@/util/types/redux-laptop-note'
+import DeviceImage from '@/util/config/device-logo'
 
 interface HomeCardProps {
   deviceId: number

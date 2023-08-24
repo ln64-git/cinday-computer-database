@@ -1,9 +1,9 @@
-import Content from '@/components/content/content'
+import Device from "@/components/pages/device";
 
 export default function page() {
   return (
     <div className="flex flex-col items-center h-full">
-      <Content />
+      <Device />
     </div>
   )
 }

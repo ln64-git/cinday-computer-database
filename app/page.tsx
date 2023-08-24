@@ -1,4 +1,4 @@
-import Home from '@/components/home/home'
+import Home from '@/components/pages/home'
 import { PrismaClient } from '@prisma/client'
 
 export default async function HomePage() {

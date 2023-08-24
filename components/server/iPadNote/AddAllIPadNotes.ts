@@ -1,17 +1,16 @@
 'use server'
 import AddIPadNote from './AddIPadNote'
-import ipadNoteData from '../../../../cinday backup/ipad_notes.json'
 
 const AddAllIPadNotes = async () => {
-  const notes = stringToDate(ipadNoteData)
-  try {
-    for (const note of notes) {
-      await AddIPadNote(note)
-    }
-    console.log('All notes added successfully!')
-  } catch (error) {
-    console.log('Error adding notes to the database:', error)
-  }
+  // const notes = stringToDate()
+  // try {
+  //   for (const note of notes) {
+  //     await AddIPadNote(note)
+  //   }
+  console.log('All notes added successfully!')
+  // } catch (error) {
+  //   console.log('Error adding notes to the database:', error)
+  // }
 }
 
 export default AddAllIPadNotes

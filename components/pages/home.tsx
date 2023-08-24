@@ -5,12 +5,12 @@ import { Tab, Tabs } from '@nextui-org/react'
 import { ipad, ipad_note, laptop, laptop_note } from '@prisma/client'
 import { useDispatch, useSelector } from 'react-redux'
 
-import HomeCard from './home-card'
-import { RootState } from '@/lib/redux-toolkit/store'
-import { setIPadArray } from '@/lib/redux-toolkit/reducers/ipad-array-slice'
-import { setIPadNoteArray } from '@/lib/redux-toolkit/reducers/ipad-note-array-slice'
-import laptopArraySlice, { setLaptopArray } from '@/lib/redux-toolkit/reducers/laptop-array-slice'
-import { setLaptopNoteArray } from '@/lib/redux-toolkit/reducers/laptop-note-array-slice'
+import HomeCard from '../home/home-card'
+import { RootState } from '@/util/lib/redux-toolkit/store'
+import { setIPadArray } from '@/util/lib/redux-toolkit/reducers/ipad-array-slice'
+import { setIPadNoteArray } from '@/util/lib/redux-toolkit/reducers/ipad-note-array-slice'
+import laptopArraySlice, { setLaptopArray } from '@/util/lib/redux-toolkit/reducers/laptop-array-slice'
+import { setLaptopNoteArray } from '@/util/lib/redux-toolkit/reducers/laptop-note-array-slice'
 
 interface HomeProps {
   iPadArray: any[]
@@ -57,7 +57,7 @@ export default function Home(data: HomeProps) {
                 className="w-full h-full flex flex-wrap justify-center "
               >
 
-      
+
 
                 {filteredIPadArray.map((device: ipad) => (
                   <HomeCard

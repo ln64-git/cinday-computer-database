@@ -19,16 +19,16 @@ import {
   NavbarItem,
   Navbar as NextUINavbar,
 } from '@nextui-org/navbar'
-import { setSearchText, setSearchToggle } from '@/lib/redux-toolkit/reducers/interface/search-slice'
+import { setSearchText, setSearchToggle } from '@/util/lib/redux-toolkit/reducers/interface/search-slice'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Input } from '@nextui-org/input'
 import NextLink from 'next/link'
-import type { RootState } from '@/lib/redux-toolkit/store'
+import type { RootState } from '@/util/lib/redux-toolkit/store'
 import { ThemeSwitch } from './theme-switch'
-import { setRepairFlag } from '@/lib/redux-toolkit/reducers/interface/repair-slice'
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import { setRepairFlag } from '@/util/lib/redux-toolkit/reducers/interface/repair-slice'
 
 export const Navbar = () => {
   const dispatch = useDispatch()

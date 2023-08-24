@@ -1,5 +1,5 @@
 "use server"
-import prisma from "../../util/prisma"
+import prisma from "../../../util/config/prisma"
 
 export default async function GetIPad(id) {
   const ipad = await prisma.ipad.findFirst({
