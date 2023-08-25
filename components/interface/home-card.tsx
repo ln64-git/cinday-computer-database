@@ -50,37 +50,37 @@ export default function HomeCard(data: HomeCardProps) {
     >
       <Card
         key={data.isIPad ? iPadDevice?.ipad_id : laptopDevice?.laptop_id}
-        className="min-h-[95px] flex justify-between items-center w-full h-full"
+        className="min-h-[95px]  flex  items-start "
       >
-        <CardHeader className="flex gap-3 justify-start">
+        <CardHeader className="flex gap-3 justify-center items-center">
           <DeviceImage size={60} isIPad={data.isIPad} />
-          <div className="flex flex-row justify-between w-full">
-            <div className="flex flex-col ">
+          <div className="min-h-[55px] flex flex-row justify-between items-center w-full ">
+            <div className="flex flex-col items-start">
               <p className="text-md">
                 {data.isIPad ? iPadDevice?.name : laptopDevice?.name}
               </p>
               <p className="font-bold">
-                {data.isIPad ? (iPadNote ? iPadNote.name : '\u00A0') : ''}
+                {data.isIPad ? (iPadNote ? iPadNote.name : '\u00A0') : '\u00A0'}
               </p>
             </div>
-            <Link
-              href={`/${data.isIPad
-                ? 'ipads/' + (iPadDevice?.ipad_id || '')
-                : 'laptops/' + (laptopDevice?.laptop_id || '')
-                }`}
-            >
-              <Button color="default">Details</Button>
-            </Link>
-          </div>
+              <Link
+                href={`/${data.isIPad
+                  ? 'ipads/' + (iPadDevice?.ipad_id || '')
+                  : 'laptops/' + (laptopDevice?.laptop_id || '')
+                  }`}
+              >
+                <Button color="default">Details</Button>
+              </Link>
+            </div>
         </CardHeader>
         {data.isIPad ? (
           iPadNote?.summary ? (
-            <p className="mx-8 my-4">{iPadNote.summary}</p>
+            <p className="mx-8 mb-4 text-left">{iPadNote.summary}</p>
           ) : (
             <div className="h-full"></div>
           )
         ) : laptopNote?.summary ? (
-          <p className="mx-8 my-4">{laptopNote.summary}</p>
+            <p className="mx-8 my-4 text-left">{laptopNote.summary}</p>
         ) : (
           <div className="h-full"></div>
         )}
