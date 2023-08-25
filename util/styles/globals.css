@@ -4,7 +4,9 @@
 
 :root {
   --background-dark: #24242c;
-  --primary: rgb(199, 70, 66);
+  --primary: #ebe9e9;
+  --primary2: #edecec;
+  --primary3: #be9696;
 
   --background-1: #9393b8;
   --background-2: green;

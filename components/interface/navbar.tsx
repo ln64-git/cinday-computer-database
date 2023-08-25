@@ -111,7 +111,7 @@ export const Navbar = () => {
   }, [dispatch])
 
   return (
-    <NextUINavbar maxWidth="xl" position="sticky" className="py-6">
+    <NextUINavbar maxWidth="xl" position="sticky" className="py-6 shadow-lg">
       <NavbarContent
         className="flex justify-center items-center mr-10 "
         justify="start"

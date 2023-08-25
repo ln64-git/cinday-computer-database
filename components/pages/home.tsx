@@ -49,7 +49,7 @@ export default function Home(data: HomeProps) {
     <AnimatePresence>
       <div className="h-full w-full flex flex-grow flex-wrap">
         <div className="h-full w-full flex flex-col items-center pt-4">
-          <Tabs aria-label="Options">
+          <Tabs aria-label="Options" className='mt-4'>
             <Tab key="ipads" title="iPads">
               <motion.div
                 initial={{ opacity: 0 }} // Start with opacity 0 and y offset
