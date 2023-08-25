@@ -50,9 +50,9 @@ export default function HomeCard(data: HomeCardProps) {
     >
       <Card
         key={data.isIPad ? iPadDevice?.ipad_id : laptopDevice?.laptop_id}
-        className="min-h-[95px]  flex  items-start "
+        className="min-h-[95px] h-full"
       >
-        <CardHeader className="flex gap-3 justify-center items-center">
+        <CardHeader className="flex items-center gap-3 justify-center  ">
           <DeviceImage size={60} isIPad={data.isIPad} />
           <div className="min-h-[55px] flex flex-row justify-between items-center w-full ">
             <div className="flex flex-col items-start">
