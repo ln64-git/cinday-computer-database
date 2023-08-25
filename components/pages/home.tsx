@@ -6,7 +6,6 @@ import { ipad } from '@prisma/client'
 import { useDispatch, useSelector } from 'react-redux'
 
 import HomeCard from '../interface/home-card'
-import { RootState } from '@/util/lib/redux-toolkit/store'
 import { setIPadArray } from '@/util/lib/redux-toolkit/reducers/ipad-array-slice'
 import { setIPadNoteArray } from '@/util/lib/redux-toolkit/reducers/ipad-note-array-slice'
 import { setLaptopArray } from '@/util/lib/redux-toolkit/reducers/laptop-array-slice'
@@ -31,8 +30,8 @@ export default function Home(data: HomeProps) {
   dispatch(setIPadNoteArray(convertToStringIPadNoteArray(data.iPadNotesArray)));
   dispatch(setLaptopNoteArray(convertToStringLaptopNoteArray(data.laptopNotesArray)));
 
-  const searchText = useSelector((state: RootState) => state.search.text)
-  const repairFlag = useSelector((state: RootState) => state.repair.status)
+  const searchText = useSelector((state: any) => state.search.text)
+  const repairFlag = useSelector((state: any) => state.repair.status)
 
   const filteredIPadArray = data.iPadArray.filter(
     (device) =>

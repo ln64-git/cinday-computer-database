@@ -24,7 +24,6 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Input } from '@nextui-org/input'
 import NextLink from 'next/link'
-import type { RootState } from '@/util/lib/redux-toolkit/store'
 import { ThemeSwitch } from './theme-switch'
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
@@ -33,12 +32,12 @@ import { setRepairFlag } from '@/util/lib/redux-toolkit/reducers/interface/repai
 export const Navbar = () => {
   const dispatch = useDispatch()
   const path = usePathname()
-  const repairStatus = useSelector((state: RootState) => state.repair.status)
+  const repairStatus = useSelector((state: any) => state.repair.status)
   const searchToggle = useSelector(
-    (state: RootState) => state.search.status,
+    (state: any) => state.search.status,
   )
   const searchText = useSelector(
-    (state: RootState) => state.search.text,
+    (state: any) => state.search.text,
   )
 
   const searchInput = (

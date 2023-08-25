@@ -2,11 +2,11 @@
 import { NextUIProvider } from '@nextui-org/system'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import { ThemeProviderProps } from 'next-themes/dist/types'
-
+import { PersistGate } from 'redux-persist/integration/react';
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { Provider } from 'react-redux'
-import { store } from '@/util/lib/redux-toolkit/store'
+import { persistor, store } from '@/util/lib/redux-toolkit/store'
 
 export interface ProvidersProps {
   children: React.ReactNode
@@ -24,7 +24,9 @@ export function Providers({ children, themeProps }: ProvidersProps) {
       >
         <NextUIProvider>
           <Provider store={store}>
-            <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+            <PersistGate loading={null} persistor={persistor}>
+              <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+            </PersistGate>
           </Provider>
         </NextUIProvider>
       </motion.div>
