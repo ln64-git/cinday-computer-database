@@ -5,7 +5,8 @@ import DeviceImage from '@/util/config/device-logo';
 import DeviceInfo from '../features/device/device-info';
 import GetDevice from '@/util/function/device/get-device';
 import { motion } from 'framer-motion'
-import { Button, Card, CardBody, CardHeader } from '@nextui-org/react'
+import { Button, Card, CardHeader } from '@nextui-org/react'
+import MobileDetails from './mobile/mobile-details';
 
 export default function Device() {
   const pathname = usePathname();
@@ -37,43 +38,7 @@ export default function Device() {
     >
       <div className='w-full h-full flex justify-center   '>
         {!isMobile ? (
-          <div className='w-4/5 md:px-0 md:w-2/3  my-8'>
-            <div className="h-full max-h-full w-full flex flex-col justify-start items-center  ">
-              <div className='flex justify-center'>
-                <DeviceImage size={150} isIPad={isIPad} />
-              </div>
-              <div className='w-full '>
-                <DeviceInfo device={device} isIPad={isIPad} />
-              </div>
-              <div className='w-1/2 text-center my-16'>
-                <Button size='lg' variant='flat' fullWidth>edit</Button>
-              </div>
-              <div className='w-full h-full text-l   '>
-                <Card
-                  className=" h-full  justify-center  "
-                >
-                  <CardHeader className="flex justify-center items-center gap-3   ">
-                    <DeviceImage size={60} isIPad={isIPad} />
-                    <div className="min-h-[55px] flex flex-row justify-between items-center w-full ">
-                      <div className="flex flex-col items-start ">
-                        <p className="">
-                          {device.name}
-                        </p>
-                        <p className="font-bold">
-                          this is an ipad note title
-                        </p>
-                      </div>
-                      <Button color="default">Details</Button>
-                    </div>
-                  </CardHeader>
-                  <div className='pb-4 bt-6 px-8'>
-                    this is an ipad note summary
-                  </div>
-                </Card>
-              </div>
-              <div className='py-4   	'>&nbsp;</div>
-            </div>
-          </div>
+          <MobileDetails device={device} isIPad={isIPad}/>
         ) : (
           <div className='flex flex-col h-full flex-grow  items-center max-w-6xl '>
             <div className=' h-full w-full flex justify-around items-center '>
