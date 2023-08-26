@@ -12,7 +12,7 @@ export default function DeviceImage(props: DeviceImageProps) {
   if (props.isIPad) {
     return (
       <motion.div
-        initial={{ opacity: 0,  }} // Initial state
+        initial={{ opacity: 0, }} // Initial state
         animate={{ opacity: 1, }} // Animation state
         transition={{ duration: .5, delay: .2 }} // Animation configuration
       >
