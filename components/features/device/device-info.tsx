@@ -8,7 +8,7 @@ export default function DeviceInfo(props: DeviceInfoProps) {
   if (props.isIPad) {
     return (
       <div >
-        <div className="flex justify-center my-2 text-2xl font-bold">
+        <div className="flex justify-center mt-6 mb-10 text-2xl font-bold">
           <p>{props.device.name}</p>
         </div>
         <div className="flex justify-between my-2 text-2xl">
@@ -32,6 +32,9 @@ export default function DeviceInfo(props: DeviceInfoProps) {
   } else {
     return (
       <div>
+        <div className="flex justify-center mt-6 mb-10 text-2xl font-bold">
+          <p>{props.device.name}</p>
+        </div>
         <div className="flex justify-between my-2 text-2xl">
           <p className="text-left truncate">Serial Number:</p>
           <p>{props.device.serial_number}</p>

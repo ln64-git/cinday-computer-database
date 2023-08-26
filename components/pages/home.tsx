@@ -69,7 +69,7 @@ export default function Home(data: HomeProps) {
             <Tab
               key="laptops"
               title="laptops"
-              className="h-full w-full flex flex-wrap justify-center "
+              className=" w-full flex flex-wrap justify-center "
             >
               <motion.div
                 initial={{ opacity: 0 }} // Start with opacity 0 and y offset

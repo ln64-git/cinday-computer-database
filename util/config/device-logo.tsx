@@ -29,8 +29,8 @@ export default function DeviceImage(props: DeviceImageProps) {
       <div>
         <Image
           alt="image of Laptop"
-          height={props.size + props.size / 10}
-          width={props.size + props.size / 10}
+          height={props.size + props.size / 5}
+          width={props.size + props.size / 5}
           src="/laptop.png"
         />
       </div>

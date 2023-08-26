@@ -50,12 +50,12 @@ export default function HomeCard(data: HomeCardProps) {
     >
       <Card
         key={data.isIPad ? iPadDevice?.ipad_id : laptopDevice?.laptop_id}
-        className="min-h-[95px] h-full"
+        className=" h-full justify-center "
       >
-        <CardHeader className="flex items-center gap-3 justify-center  ">
+        <CardHeader className="flex justify-center items-center gap-3   ">
           <DeviceImage size={60} isIPad={data.isIPad} />
           <div className="min-h-[55px] flex flex-row justify-between items-center w-full ">
-            <div className="flex flex-col items-start">
+            <div className="flex flex-col items-start ">
               <p className="text-md">
                 {data.isIPad ? iPadDevice?.name : laptopDevice?.name}
               </p>
@@ -63,27 +63,27 @@ export default function HomeCard(data: HomeCardProps) {
                 {data.isIPad ? (iPadNote ? iPadNote.name : '\u00A0') : '\u00A0'}
               </p>
             </div>
-              <Link
-                href={`/${data.isIPad
-                  ? 'ipads/' + (iPadDevice?.ipad_id || '')
-                  : 'laptops/' + (laptopDevice?.laptop_id || '')
-                  }`}
-              >
-                <Button color="default">Details</Button>
-              </Link>
-            </div>
+            <Link
+              href={`/${data.isIPad
+                ? 'ipads/' + (iPadDevice?.ipad_id || '')
+                : 'laptops/' + (laptopDevice?.laptop_id || '')
+                }`}
+            >
+              <Button color="default">Details</Button>
+            </Link>
+          </div>
         </CardHeader>
-        {data.isIPad ? (
-          iPadNote?.summary ? (
-            <p className="mx-8 mb-4 text-left">{iPadNote.summary}</p>
+          {data.isIPad ? (
+            iPadNote?.summary ? (
+              <p className="mx-8 mb-4 text-left">{iPadNote.summary}</p>
+            ) : (
+              <div className="h-full"></div>
+            )
+          ) : laptopNote?.summary ? (
+            <p className="mx-8 my-4 text-left">{laptopNote.summary}</p>
           ) : (
             <div className="h-full"></div>
-          )
-        ) : laptopNote?.summary ? (
-            <p className="mx-8 my-4 text-left">{laptopNote.summary}</p>
-        ) : (
-          <div className="h-full"></div>
-        )}
+          )}
       </Card>
     </motion.div>
   )
