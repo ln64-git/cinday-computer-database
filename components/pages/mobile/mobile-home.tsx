@@ -67,7 +67,7 @@ export default function MobileHome(data: HomeProps) {
                   />
                 ))}
                 <Card
-                  className="justify-center w-1/3 my-2"
+                  className="justify-center w-1/3 my-4"
                 >
                   <div className='w-full  flex justify-center items-center'>
                     <div className="min-h-[55px] flex flex-row  items-center w-2/3">

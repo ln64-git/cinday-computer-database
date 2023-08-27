@@ -62,7 +62,6 @@ export const Navbar = () => {
               <DownArrowIcon />
             </Button>
           </DropdownTrigger>
-
           <DropdownMenu aria-label="Static Actions" closeOnSelect={false}>
             <DropdownSection title="filter">
               <DropdownItem>
