@@ -94,7 +94,7 @@ export default function Device() {
                           this is an ipad note title
                         </p>
                       </div>
-                      <Button color="default">Details</Button>
+                      <Button  color="default">Details</Button>
                     </div>
                   </CardHeader>
                   <div className='pb-4 bt-6 px-8'>
@@ -107,7 +107,7 @@ export default function Device() {
                   <CardHeader className="flex justify-start items-center gap-3   ">
                     <div className='w-full  flex justify-center items-center'>
                       <div className="min-h-[55px] flex flex-row  items-center w-2/3">
-                        <Button fullWidth color="default"><PlusIcon /></Button>
+                        <Button fullWidth variant='light' color="default"><PlusIcon /></Button>
                       </div>
                     </div>
                   </CardHeader>
