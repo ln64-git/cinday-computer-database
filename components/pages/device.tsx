@@ -34,7 +34,7 @@ export default function Device() {
       initial={{ opacity: 0 }} // Start with opacity 0 and y offset
       animate={{ opacity: 1 }} // Fade-in and move up to original position
       exit={{ opacity: 0 }} // Fade-out and move up during exit
-      transition={{ duration: .5 }} // Animation duration and type
+      transition={{ duration: .8 }} // Animation duration and type
       className="w-full h-full flex flex-wrap justify-center "
     >
       <div className='w-full h-full flex justify-center   '>
@@ -42,19 +42,29 @@ export default function Device() {
           <MobileDetails device={device} isIPad={isIPad} />
         ) : (
           <div className='flex flex-col h-full flex-grow  items-center max-w-6xl '>
-              <div className=' h-full w-full flex justify-between items-center '>
+            <div className=' h-full w-full flex justify-between items-center '>
               <div className='flex flex-col justify-center items-center py-12 pl-32 '>
                 <div className=' flex items-center justify-center flex-col pb-6 pt-12 '>
-                  <div className='  flex justify-center items-center h-1/2 py-12'>
+                  <motion.div
+                    initial={{ opacity: 0, x: -100 }} // Start with opacity 0 and move in from the left (x: -100)
+                    animate={{ opacity: 1, x: 1 }} // Fade-in and move to original position (x: 0)
+                    exit={{ opacity: 0, x: -100 }} // Fade-out and move out to the left (x: -100)
+                    transition={{ duration: .1 }} // Animation duration and type
+                    className='  flex justify-center items-center h-1/2 py-12'>
                     <DeviceImage size={250} isIPad={isIPad} />
-                  </div>
+                  </motion.div>
                 </div>
               </div>
               <div className=' flex flex-col justify-center items-center  px-12 '>
                 <div className=' w-full mx-12   flex flex-col justify-center items-center '>
-                  <div className='w-full mb-10 mt-12 '>
+                  <motion.div
+                    initial={{ opacity: 0 }} // Start with opacity 0 and y offset
+                    animate={{ opacity: 1 }} // Fade-in and move up to original position
+                    exit={{ opacity: 0 }} // Fade-out and move up during exit
+                    transition={{ duration: .8 }} // Animation duration and type
+                    className='w-full mb-10 mt-12 '>
                     <DeviceInfo device={device} isIPad={isIPad} />
-                  </div>
+                  </motion.div>
                   <div className='w-1/2  text-center  '>
                     <Button size='lg' variant='flat' fullWidth>edit</Button>
                   </div>
@@ -63,7 +73,13 @@ export default function Device() {
               <div className=' h-2/4'></div>
             </div>
             <div className='w-full h-full text-l'>
-              <div className='flex flex-wrap justify-center'>
+              <motion.div
+                initial={{ opacity: 0, y: 100 }} // Start with opacity 0 and move up (y: 100)
+                animate={{ opacity: 1, y: 0 }} // Fade-in and move up to original position (y: 0)
+                exit={{ opacity: 0, y: -100 }} // Fade-out and move up during exit (y: -100)
+                transition={{ duration: .4 }} // Animation duration and type
+                className='flex flex-wrap justify-center'
+              >
                 <Card
                   className="justify-center w-1/3 m-4"
                 >
@@ -99,7 +115,7 @@ export default function Device() {
                     New Note
                   </div>
                 </Card>
-              </div>
+              </motion.div>
               <div className='flex justify-center'>
               </div>
             </div>
