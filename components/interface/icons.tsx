@@ -40,6 +40,23 @@ export const DownArrowIcon = () => (
     />
   </svg>
 )
+export const PlusIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="30"  // Adjust the width as needed
+    height="30" // Adjust the height as needed
+    viewBox="0 0 24 24" // Adjust the viewBox based on the icon's design
+  >
+    <path
+      d="M4 12H20M12 4V20"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+);
+
 
 export const MoonFilledIcon = ({
   size = 24,

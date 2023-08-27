@@ -1,4 +1,5 @@
 import DeviceInfo from '@/components/features/device/device-info'
+import NewCard from '@/components/interface/new-card'
 import DeviceImage from '@/util/config/device-logo'
 import { Button } from '@nextui-org/button'
 import { Card, CardHeader } from '@nextui-org/react'
@@ -44,9 +45,12 @@ export default function MobileDetails(props: MoblieDetailsProps) {
               <div className='pb-4 bt-6 px-8'>
                 this is an ipad note summary
               </div>
-            </Card>
+          </Card>
+          <div className='w-full my-4'>
+            <NewCard />
           </div>
-          <div className='py-4   	'>&nbsp;</div>
+          </div>
+          <div className='py-4'>&nbsp;</div>
         </div>
       </div>
   )
