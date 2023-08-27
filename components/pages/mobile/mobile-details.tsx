@@ -25,7 +25,7 @@ export default function MobileDetails(props: MoblieDetailsProps) {
           </div>
           <div className='w-full h-full text-l   '>
             <Card
-              className=" h-full  justify-center  "
+              className="   justify-center  "
             >
               <CardHeader className="flex justify-center items-center gap-3   ">
                 <DeviceImage size={60} isIPad={props.isIPad} />
