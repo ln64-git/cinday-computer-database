@@ -11,14 +11,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: 'var(--primary)',
-          foreground: '#000000',
-        },
+        // primary: {
+        //   DEFAULT: 'var(--primary)',
+        //   foreground: '#000000',
+        // },
 
         // content1: 'var(--primary2)',
         // background: 'var(--primary)',
-        // default: 'var(--primary3)',
+        primary: 'var(--primary)',
       },
     },
   },

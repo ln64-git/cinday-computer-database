@@ -1,12 +1,10 @@
 "use client"
-import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button, Card, Tab, Tabs } from '@nextui-org/react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import HomeCard from '../interface/home-card';
 import { PlusIcon } from '../interface/icons';
-import MobileHome from './mobile/mobile-home';
 import { setIPadArray } from '@/util/lib/redux-toolkit/reducers/ipad-array-slice';
 import { setLaptopArray } from '@/util/lib/redux-toolkit/reducers/laptop-array-slice';
 import { setIPadNoteArray } from '@/util/lib/redux-toolkit/reducers/ipad-note-array-slice';
@@ -46,24 +44,11 @@ export default function Home(data: HomeProps) {
       device.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const [isMobile, setIsMobile] = useState(true);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth > 1080);
-    };
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   return (
     <AnimatePresence>
-
         <div className="h-full w-full flex flex-grow flex-wrap">
           <div className="h-full w-full flex flex-col items-center pt-4">
             <Tabs aria-label="Options" className='mt-4'>

@@ -62,23 +62,23 @@ export const Navbar = () => {
               <DownArrowIcon />
             </Button>
           </DropdownTrigger>
-          <DropdownMenu aria-label="Static Actions" closeOnSelect={false}>
+          <DropdownMenu  aria-label="Static Actions" closeOnSelect={false} color='primary'>
             <DropdownSection title="filter">
-              <DropdownItem>
+              <DropdownItem color='primary'>
                 <Checkbox defaultSelected>filter by Name</Checkbox>
               </DropdownItem>
               <DropdownItem>
-                <Checkbox defaultSelected>filter by Internal Model ID</Checkbox>
+                <Checkbox defaultSelected color='primary'>filter by Internal Model ID</Checkbox>
               </DropdownItem>
               <DropdownItem>
-                <Checkbox defaultSelected>filter by External Model ID</Checkbox>
+                <Checkbox defaultSelected color='primary'>filter by External Model ID</Checkbox>
               </DropdownItem>
               <DropdownItem>
-                <Checkbox defaultSelected>filter by Serial Number</Checkbox>
+                <Checkbox defaultSelected color='primary'>filter by Serial Number</Checkbox>
               </DropdownItem>
             </DropdownSection>
 
-            <DropdownSection title="sort">
+            <DropdownSection title="sort" >
               <DropdownItem variant="light">
                 <RadioGroup>
                   <Radio value="date-modified">Date Modified</Radio>

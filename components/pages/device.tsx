@@ -6,16 +6,26 @@ import DeviceInfo from '../features/device/device-info';
 import GetDevice from '@/util/function/device/get-device';
 import { motion } from 'framer-motion'
 import { Button, Card, CardHeader } from '@nextui-org/react'
-import MobileDetails from './mobile/mobile-details';
 import { PlusIcon } from '../interface/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { setEditFlag } from '@/util/lib/redux-toolkit/reducers/interface/edit-flag-slice';
+import { RootState } from '@/util/lib/redux-toolkit/store';
+import NewCard from '../interface/new-card';
 
 export default function Device() {
+
   const pathname = usePathname();
   const isIPad = pathname.startsWith('/ipads');
   const deviceId = parseInt(pathname.split('/').pop() || '');
   const device = GetDevice(deviceId, isIPad);
 
   const [isMobile, setIsMobile] = useState(true); // Assuming the initial state is true
+  const dispatch = useDispatch();
+
+  const editFlag = useSelector(
+    (state: RootState) => state.edit.status,
+  )
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -39,7 +49,46 @@ export default function Device() {
     >
       <div className='w-full h-full flex justify-center   '>
         {!isMobile ? (
-          <MobileDetails device={device} isIPad={isIPad} />
+          <div className='w-4/5 md:px-0 md:w-2/3  my-8'>
+            <div className="h-full max-h-full w-full flex flex-col justify-start items-center  ">
+              <div className='flex justify-center'>
+                <DeviceImage size={150} isIPad={isIPad} />
+              </div>
+              <div className='w-full '>
+                <DeviceInfo device={device} isIPad={isIPad} />
+              </div>
+              <div className='w-1/2 text-center my-16'>
+                <Button size='lg' variant='flat' fullWidth onClick={() => dispatch(setEditFlag(!editFlag))}>edit</Button>
+              </div>
+              <div className='w-full h-full text-l   '>
+                <Card
+                  className="   justify-center  "
+                >
+                  <CardHeader className="flex justify-center items-center gap-3   ">
+                    <DeviceImage size={60} isIPad={isIPad} />
+                    <div className="min-h-[55px] flex flex-row justify-between items-center w-full ">
+                      <div className="flex flex-col items-start ">
+                        <p className="">
+                          {device.name}
+                        </p>
+                        <p className="font-bold">
+                          this is an ipad note title
+                        </p>
+                      </div>
+                      <Button color="default">Details</Button>
+                    </div>
+                  </CardHeader>
+                  <div className='pb-4 bt-6 px-8'>
+                    this is an ipad note summary
+                  </div>
+                </Card>
+                <div className='w-full my-4'>
+                  <NewCard />
+                </div>
+              </div>
+              <div className='py-4'>&nbsp;</div>
+            </div>
+          </div>
         ) : (
           <div className='flex flex-col h-full flex-grow  items-center max-w-6xl '>
             <div className=' h-full w-full flex justify-between items-center '>
@@ -66,7 +115,7 @@ export default function Device() {
                     <DeviceInfo device={device} isIPad={isIPad} />
                   </motion.div>
                   <div className='w-1/2  text-center  '>
-                    <Button size='lg' variant='flat' fullWidth>edit</Button>
+                      <Button size='lg' variant='flat' fullWidth onClick={() => dispatch(setEditFlag(!editFlag))}>edit</Button>
                   </div>
                 </div>
               </div>
@@ -94,7 +143,7 @@ export default function Device() {
                           this is an ipad note title
                         </p>
                       </div>
-                      <Button  color="default">Details</Button>
+                      <Button color="default">Details</Button>
                     </div>
                   </CardHeader>
                   <div className='pb-4 bt-6 px-8'>
