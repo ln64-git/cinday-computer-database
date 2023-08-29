@@ -7,6 +7,8 @@ import iPadArrayReducer from './reducers/ipad-array-slice';
 import iPadNoteArrayReducer from './reducers/ipad-note-array-slice';
 import laptopArrayReducer from './reducers/laptop-array-slice';
 import laptopNoteArrayReducer from './reducers/laptop-note-array-slice';
+import userDeviceReducer from './reducers/user-device-slice';
+import userNoteReducer from './reducers/user-note-slice';
 import pageReducer from './reducers/interface/page-slice';
 import repairReducer from './reducers/interface/repair-slice';
 import searchReducer from './reducers/interface/search-slice';
@@ -29,6 +31,8 @@ const rootReducer = combineReducers({
   iPadNoteArray: iPadNoteArrayReducer,
   laptopArray: laptopArrayReducer,
   laptopNoteArray: laptopNoteArrayReducer,
+  userDevice: userDeviceReducer,
+  userNote: userNoteReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

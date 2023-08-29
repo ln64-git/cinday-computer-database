@@ -2,6 +2,7 @@
 interface DeviceInfoProps {
   device: any,
   isIPad: boolean
+  editFleg: boolean
 }
 
 export default function DeviceInfo(props: DeviceInfoProps) {
@@ -13,7 +14,11 @@ export default function DeviceInfo(props: DeviceInfoProps) {
         </div>
         <div className="flex justify-between my-2 text-2xl">
           <p className="text-left truncate">Software Version:</p>
-          <p>{props.device.software_version}</p>
+          <p>{props.editFleg ? props.device.software_version : (
+            <div>
+              edit
+            </div>
+          )}</p>
         </div>
         <div className="flex justify-between my-2 text-2xl">
           <p className="text-left truncate">Internal Model ID:</p>
