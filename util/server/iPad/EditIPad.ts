@@ -1,20 +1,25 @@
 "use server"
 import { revalidatePath } from "next/cache"
 import prisma from "../../../util/config/prisma"
+import { ipad } from "@prisma/client"
 
-export default async function EditIPad({ iPad }) {
-  const iPadId = parseInt(iPad.ipad_id, 10)
+interface editIPadProps { 
+  userDevice: ipad
+  deviceId: number
+}
+
+export default async function EditIPad(props: editIPadProps ) {
   try {
     await prisma.ipad.update({
       where: {
-        ipad_id: iPadId,
+        ipad_id: props.deviceId,
       },
       data: {
-        name: iPad.name,
-        software_version: iPad.software_version,
-        internal_model_id: iPad.internal_model_id,
-        external_model_id: iPad.external_model_id,
-        serial_number: iPad.serial_number,
+        name: props.userDevice.name,
+        software_version: props.userDevice.software_version,
+        internal_model_id: props.userDevice.internal_model_id,
+        external_model_id: props.userDevice.external_model_id,
+        serial_number: props.userDevice.serial_number,
       },
     })
     revalidatePath("/ipads")

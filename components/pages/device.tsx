@@ -13,6 +13,11 @@ import { RootState } from '@/util/lib/redux-toolkit/store';
 import NewCard from '../interface/new-card';
 import DeleteLaptop from '@/util/server/laptop/DeleteLaptop';
 import DeleteIPad from '@/util/server/iPad/DeleteIPad';
+import EditIPad from '@/util/server/iPad/EditIPad';
+import EditLaptop from '@/util/server/laptop/EditLaptop';
+import convertToDateIPadData from '@/util/function/convert/to-date/convert-to-date-ipad-data';
+import convertToDateLaptopData from '@/util/function/convert/to-date/convert-to-date-laptop-data';
+import { setUserDevice } from '@/util/lib/redux-toolkit/reducers/user-device-slice';
 
 export default function Device() {
   const router = useRouter()
@@ -26,6 +31,9 @@ export default function Device() {
 
   const editFlag = useSelector(
     (state: RootState) => state.edit.status,
+  )
+  const userDevice = useSelector(
+    (state: RootState) => state.userDevice.state,
   )
 
 
@@ -44,6 +52,13 @@ export default function Device() {
     dispatch(setEditFlag(false))
   }, [dispatch])
 
+
+  
+  const handleReturn = async () => {
+    dispatch(setUserDevice(device))
+    dispatch(setEditFlag(!editFlag))
+  }
+
   const handleDelete = async () => {
     try {
       if (isIPad) {
@@ -55,11 +70,26 @@ export default function Device() {
       router.push(`/`)
     }
   }
+
   const handleSubmit = async () => {
+    try {
+      if (isIPad) {
+        await EditIPad({
+          userDevice: convertToDateIPadData(userDevice),
+          deviceId: deviceId
+        })
+      } else {
+        await EditLaptop({
+          userDevice: convertToDateLaptopData(userDevice),
+          deviceId: deviceId
+        })
+      }
+    } finally {
+      router.push("/")
+    }
   }
 
   if (device) {
-
     return (
       <motion.div
         initial={{ opacity: 0 }} // Start with opacity 0 and y offset
@@ -85,10 +115,10 @@ export default function Device() {
                       <Button size='lg' color="danger" variant="light" fullWidth onClick={handleDelete}>Delete</Button>
                     </div>
                     <div className='w-1/3 text-center my-16 mx-2'>
-                      <Button size='lg' variant='flat' fullWidth onClick={() => dispatch(setEditFlag(!editFlag))}>Return</Button>
+                      <Button size='lg' variant='flat' fullWidth onClick={handleReturn}>Return</Button>
                     </div>
                     <div className='w-1/3 text-center my-16 mx-2'>
-                      <Button size='lg' color="secondary" variant="light" fullWidth onClick={() => handleSubmit}>Submit</Button>
+                      <Button size='lg' color="secondary" variant="light" fullWidth onClick={handleSubmit}>Submit</Button>
                     </div>
                   </div>
                 ) : (
@@ -151,9 +181,24 @@ export default function Device() {
                       className='w-full mb-10 mt-12 '>
                       <DeviceInfo device={device} isIPad={isIPad} editFlag={editFlag} />
                     </motion.div>
-                    <div className='w-1/2  text-center  '>
-                      <Button size='lg' variant='flat' fullWidth onClick={() => dispatch(setEditFlag(!editFlag))}>edit</Button>
-                    </div>
+                    {editFlag ? (
+                      <div className='flex justify-between  w-full'>
+                        <div className='w-1/3 text-center my-16 mx-2'>
+                          <Button size='lg' color="danger" variant="light" fullWidth onClick={handleDelete}>Delete</Button>
+                        </div>
+                        <div className='w-1/3 text-center my-16 mx-2'>
+                          <Button size='lg' variant='flat' fullWidth onClick={handleReturn}>Return</Button>
+                        </div>
+                        <div className='w-1/3 text-center my-16 mx-2'>
+                          <Button size='lg' color="secondary" variant="light" fullWidth onClick={handleSubmit}>Submit</Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className='w-1/2 text-center my-16'>
+                        <Button size='lg' variant='flat' fullWidth onClick={() => dispatch(setEditFlag(!editFlag))}>edit</Button>
+                      </div>
+                    )}
+
                   </div>
                 </div>
                 <div className=' h-2/4'></div>

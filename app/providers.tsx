@@ -25,13 +25,13 @@ export function Providers({ children, themeProps }: ProvidersProps) {
         transition={{ duration: 0.15 }}
       >
         <NextUIProvider >
-            <Provider store={store}>
-              <PersistGate loading={null} persistor={persistor}>
-                <NextThemesProvider {...themeProps}>
-                  {children}
-                </NextThemesProvider>
-              </PersistGate>
-            </Provider>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <NextThemesProvider {...themeProps}>
+                {children}
+              </NextThemesProvider>
+            </PersistGate>
+          </Provider>
         </NextUIProvider>
       </motion.div>
     </AnimatePresence>

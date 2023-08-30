@@ -4,9 +4,9 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 interface DeviceInfoProps {
-  device?: any,
-  isIPad: boolean,
-  editFlag: boolean
+  device?: any;
+  isIPad: boolean;
+  editFlag: boolean;
 }
 
 export default function DeviceInfo(props: DeviceInfoProps) {
@@ -21,12 +21,11 @@ export default function DeviceInfo(props: DeviceInfoProps) {
     cinday_id: props.device?.cinday_id || '',
   });
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setUserDevice(userDeviceState))
-  }, [userDeviceState, dispatch])
-
+    dispatch(setUserDevice(userDeviceState));
+  }, [userDeviceState, dispatch]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -36,14 +35,12 @@ export default function DeviceInfo(props: DeviceInfoProps) {
     }));
   };
 
-
   return (
     <>
       <div>
         <div className="flex justify-center mt-6 mb-10 text-2xl font-bold">
           {props.editFlag ? (
             <div className='flex flex-col justify-center items-center w-full'>
-              {/* <span className="font-bold">Name</span> */}
               <Input
                 name="name"
                 placeholder='name'
@@ -59,59 +56,115 @@ export default function DeviceInfo(props: DeviceInfoProps) {
         </div>
         {props.isIPad && (
           <div>
-            <InputField
-              label="Software Version:"
-              value={userDeviceState.software_version}
-              name="software_version"
-              editFlag={props.editFlag}
-              handleInputChange={handleInputChange}
-            />
-            <InputField
-              label="Internal Model ID:"
-              value={userDeviceState.internal_model_id}
-              name="internal_model_id"
-              editFlag={props.editFlag}
-              handleInputChange={handleInputChange}
-            />
-            <InputField
-              label="External Model ID:"
-              value={userDeviceState.external_model_id}
-              name="external_model_id"
-              editFlag={props.editFlag}
-              handleInputChange={handleInputChange}
-            />
+            <div className="flex justify-between items-center my-2 text-2xl ">
+              <p className="text-left truncate">Software Version:</p>
+              {props.editFlag ? (
+                <Input
+                  type="text"
+                  name="software_version"
+                  value={userDeviceState.software_version}
+                  variant='flat'
+                  onChange={handleInputChange}
+                  classNames={{ base: ["w-1/2"], input: ["text-right"] }}
+                />
+              ) : (
+                <p>{props.device?.software_version}</p>
+              )}
+            </div>
+            <div className="flex justify-between items-center my-2 text-2xl ">
+              <p className="text-left truncate">Internal Model ID:</p>
+              {props.editFlag ? (
+                <Input
+                  type="text"
+                  name="internal_model_id"
+                  value={userDeviceState.internal_model_id}
+                  variant='flat'
+                  onChange={handleInputChange}
+                  classNames={{ base: ["w-1/2"], input: ["text-right"] }}
+                />
+              ) : (
+                <p>{props.device?.internal_model_id}</p>
+              )}
+            </div>
+            <div className="flex justify-between items-center my-2 text-2xl ">
+              <p className="text-left truncate">External Model ID:</p>
+              {props.editFlag ? (
+                <Input
+                  type="text"
+                  name="external_model_id"
+                  value={userDeviceState.external_model_id}
+                  variant='flat'
+                  onChange={handleInputChange}
+                  classNames={{ base: ["w-1/2"], input: ["text-right"] }}
+                />
+              ) : (
+                <p>{props.device?.external_model_id}</p>
+              )}
+            </div>
           </div>
         )}
-        <InputField
-          label="Serial Number:"
-          value={userDeviceState.serial_number}
-          name="serial_number"
-          editFlag={props.editFlag}
-          handleInputChange={handleInputChange}
-        />
+        <div className="flex justify-between items-center my-2 text-2xl ">
+          <p className="text-left truncate">Serial Number:</p>
+          {props.editFlag ? (
+            <Input
+              type="text"
+              name="serial_number"
+              value={userDeviceState.serial_number}
+              variant='flat'
+              onChange={handleInputChange}
+              classNames={{ base: ["w-1/2"], input: ["text-right"] }}
+            />
+          ) : (
+            <p>{props.device?.serial_number}</p>
+          )}
+        </div>
         {!props.isIPad && (
           <div>
-            <InputField
-              label="Springboro Tag ID:"
-              value={userDeviceState.springboro_tag_id}
-              name="springboro_tag_id"
-              editFlag={props.editFlag}
-              handleInputChange={handleInputChange}
-            />
-            <InputField
-              label="Aux Funds PO ID:"
-              value={userDeviceState.aux_funds_po_id}
-              name="aux_funds_po_id"
-              editFlag={props.editFlag}
-              handleInputChange={handleInputChange}
-            />
-            <InputField
-              label="Cinday ID:"
-              value={userDeviceState.cinday_id}
-              name="cinday_id"
-              editFlag={props.editFlag}
-              handleInputChange={handleInputChange}
-            />
+            <div className="flex justify-between items-center my-2 text-2xl ">
+              <p className="text-left truncate">Springboro Tag ID:</p>
+              {props.editFlag ? (
+                <Input
+                  type="text"
+                  name="springboro_tag_id"
+                  value={userDeviceState.springboro_tag_id}
+                  variant='flat'
+                  onChange={handleInputChange}
+                  classNames={{ base: ["w-1/2"], input: ["text-right"] }}
+                />
+              ) : (
+                <p>{props.device?.springboro_tag_id}</p>
+              )}
+            </div>
+            <div className="flex justify-between items-center my-2 text-2xl ">
+              <p className="text-left truncate">Aux Funds PO ID:</p>
+              {props.editFlag ? (
+                <Input
+                  type="text"
+                  name="aux_funds_po_id"
+                  value={userDeviceState.aux_funds_po_id}
+                  variant='flat'
+                  onChange={handleInputChange}
+                  classNames={{ base: ["w-1/2"], input: ["text-right"] }}
+                />
+              ) : (
+                <p>{props.device?.aux_funds_po_id}</p>
+              )}
+            </div>
+            <div className="flex justify-between items-center my-2 text-2xl ">
+              <p className="text-left truncate">Cinday ID:</p>
+              {props.editFlag ? (
+                <Input
+                  type="text"
+                  name="cinday_id"
+                  value={userDeviceState.cinday_id}
+                  variant='flat'
+                  onChange={handleInputChange}
+                  classNames={{ base: ["w-1/2"], input: ["text-right"] }}
+                />
+              ) : (
+                <p>{props.device?.cinday_id}</p>
+              )}
+            </div>
           </div>
         )}
         <div className='flex justofy-center items-center w-full'>
@@ -128,38 +181,3 @@ export default function DeviceInfo(props: DeviceInfoProps) {
     </>
   );
 }
-
-
-interface InputFieldProps {
-  label: string,
-  value: string,
-  name: string,
-  editFlag: boolean,
-  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-}
-
-const InputField: React.FC<InputFieldProps> = ({
-  label,
-  value,
-  name,
-  editFlag,
-  handleInputChange
-}) => {
-  return (
-    <div className="flex justify-between items-center my-2 text-2xl ">
-      <p className="text-left truncate">{label}</p>
-      {editFlag ? (
-        <Input
-          type="text"
-          name={name}
-          value={value}
-          variant='flat'
-          onChange={handleInputChange}
-          classNames={{ base: ["w-1/2"], input: ["text-right"] }}
-        />
-      ) : (
-        <p>{value}</p>
-      )}
-    </div>
-  );
-};

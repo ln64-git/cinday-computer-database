@@ -4,8 +4,8 @@ import { redux_ipad } from "../types/redux-ipad"
 import { redux_laptop } from "../types/redux-laptop"
 import { redux_ipad_note } from "../types/redux-ipad-note"
 import { redux_laptop_note } from "../types/redux-laptop-note"
-import convertToDateIPadArray from "./convert/to-date/convert-to-date-ipad-array"
-import convertToDateLaptopArray from "./convert/to-date/convert-to-date-laptop-array"
+import convertToDateIPadData from "./convert/to-date/convert-to-date-ipad-data"
+import convertToDateLaptopData from "./convert/to-date/convert-to-date-laptop-data"
 import convertToDateIPadNoteArray from "./convert/to-date/convert-to-date-ipad-note-array"
 import convertToDateLaptopNoteArray from "./convert/to-date/convert-to-date-laptop-note-array"
 
@@ -40,8 +40,8 @@ export default function GetDeviceData() {
     laptopNoteArray = localLaptopNoteArray
   }
 
-  iPadArray = convertToDateIPadArray(iPadArray)
-  laptopArray = convertToDateLaptopArray(laptopArray)
+  iPadArray = convertToDateIPadData(iPadArray)
+  laptopArray = convertToDateLaptopData(laptopArray)
   iPadNoteArray = convertToDateIPadNoteArray(iPadNoteArray)
   laptopNoteArray = convertToDateLaptopNoteArray(laptopNoteArray)
 
