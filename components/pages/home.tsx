@@ -21,6 +21,7 @@ import convertDeviceToIPad from '@/util/function/convert/to-device/convet-device
 import convertDeviceToLaptop from '@/util/function/convert/to-device/convert-device-to-laptop';
 import AddIPad from '@/util/server/iPad/AddIPad';
 import AddLaptop from '@/util/server/laptop/AddLaptop';
+import { useRouter } from 'next/navigation';
 
 interface HomeProps {
   iPadArray: any[];
@@ -62,13 +63,20 @@ export default function Home(data: HomeProps) {
     setAddDevice(!addDevice);
   };
 
+  const router = useRouter()
   const handleSumbit = async () => {
-    if (isIPad) {
-      const userIPad = convertDeviceToIPad(userDevice)
-      await AddIPad(userIPad)
-    } else {
-      const userLaptop = convertDeviceToLaptop(userDevice)
-      await AddLaptop(userLaptop)
+    try {
+      if (isIPad) {
+        const userIPad = convertDeviceToIPad(userDevice)
+        await AddIPad(userIPad)
+      } else {
+        const userLaptop = convertDeviceToLaptop(userDevice)
+        await AddLaptop(userLaptop)
+      }
+    } finally {
+      console.log("made it")
+      setAddDevice(false)
+      router.refresh();
     }
   };
 

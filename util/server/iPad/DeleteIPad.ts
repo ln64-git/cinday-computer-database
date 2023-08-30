@@ -2,7 +2,7 @@
 import { revalidatePath } from "next/cache"
 import prisma from "../../../util/config/prisma"
 
-export default async function DeleteIPad({ iPadId }) {
+export default async function DeleteIPad(iPadId: number) {
   try {
     await prisma.ipad.delete({
       where: { ipad_id: iPadId },

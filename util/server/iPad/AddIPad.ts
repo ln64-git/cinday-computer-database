@@ -1,11 +1,12 @@
 'use server'
 import prisma from '@/util/config/prisma'
+import { getNextDeviceId } from '@/util/function/get-next-id'
 import { ipad } from '@prisma/client'
 
 export default async function AddIPad(newIPad: ipad) {
   try {
     const inputData: ipad = {
-      ipad_id: newIPad.ipad_id,
+      ipad_id: getNextDeviceId({ deviceArray: await prisma.ipad.findMany(), isIPad: true }),
       name: newIPad.name,
       software_version: newIPad.software_version,
       internal_model_id: newIPad.internal_model_id,

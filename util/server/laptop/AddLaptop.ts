@@ -1,11 +1,13 @@
 'use server'
 import prisma from '@/util/config/prisma'
+import { getNextDeviceId } from '@/util/function/get-next-id'
 import { laptop } from '@prisma/client'
 
 export default async function AddLaptop(newLaptop: laptop) {
+
   try {
-    const inputData: laptop = {
-      laptop_id: newLaptop.laptop_id,
+    const inputData: any = {
+      laptop_id: getNextDeviceId({ deviceArray: await prisma.laptop.findMany(), isIPad: false }),
       name: newLaptop.name,
       serial_number: newLaptop.serial_number,
       springboro_tag_id: newLaptop.springboro_tag_id,

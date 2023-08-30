@@ -19,6 +19,7 @@ module.exports = {
         // content1: 'var(--primary2)',
         // background: 'var(--primary)',
         primary: 'var(--primary)',
+        secondary: '#006FEE',
       },
     },
   },

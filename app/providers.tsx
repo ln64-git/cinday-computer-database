@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 import { Provider } from 'react-redux'
 import { persistor, store } from '@/util/lib/redux-toolkit/store'
+import { useRouter } from 'next/navigation';
 
 export interface ProvidersProps {
   children: React.ReactNode
@@ -14,6 +15,7 @@ export interface ProvidersProps {
 }
 
 export function Providers({ children, themeProps }: ProvidersProps) {
+  useRouter()
   return (
     <AnimatePresence>
       <motion.div
