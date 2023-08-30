@@ -1,9 +1,9 @@
+// user-device-slice.ts
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { redux_ipad } from '@/util/types/redux-ipad';
-import { redux_laptop } from '@/util/types/redux.laptop';
+import { redux_device } from '@/util/types/redux-device';
 
 interface DeviceState {
-  state: redux_ipad | redux_laptop | null;
+  state: redux_device | null;
 }
 
 const initialState: DeviceState = {
@@ -14,11 +14,14 @@ const userDeviceSlice = createSlice({
   name: 'userDevice',
   initialState,
   reducers: {
-    setUserDevice: (state, action: PayloadAction<redux_ipad | redux_laptop>) => {
-      state.state = action.payload; 
+    setUserDevice: (state, action: PayloadAction<redux_device>) => {
+      state.state = action.payload;
     },
+    resetUserDevice: (state) => {
+      state.state = null;
+    }
   },
 });
 
-export const { setUserDevice } = userDeviceSlice.actions;
+export const { setUserDevice, resetUserDevice } = userDeviceSlice.actions;
 export default userDeviceSlice.reducer;

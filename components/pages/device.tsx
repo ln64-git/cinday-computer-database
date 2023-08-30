@@ -38,7 +38,6 @@ export default function Device() {
     };
   }, []);
 
-
   return (
     <motion.div
       initial={{ opacity: 0 }} // Start with opacity 0 and y offset
@@ -47,7 +46,7 @@ export default function Device() {
       transition={{ duration: .8 }} // Animation duration and type
       className="w-full h-full flex flex-wrap justify-center "
     >
-      <div className='w-full h-full flex justify-center   '>
+      <div className='w-full h-full flex justify-center'>
         {!isMobile ? (
           <div className='w-4/5 md:px-0 md:w-2/3  my-8'>
             <div className="h-full max-h-full w-full flex flex-col justify-start items-center  ">
@@ -55,7 +54,7 @@ export default function Device() {
                 <DeviceImage size={150} isIPad={isIPad} />
               </div>
               <div className='w-full '>
-                <DeviceInfo device={device} isIPad={isIPad} />
+                <DeviceInfo device={device} isIPad={isIPad} editFlag={editFlag} />
               </div>
               <div className='w-1/2 text-center my-16'>
                 <Button size='lg' variant='flat' fullWidth onClick={() => dispatch(setEditFlag(!editFlag))}>edit</Button>
@@ -112,10 +111,10 @@ export default function Device() {
                     exit={{ opacity: 0 }} // Fade-out and move up during exit
                     transition={{ duration: .8 }} // Animation duration and type
                     className='w-full mb-10 mt-12 '>
-                    <DeviceInfo device={device} isIPad={isIPad} />
+                    <DeviceInfo device={device} isIPad={isIPad} editFlag={editFlag} />
                   </motion.div>
                   <div className='w-1/2  text-center  '>
-                      <Button size='lg' variant='flat' fullWidth onClick={() => dispatch(setEditFlag(!editFlag))}>edit</Button>
+                    <Button size='lg' variant='flat' fullWidth onClick={() => dispatch(setEditFlag(!editFlag))}>edit</Button>
                   </div>
                 </div>
               </div>

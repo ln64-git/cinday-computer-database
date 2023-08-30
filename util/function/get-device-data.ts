@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../lib/redux-toolkit/store"
 import { redux_ipad } from "../types/redux-ipad"
-import { redux_laptop } from "../types/redux.laptop"
+import { redux_laptop } from "../types/redux-laptop"
 import { redux_ipad_note } from "../types/redux-ipad-note"
 import { redux_laptop_note } from "../types/redux-laptop-note"
-import convertToDateIPadArray from "./ipad/convert-to-date-ipad-array"
-import convertToDateLaptopArray from "./laptop/convert-to-date-laptop-note-array"
-import convertToDateIPadNoteArray from "./ipad-note/convert-to-date-ipad-note-array"
-import convertToDateLaptopNoteArray from "./laptop-note/convert-to-date-laptop-note-array"
+import convertToDateIPadArray from "./convert/to-date/convert-to-date-ipad-array"
+import convertToDateLaptopArray from "./convert/to-date/convert-to-date-laptop-array"
+import convertToDateIPadNoteArray from "./convert/to-date/convert-to-date-ipad-note-array"
+import convertToDateLaptopNoteArray from "./convert/to-date/convert-to-date-laptop-note-array"
 
 export default function GetDeviceData() {
   const localIPadArray = useSelector(

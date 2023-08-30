@@ -29,7 +29,7 @@ export default function MobileDetails(props: MoblieDetailsProps) {
           <DeviceImage size={150} isIPad={props.isIPad} />
         </div>
         <div className='w-full '>
-          <DeviceInfo device={props.device} isIPad={props.isIPad} />
+          <DeviceInfo device={props.device} isIPad={props.isIPad} editFlag={editFlag} />
         </div>
         <div className='w-1/2 text-center my-16'>
           <Button size='lg' variant='flat' fullWidth onClick={() => dispatch(setEditFlag(!editFlag))}>edit</Button>

@@ -1,5 +1,5 @@
 'use server'
-import prisma from '@/util/prisma'
+import prisma from '@/util/config/prisma'
 import { ipad } from '@prisma/client'
 
 export default async function AddIPad(newIPad: ipad) {
@@ -11,14 +11,10 @@ export default async function AddIPad(newIPad: ipad) {
       internal_model_id: newIPad.internal_model_id,
       external_model_id: newIPad.external_model_id,
       serial_number: newIPad.serial_number,
-      date_created: newIPad.date_created,
-      date_modified: newIPad.date_modified,
-      flag_repair: newIPad.flag_repair, // Provide the appropriate value
-      // date_created: new Date(),
-      // date_modified: new Date(),
-      // flag_repair: false, // Provide the appropriate value
+      date_created: new Date(),
+      date_modified: new Date(),
+      flag_repair: false
     }
-
     await prisma.ipad.create({
       data: inputData,
     })

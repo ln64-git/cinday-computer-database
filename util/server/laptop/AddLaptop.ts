@@ -1,8 +1,8 @@
 'use server'
-import prisma from '@/util/prisma'
+import prisma from '@/util/config/prisma'
 import { laptop } from '@prisma/client'
 
-export default async function AddIPad(newLaptop: laptop) {
+export default async function AddLaptop(newLaptop: laptop) {
   try {
     const inputData: laptop = {
       laptop_id: newLaptop.laptop_id,
@@ -11,12 +11,9 @@ export default async function AddIPad(newLaptop: laptop) {
       springboro_tag_id: newLaptop.springboro_tag_id,
       aux_funds_po_id: newLaptop.aux_funds_po_id,
       cinday_id: newLaptop.cinday_id,
-      date_created: newLaptop.date_created,
-      date_modified: newLaptop.date_modified,
-      flag_repair: newLaptop.flag_repair, // Provide the appropriate value
-      // date_created: new Date(),
-      // date_modified: new Date(),
-      // flag_repair: false, // Provide the appropriate value
+      date_created: new Date(),
+      date_modified: new Date(),
+      flag_repair: false
     }
 
     await prisma.laptop.create({

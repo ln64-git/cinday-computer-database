@@ -177,6 +177,7 @@ export const Navbar = () => {
             )}
           </button>
         )}
+
       </NavbarContent>
     </NextUINavbar>
   )

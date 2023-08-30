@@ -9,10 +9,18 @@ import { setIPadArray } from '@/util/lib/redux-toolkit/reducers/ipad-array-slice
 import { setLaptopArray } from '@/util/lib/redux-toolkit/reducers/laptop-array-slice';
 import { setIPadNoteArray } from '@/util/lib/redux-toolkit/reducers/ipad-note-array-slice';
 import { setLaptopNoteArray } from '@/util/lib/redux-toolkit/reducers/laptop-note-array-slice';
-import convertToStringIPadArray from '@/util/function/ipad/convert-to-string-ipad-array';
-import convertToStringLaptopArray from '@/util/function/laptop/convert-to-string-laptop-note-array';
-import convertToStringIPadNoteArray from '@/util/function/ipad-note/convert-to-string-ipad-note-array';
-import convertToStringLaptopNoteArray from '@/util/function/laptop-note/convert-to-string-laptop-note-array';
+import convertToStringIPadArray from '@/util/function/convert/to-string/convert-to-string-ipad-array';
+import convertToStringLaptopArray from '@/util/function/convert/to-string/convert-to-string-laptop-array';
+import convertToStringIPadNoteArray from '@/util/function/convert/to-string/convert-to-string-ipad-note-array';
+import convertToStringLaptopNoteArray from '@/util/function/convert/to-string/convert-to-string-laptop-note-array';
+import { useState } from 'react';
+import DeviceInfo from '../features/device/device-info';
+import DeviceImage from '@/util/config/device-logo';
+import { resetUserDevice } from '@/util/lib/redux-toolkit/reducers/user-device-slice';
+import convertDeviceToIPad from '@/util/function/convert/to-device/convet-device-to-ipad';
+import convertDeviceToLaptop from '@/util/function/convert/to-device/convert-device-to-laptop';
+import AddIPad from '@/util/server/iPad/AddIPad';
+import AddLaptop from '@/util/server/laptop/AddLaptop';
 
 interface HomeProps {
   iPadArray: any[];
@@ -33,87 +41,156 @@ export default function Home(data: HomeProps) {
   const repairFlag = useSelector((state: any) => state.repair.status);
 
   const filteredIPadArray = data.iPadArray.filter(
-    (device) =>
+    device =>
       device.flag_repair === repairFlag &&
       device.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
   const filteredLaptopArray = data.laptopArray.filter(
-    (device) =>
+    device =>
       device.flag_repair === repairFlag &&
       device.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
+  const [isIPad, setIsIPad] = useState(true);
+  const [addDevice, setAddDevice] = useState(false);
 
+  const userDevice = useSelector((state: any) => state.userDevice.state);
 
+  const handleReset = () => {
+    dispatch(resetUserDevice());
+    setAddDevice(!addDevice);
+  };
+
+  const handleSumbit = async () => {
+    if (isIPad) {
+      const userIPad = convertDeviceToIPad(userDevice)
+      await AddIPad(userIPad)
+    } else {
+      const userLaptop = convertDeviceToLaptop(userDevice)
+      await AddLaptop(userLaptop)
+    }
+  };
 
   return (
     <AnimatePresence>
-        <div className="h-full w-full flex flex-grow flex-wrap">
-          <div className="h-full w-full flex flex-col items-center pt-4">
-            <Tabs aria-label="Options" className='mt-4'>
-              <Tab key="ipads" title="iPads">
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="w-full h-full flex flex-wrap justify-center"
-                >
-                  {filteredIPadArray.map((device: any) => (
-                    <HomeCard
-                      isIPad={true}
-                      deviceId={device.ipad_id}
-                      key={device.ipad_id}
-                    />
-                  ))}
-                </motion.div>
-                {!repairFlag && (
-                  <div className='flex justify-center'>
-                    <Card className="justify-center w-1/4 my-2 ">
-                      <div className='w-full  flex justify-center items-center'>
-                        <div className="min-h-[55px] flex flex-row items-center w-2/3">
-                          <Button fullWidth variant='light' color="default"><PlusIcon /></Button>
-                        </div>
-                      </div>
-                    </Card>
-                  </div>
-                )}
-              </Tab>
-              <Tab
-                key="laptops"
-                title="Laptops"
-                className="w-full flex flex-wrap justify-center"
-              >
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className=" w-full flex flex-wrap justify-center"
-                >
-                  {filteredLaptopArray.map((device: any) => (
-                    <HomeCard
-                      isIPad={false}
-                      deviceId={device.laptop_id}
-                      key={device.laptop_id}
-                    />
-                  ))}
-                </motion.div>
-                {!repairFlag && (
+      <div className="relative h-full w-full flex flex-grow flex-wrap">
+        <div className={`${addDevice ? 'filter blur-sm pointer-events-none overflow-hidden' : ''
+          } absolute inset-0 h-full w-full flex flex-col items-center pt-4`}>
+          <Tabs aria-label="Options" className="mt-4">
+            <Tab
+              key="ipads"
+              title="iPads"
+              onFocus={() => setIsIPad(true)}>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="w-full h-full flex flex-wrap justify-center">
+                {filteredIPadArray.map(device => (
+                  <HomeCard
+                    isIPad={isIPad}
+                    deviceId={device.ipad_id}
+                    key={device.ipad_id}
+                  />
+                ))}
+              </motion.div>
+              {!repairFlag && (
+                <div className="flex justify-center">
                   <Card className="justify-center w-1/4 my-2">
-                    <div className='w-full  flex justify-center items-center'>
+                    <div className="w-full flex justify-center items-center">
                       <div className="min-h-[55px] flex flex-row items-center w-2/3">
-                        <Button fullWidth variant='light' color="default"><PlusIcon /></Button>
+                        <Button
+                          onClick={() => setAddDevice(!addDevice)}
+                          fullWidth
+                          variant="light"
+                          color="default">
+                          <PlusIcon />
+                        </Button>
                       </div>
                     </div>
                   </Card>
-                )}
-              </Tab>
-            </Tabs>
-          </div>
+                </div>
+              )}
+            </Tab>
+            <Tab
+              onFocus={() => setIsIPad(false)}
+              key="laptops"
+              title="Laptops"
+              className="w-full flex flex-wrap justify-center">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="w-full flex flex-wrap justify-center">
+                {filteredLaptopArray.map(device => (
+                  <HomeCard
+                    isIPad={isIPad}
+                    deviceId={device.laptop_id}
+                    key={device.laptop_id}
+                  />
+                ))}
+              </motion.div>
+              {!repairFlag && (
+                <Card className="justify-center w-1/4 my-2">
+                  <div className="w-full flex justify-center items-center">
+                    <div className="min-h-[55px] flex flex-row items-center w-2/3">
+                      <Button
+                        onClick={() => setAddDevice(!addDevice)}
+                        fullWidth
+                        variant="light"
+                        color="default">
+                        <PlusIcon />
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              )}
+            </Tab>
+          </Tabs>
         </div>
 
+        {addDevice && (
+          <motion.div
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -100 }}
+            transition={{ duration: 0.5 }}
+            className="z-10 absolute inset-0 flex justify-center items-center mt-0 bg-background backdrop-blur bg-background/90">
+            <div className="w-4/5 md:px-0 md:w-2/3 my-8 h-full pt-12">
+              <div className="h-full max-h-full w-full flex flex-col justify-start items-center">
+                <div className="flex justify-center">
+                  <DeviceImage size={150} isIPad={isIPad} />
+                </div>
+                <div className="w-full">
+                  <DeviceInfo isIPad={isIPad} editFlag={true} />
+                </div>
+                <div className="flex w-full text-center my-16">
+                  <Button
+                    className="mx-4"
+                    size="lg"
+                    variant="flat"
+                    fullWidth
+                    onClick={handleReset}>
+                    Return
+                  </Button>
+                  <Button
+                    className="mx-4"
+                    size="lg"
+                    variant="flat"
+                    fullWidth
+                    onClick={handleSumbit}>
+                    Submit
+                  </Button>
+                </div>
+                <div className="py-4">&nbsp;</div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </div>
     </AnimatePresence>
   );
 }

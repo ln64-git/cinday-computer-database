@@ -5,10 +5,10 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import DeviceImage from '@/util/config/device-logo'
 import GetDeviceData from '@/util/function/get-device-data'
-import GetIPadDevice from '@/util/function/ipad/get-ipad-device'
-import GetLatestIPadNote from '@/util/function/ipad-note/get-latest-ipad-note'
-import GetLaptopDevice from '@/util/function/laptop/get-laptop-device'
-import GetLatestLaptopNote from '@/util/function/laptop-note/get-latest-laptop-note'
+import GetIPadDevice from '@/util/function/device/get-ipad-device'
+import GetLatestIPadNote from '@/util/function/device/get-latest-ipad-note'
+import GetLaptopDevice from '@/util/function/device/get-laptop-device'
+import GetLatestLaptopNote from '@/util/function/device/get-latest-laptop-note'
 
 interface HomeCardProps {
   deviceId: number

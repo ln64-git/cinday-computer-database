@@ -1,4 +1,4 @@
-import { redux_laptop } from '@/util/types/redux.laptop'
+import { redux_laptop } from '@/util/types/redux-laptop'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 
