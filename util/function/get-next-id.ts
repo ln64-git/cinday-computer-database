@@ -1,6 +1,6 @@
 interface getNextDeviceIdProps {
   deviceArray: any[],
-  isIPad: boolean
+  deviceType: 'ipad' | 'laptop' | 'note'
 }
 
 export function getNextDeviceId(props: getNextDeviceIdProps) {
@@ -8,10 +8,10 @@ export function getNextDeviceId(props: getNextDeviceIdProps) {
     return 1;
   }
 
-  let maxId = props.isIPad ? props.deviceArray[0].ipad_id : props.deviceArray[0].laptop_id;
+  let maxId = props.deviceArray[0][`${props.deviceType}_id`];
 
   for (const device of props.deviceArray) {
-    const id = props.isIPad ? device.ipad_id : device.laptop_id;
+    const id = device[`${props.deviceType}_id`];
     if (id > maxId) {
       maxId = id;
     }
