@@ -21,7 +21,7 @@ import DeleteLaptop from '@/util/server/laptop/DeleteLaptop';
 import GetDeviceNoteArray from '@/util/function/device/get-device-notes';
 import { ipad_note, laptop_note } from '@prisma/client';
 
-export default function Device() {
+export default function Note() {
   const router = useRouter()
   const pathname = usePathname();
   const isIPad = pathname.startsWith('/ipads');
@@ -147,10 +147,10 @@ export default function Device() {
                 )}
 
                 <div className='w-full h-full text-l   '>
-                  {deviceNotes?.map((note: ipad_note | laptop_note, index: number) => (
+                  {deviceNotes.map((note: ipad_note | laptop_note, index: number) => (
                     <Card
                       key={index}
-                      className="justify-center w-full"
+                      className="justify-center w-1/3 m-4"
                     >
                       <CardHeader className="flex justify-center items-center gap-3">
                         <DeviceImage size={60} isIPad={isIPad} />
@@ -228,27 +228,28 @@ export default function Device() {
                   exit={{ opacity: 0, y: -100 }} // Fade-out and move up during exit (y: -100)
                   transition={{ duration: .4 }} // Animation duration and type
                   className='flex flex-wrap justify-center'
+                >
+                  <Card
+                    className="justify-center w-1/3 m-4"
                   >
-                    {deviceNotes?.map((note: ipad_note | laptop_note, index: number) => (
-                      <Card
-                        key={index}
-                        className="justify-center w-1/3 m-4"
-                      >
-                        <CardHeader className="flex justify-center items-center gap-3">
-                          <DeviceImage size={60} isIPad={isIPad} />
-                          <div className="min-h-[55px] flex flex-row justify-between items-center w-full">
-                            <div className="flex flex-col items-start">
-                              <p className="">{device.name}</p>
-                              <p className="font-bold">{note.name}</p>
-                            </div>
-                            <Button onClick={() => {router.push('/' + (isIPad ? 'ipads/' : 'laptops/') + deviceId + '/' + note.note_id)}}>Details</Button>
-                          </div>
-                        </CardHeader>
-                        <div className='pb-4 bt-6 px-8'>
-                          {note.summary}
+                    <CardHeader className="flex justify-center items-center gap-3   ">
+                      <DeviceImage size={60} isIPad={isIPad} />
+                      <div className="min-h-[55px] flex flex-row justify-between items-center w-full ">
+                        <div className="flex flex-col items-start ">
+                          <p className="">
+                            {device.name}
+                          </p>
+                          <p className="font-bold">
+                            this is an ipad note title
+                          </p>
                         </div>
-                      </Card>
-                    ))}
+                        <Button color="default">Details</Button>
+                      </div>
+                    </CardHeader>
+                    <div className='pb-4 bt-6 px-8'>
+                      this is an ipad note summary
+                    </div>
+                  </Card>
                   <Card
                     className="justify-center w-1/3 m-4"
                   >

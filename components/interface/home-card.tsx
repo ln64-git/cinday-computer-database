@@ -4,11 +4,8 @@ import { ipad, ipad_note, laptop, laptop_note } from '@prisma/client'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import DeviceImage from '@/util/config/device-logo'
-import GetDeviceData from '@/util/function/get-device-data'
-import GetIPadDevice from '@/util/function/device/get-ipad-device'
-import GetLatestIPadNote from '@/util/function/device/get-latest-ipad-note'
-import GetLaptopDevice from '@/util/function/device/get-laptop-device'
-import GetLatestLaptopNote from '@/util/function/device/get-latest-laptop-note'
+import GetDevice from '@/util/function/device/get-device'
+import GetLatestDeviceNote from '@/util/function/device/get-device-note-latest'
 
 interface HomeCardProps {
   deviceId: number
@@ -16,29 +13,17 @@ interface HomeCardProps {
 }
 
 export default function HomeCard(data: HomeCardProps) {
-  const deviceData = GetDeviceData()
-  const { iPadArray, laptopArray, iPadNoteArray, laptopNoteArray } = deviceData
-
-
-
   let iPadDevice: ipad | undefined = undefined
   let iPadNote: ipad_note | null = null
   let laptopDevice: laptop | undefined = undefined
   let laptopNote: laptop_note | null = null
 
   if (data.isIPad) {
-    iPadDevice =
-      iPadArray.length > 0
-        ? (GetIPadDevice(iPadArray, data.deviceId) as ipad)
-        : undefined
-
-    iPadNote =
-      iPadNoteArray.length > 0
-        ? GetLatestIPadNote(iPadNoteArray, data.deviceId)
-        : null
+    iPadDevice = GetDevice(data.deviceId, true)
+    iPadNote = GetLatestDeviceNote(data.deviceId, true)
   } else {
-    laptopDevice = GetLaptopDevice(laptopArray, data.deviceId) as laptop
-    laptopNote = GetLatestLaptopNote(laptopNoteArray)
+    laptopDevice = GetDevice(data.deviceId, false)
+    laptopNote = GetLatestDeviceNote(data.deviceId, true)
   }
   return (
     <motion.div
@@ -73,17 +58,17 @@ export default function HomeCard(data: HomeCardProps) {
             </Link>
           </div>
         </CardHeader>
-          {data.isIPad ? (
-            iPadNote?.summary ? (
-              <p className="mx-8 mb-4 text-left">{iPadNote.summary}</p>
-            ) : (
-              <div className="h-full"></div>
-            )
-          ) : laptopNote?.summary ? (
-            <p className="mx-8 my-4 text-left">{laptopNote.summary}</p>
+        {data.isIPad ? (
+          iPadNote?.summary ? (
+            <p className="mx-8 mb-4 text-left">{iPadNote.summary}</p>
           ) : (
             <div className="h-full"></div>
-          )}
+          )
+        ) : laptopNote?.summary ? (
+          <p className="mx-8 my-4 text-left">{laptopNote.summary}</p>
+        ) : (
+          <div className="h-full"></div>
+        )}
       </Card>
     </motion.div>
   )
