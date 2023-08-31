@@ -11,13 +11,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setEditFlag } from '@/util/lib/redux-toolkit/reducers/interface/edit-flag-slice';
 import { RootState } from '@/util/lib/redux-toolkit/store';
 import NewCard from '../interface/new-card';
-import DeleteLaptop from '@/util/server/laptop/DeleteLaptop';
-import DeleteIPad from '@/util/server/iPad/DeleteIPad';
 import EditIPad from '@/util/server/iPad/EditIPad';
 import EditLaptop from '@/util/server/laptop/EditLaptop';
 import convertToDateIPadData from '@/util/function/convert/to-date/convert-to-date-ipad-data';
 import convertToDateLaptopData from '@/util/function/convert/to-date/convert-to-date-laptop-data';
 import { setUserDevice } from '@/util/lib/redux-toolkit/reducers/user-device-slice';
+import DeleteIPad from '@/util/server/iPad/DeleteIPad';
+import DeleteLaptop from '@/util/server/laptop/DeleteLaptop';
 
 export default function Device() {
   const router = useRouter()
@@ -52,8 +52,11 @@ export default function Device() {
     dispatch(setEditFlag(false))
   }, [dispatch])
 
+  const [submitOverlay, setSubmitOverlay] = useState(false)
+  const [deleteOverlay, setDeleteOverlay] = useState(false)
 
-  
+  const overlay = submitOverlay || deleteOverlay
+
   const handleReturn = async () => {
     dispatch(setUserDevice(device))
     dispatch(setEditFlag(!editFlag))
@@ -89,6 +92,19 @@ export default function Device() {
     }
   }
 
+  useEffect(() => {
+    if (overlay) {
+      window.scrollTo(0, 0);
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
+  }, [overlay]);
+
+
   if (device) {
     return (
       <motion.div
@@ -101,7 +117,7 @@ export default function Device() {
         <div className='w-full h-full flex justify-center'>
           {!isMobile ? (
             <div className='w-4/5 md:px-0 md:w-2/3  my-8'>
-              <div className="h-full max-h-full w-full flex flex-col justify-start items-center  ">
+              <div className={`${overlay ? 'filter blur-md pointer-events-none overflow-hidden h-full max-h-full w-full flex flex-col justify-start items-center' : 'h-full max-h-full w-full flex flex-col justify-start items-center'}`}>
                 <div className='flex justify-center'>
                   <DeviceImage size={150} isIPad={isIPad} />
                 </div>
@@ -112,13 +128,13 @@ export default function Device() {
                 {editFlag ? (
                   <div className='flex justify-between  w-full'>
                     <div className='w-1/3 text-center my-16 mx-2'>
-                      <Button size='lg' color="danger" variant="light" fullWidth onClick={handleDelete}>Delete</Button>
+                      <Button size='lg' color="danger" variant="light" fullWidth onClick={() => { setDeleteOverlay(true) }}>Delete</Button>
                     </div>
                     <div className='w-1/3 text-center my-16 mx-2'>
                       <Button size='lg' variant='flat' fullWidth onClick={handleReturn}>Return</Button>
                     </div>
                     <div className='w-1/3 text-center my-16 mx-2'>
-                      <Button size='lg' color="secondary" variant="light" fullWidth onClick={handleSubmit}>Submit</Button>
+                      <Button size='lg' color="secondary" variant="light" fullWidth onClick={() => { setSubmitOverlay(true) }}>Submit</Button>
                     </div>
                   </div>
                 ) : (
@@ -184,13 +200,13 @@ export default function Device() {
                     {editFlag ? (
                       <div className='flex justify-between  w-full'>
                         <div className='w-1/3 text-center my-16 mx-2'>
-                          <Button size='lg' color="danger" variant="light" fullWidth onClick={handleDelete}>Delete</Button>
+                          <Button size='lg' color="danger" variant="light" fullWidth onClick={() => { setDeleteOverlay(true) }}>Delete</Button>
                         </div>
                         <div className='w-1/3 text-center my-16 mx-2'>
                           <Button size='lg' variant='flat' fullWidth onClick={handleReturn}>Return</Button>
                         </div>
                         <div className='w-1/3 text-center my-16 mx-2'>
-                          <Button size='lg' color="secondary" variant="light" fullWidth onClick={handleSubmit}>Submit</Button>
+                          <Button size='lg' color="secondary" variant="light" fullWidth onClick={() => { setSubmitOverlay(true) }}>Submit</Button>
                         </div>
                       </div>
                     ) : (
@@ -253,6 +269,51 @@ export default function Device() {
               <div className='py-4'>&nbsp;</div>
             </div>
           )}
+
+          {submitOverlay && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              className="z-10 absolute inset-0 flex justify-center items-center mt-0  backdrop-blur bg-background/80 h-full">
+              <div className="w-4/5 md:px-0 md:w-2/3 my-8 h-full pt-12">
+                <div className="h-full max-h-full w-full flex flex-col justify-center py-32 items-center text-4xl  mt-16">
+                  <div className='h-full flex items-end '>
+                    Are you sure you would like to update {device.name}?
+                  </div>
+                  <div className="flex w-full mx-4 h-full items-end ">
+                    <Button onClick={() => { setSubmitOverlay(false) }} size='lg' className='mx-4' variant='ghost' fullWidth >Return</Button>
+                    <Button onClick={handleSubmit} size='lg' className='mx-4' variant='ghost' fullWidth >Submit</Button>
+                  </div>
+                  <div className='h-full '></div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {deleteOverlay && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              className="z-10 absolute inset-0 flex justify-center items-center mt-0  backdrop-blur bg-background/80 h-full">
+              <div className="w-4/5 md:px-0 md:w-2/3 my-8 h-full pt-12">
+                <div className="h-full max-h-full w-full flex flex-col justify-center py-32 items-center text-4xl  mt-16">
+                  <div className='h-full flex items-end '>
+                    Are you sure you would like to Delete {device.name}?
+                  </div>
+                  <div className="flex w-full mx-4 h-full items-end ">
+                    <Button onClick={() => { setSubmitOverlay(false) }} size='lg' className='mx-4' variant='ghost' fullWidth >Return</Button>
+                    <Button onClick={handleDelete} size='lg' className='mx-4' variant='ghost' fullWidth >Submit</Button>
+                  </div>
+                  <div className='h-full '></div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
         </div>
       </motion.div>
     );

@@ -54,13 +54,13 @@ export default function Home(data: HomeProps) {
   );
 
   const [isIPad, setIsIPad] = useState(true);
-  const [addDevice, setAddDevice] = useState(false);
+  const [overlay, setOverlay] = useState(false);
 
   const userDevice = useSelector((state: any) => state.userDevice.state);
 
   const handleReset = () => {
     dispatch(resetUserDevice());
-    setAddDevice(!addDevice);
+    setOverlay(!overlay);
   };
 
   const router = useRouter()
@@ -75,7 +75,7 @@ export default function Home(data: HomeProps) {
       }
     } finally {
       console.log("made it")
-      setAddDevice(false)
+      setOverlay(false)
       router.refresh();
     }
   };
@@ -83,7 +83,7 @@ export default function Home(data: HomeProps) {
   return (
     <AnimatePresence>
       <div className="relative h-full w-full flex flex-grow flex-wrap">
-        <div className={`${addDevice ? 'filter blur-sm pointer-events-none overflow-hidden' : ''
+        <div className={`${overlay ? 'filter blur-sm pointer-events-none overflow-hidden' : ''
           } absolute inset-0 h-full w-full flex flex-col items-center pt-4`}>
           <Tabs aria-label="Options" className="mt-4">
             <Tab
@@ -110,7 +110,7 @@ export default function Home(data: HomeProps) {
                     <div className="w-full flex justify-center items-center">
                       <div className="min-h-[55px] flex flex-row items-center w-2/3">
                         <Button
-                          onClick={() => setAddDevice(!addDevice)}
+                          onClick={() => setOverlay(!overlay)}
                           fullWidth
                           variant="light"
                           color="default">
@@ -146,7 +146,7 @@ export default function Home(data: HomeProps) {
                   <div className="w-full flex justify-center items-center">
                     <div className="min-h-[55px] flex flex-row items-center w-2/3">
                       <Button
-                        onClick={() => setAddDevice(!addDevice)}
+                        onClick={() => setOverlay(!overlay)}
                         fullWidth
                         variant="light"
                         color="default">
@@ -160,7 +160,7 @@ export default function Home(data: HomeProps) {
           </Tabs>
         </div>
 
-        {addDevice && (
+        {overlay && (
           <motion.div
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}

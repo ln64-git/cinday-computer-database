@@ -47,7 +47,7 @@ export default function DeviceInfo(props: DeviceInfoProps) {
                 value={userDeviceState.name}
                 onChange={handleInputChange}
                 variant='flat'
-                classNames={{ base: ["w-1/2 mt-4"], input: ["text-center"] }}
+                classNames={{ base: ["w-2/3 mt-4"], input: ["text-center"] }}
               />
             </div>
           ) : (

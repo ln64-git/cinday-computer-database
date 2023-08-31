@@ -48,3 +48,8 @@ input[type="text"] {
 .my-container input {
   font-size: 24px; /* Adjust the value as needed */
 }
+
+.scroll-lock{
+  overflow: hidden !important;
+  background: #9393b8;
+}
