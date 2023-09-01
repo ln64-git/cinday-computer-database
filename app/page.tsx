@@ -1,9 +1,6 @@
 import Home from '@/components/pages/home'
 import { authOptions } from '@/util/lib/nextAuth/authOptions'
 import GetAllVerifiedUsers from '@/util/server/Users/GetAllVerifiedUsers'
-import AddAllIPads from '@/util/server/iPad/AddAllIPads'
-import AddAllIPadNotes from '@/util/server/iPadNote/AddAllIPadNotes'
-import AddAllLaptops from '@/util/server/laptop/AddAllLaptops'
 import { PrismaClient } from '@prisma/client'
 import { getServerSession } from 'next-auth'
 
@@ -18,7 +15,6 @@ export default async function HomePage() {
 
   const data = await getData() ;
 
-  AddAllLaptopNotes()
 
   return (
     <section className="h-full flex flex-col items-center justify-center gap-4">
