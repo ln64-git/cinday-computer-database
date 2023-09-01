@@ -6,8 +6,8 @@ export const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: procepriss.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
 }
@@ -24,21 +24,21 @@ export const authOptions = {
 //   return null
 // },
 
+
 // providers: [
 //   Credentials({
 //     name: "Credentials",
 //     credentials: {
-//       email: {label: "Email"},
-//       password: {label: "Password"},
+//       username: { label: "Username", type: "text", placeholder: "jsmith" },
+//       password: { label: "Password", type: "password" }
 //     },
-//     authorize(credentials, req) {
-//       if (
-//         credentials?.email === "admin@example.com" &&
-//         credentials.password === "admin"
-//       ) {
-//         return true
+//     async authorize(credentials, req) {
+//       const user = { id: "1", name: "J Smith", email: "jsmith@example.com" }
+//       if (user) {
+//         return user
+//       } else {
+//         return null
 //       }
-//       return false
-//     },
-//   }),
-// ],
+//     }
+//   })
+// ]

@@ -12,9 +12,10 @@ import { useRouter } from 'next/navigation';
 export interface ProvidersProps {
   children: React.ReactNode
   themeProps?: ThemeProviderProps
+  session?: any
 }
 
-export function Providers({ children, themeProps }: ProvidersProps) {
+export function Providers({ children, themeProps, session }: ProvidersProps) {
   useRouter()
   return (
     <AnimatePresence>
@@ -28,7 +29,9 @@ export function Providers({ children, themeProps }: ProvidersProps) {
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
               <NextThemesProvider {...themeProps}>
-                {children}
+
+                  {children}
+
               </NextThemesProvider>
             </PersistGate>
           </Provider>

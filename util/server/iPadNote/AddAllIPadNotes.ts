@@ -1,5 +1,5 @@
 'use server'
-import AddIPadNote from './AddIPadNote'
+// import AddIPadNote from './AddIPadNote'
 
 const AddAllIPadNotes = async () => {
   // const notes = stringToDate()
@@ -15,10 +15,10 @@ const AddAllIPadNotes = async () => {
 
 export default AddAllIPadNotes
 
-const stringToDate = (ipads: any) => {
-  return ipads.map((ipad: any) => ({
-    ...ipad,
-    date_created: new Date(ipad.date_created),
-    date_modified: new Date(ipad.date_modified),
-  }))
-}
+// const stringToDate = (ipads: any) => {
+//   return ipads.map((ipad: any) => ({
+//     ...ipad,
+//     date_created: new Date(ipad.date_created),
+//     date_modified: new Date(ipad.date_modified),
+//   }))
+// }

@@ -24,30 +24,31 @@ import AddLaptop from '@/util/server/laptop/AddLaptop';
 import { useRouter } from 'next/navigation';
 
 interface HomeProps {
-  iPadArray: any[];
-  iPadNotesArray: any[];
-  laptopArray: any[];
-  laptopNotesArray: any[];
+  iPadArray?: any[];
+  iPadNotesArray?: any[];
+  laptopArray?: any[];
+  laptopNotesArray?: any[];
 }
 
 export default function Home(data: HomeProps) {
   const dispatch = useDispatch();
 
-  dispatch(setIPadArray(convertToStringIPadArray(data.iPadArray)));
-  dispatch(setLaptopArray(convertToStringLaptopArray(data.laptopArray)));
-  dispatch(setIPadNoteArray(convertToStringIPadNoteArray(data.iPadNotesArray)));
-  dispatch(setLaptopNoteArray(convertToStringLaptopNoteArray(data.laptopNotesArray)));
-
+  if (data.iPadArray || data.laptopArray) {
+    dispatch(setIPadArray(convertToStringIPadArray(data.iPadArray)));
+    dispatch(setLaptopArray(convertToStringLaptopArray(data.laptopArray)));
+    dispatch(setIPadNoteArray(convertToStringIPadNoteArray(data.iPadNotesArray)));
+    dispatch(setLaptopNoteArray(convertToStringLaptopNoteArray(data.laptopNotesArray)));
+  }
   const searchText = useSelector((state: any) => state.search.text);
   const repairFlag = useSelector((state: any) => state.repair.status);
 
-  const filteredIPadArray = data.iPadArray.filter(
+  const filteredIPadArray = data.iPadArray?.filter(
     device =>
       device.flag_repair === repairFlag &&
       device.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const filteredLaptopArray = data.laptopArray.filter(
+  const filteredLaptopArray = data.laptopArray?.filter(
     device =>
       device.flag_repair === repairFlag &&
       device.name.toLowerCase().includes(searchText.toLowerCase())
@@ -80,32 +81,70 @@ export default function Home(data: HomeProps) {
     }
   };
 
-  return (
-    <AnimatePresence>
-      <div className="relative h-full w-full flex flex-grow flex-wrap">
-        <div className={`${overlay ? 'filter blur-sm pointer-events-none overflow-hidden' : ''
-          } absolute inset-0 h-full w-full flex flex-col items-center pt-4`}>
-          <Tabs aria-label="Options" className="mt-4">
-            <Tab
-              key="ipads"
-              title="iPads"
-              onFocus={() => setIsIPad(true)}>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="w-full h-full flex flex-wrap justify-center">
-                {filteredIPadArray.map(device => (
-                  <HomeCard
-                    isIPad={isIPad}
-                    deviceId={device.ipad_id}
-                    key={device.ipad_id}
-                  />
-                ))}
-              </motion.div>
-              {!repairFlag && (
-                <div className="flex justify-center">
+  if (data.iPadArray || data.laptopArray) {
+
+    return (
+      <AnimatePresence>
+        <div className="relative h-full w-full flex flex-grow flex-wrap">
+          <div className={`${overlay ? 'filter blur-sm pointer-events-none overflow-hidden' : ''
+            } absolute inset-0 h-full w-full flex flex-col items-center pt-4`}>
+            <Tabs aria-label="Options" className="mt-4">
+              <Tab
+                key="ipads"
+                title="iPads"
+                onFocus={() => setIsIPad(true)}>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-full h-full flex flex-wrap justify-center">
+                  {filteredIPadArray?.map(device => (
+                    <HomeCard
+                      isIPad={isIPad}
+                      deviceId={device.ipad_id}
+                      key={device.ipad_id}
+                    />
+                  ))}
+                </motion.div>
+                {!repairFlag && (
+                  <div className="flex justify-center">
+                    <Card className="justify-center w-1/4 my-2">
+                      <div className="w-full flex justify-center items-center">
+                        <div className="min-h-[55px] flex flex-row items-center w-2/3">
+                          <Button
+                            onClick={() => setOverlay(!overlay)}
+                            fullWidth
+                            variant="light"
+                            color="default">
+                            <PlusIcon />
+                          </Button>
+                        </div>
+                      </div>
+                    </Card>
+                  </div>
+                )}
+              </Tab>
+              <Tab
+                onFocus={() => setIsIPad(false)}
+                key="laptops"
+                title="Laptops"
+                className="w-full flex flex-wrap justify-center">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-full flex flex-wrap justify-center">
+                  {filteredLaptopArray?.map(device => (
+                    <HomeCard
+                      isIPad={isIPad}
+                      deviceId={device.laptop_id}
+                      key={device.laptop_id}
+                    />
+                  ))}
+                </motion.div>
+                {!repairFlag && (
                   <Card className="justify-center w-1/4 my-2">
                     <div className="w-full flex justify-center items-center">
                       <div className="min-h-[55px] flex flex-row items-center w-2/3">
@@ -119,86 +158,53 @@ export default function Home(data: HomeProps) {
                       </div>
                     </div>
                   </Card>
-                </div>
-              )}
-            </Tab>
-            <Tab
-              onFocus={() => setIsIPad(false)}
-              key="laptops"
-              title="Laptops"
-              className="w-full flex flex-wrap justify-center">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="w-full flex flex-wrap justify-center">
-                {filteredLaptopArray.map(device => (
-                  <HomeCard
-                    isIPad={isIPad}
-                    deviceId={device.laptop_id}
-                    key={device.laptop_id}
-                  />
-                ))}
-              </motion.div>
-              {!repairFlag && (
-                <Card className="justify-center w-1/4 my-2">
-                  <div className="w-full flex justify-center items-center">
-                    <div className="min-h-[55px] flex flex-row items-center w-2/3">
-                      <Button
-                        onClick={() => setOverlay(!overlay)}
-                        fullWidth
-                        variant="light"
-                        color="default">
-                        <PlusIcon />
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
-              )}
-            </Tab>
-          </Tabs>
-        </div>
+                )}
+              </Tab>
+            </Tabs>
+          </div>
 
-        {overlay && (
-          <motion.div
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -100 }}
-            transition={{ duration: 0.5 }}
-            className="z-10 absolute inset-0 flex justify-center items-center mt-0 bg-background backdrop-blur bg-background/90">
-            <div className="w-4/5 md:px-0 md:w-2/3 my-8 h-full pt-12">
-              <div className="h-full max-h-full w-full flex flex-col justify-start items-center">
-                <div className="flex justify-center">
-                  <DeviceImage size={150} isIPad={isIPad} />
+          {overlay && (
+            <motion.div
+              initial={{ opacity: 0, y: -100 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -100 }}
+              transition={{ duration: 0.5 }}
+              className="z-10 absolute inset-0 flex justify-center items-center mt-0 bg-background backdrop-blur bg-background/90">
+              <div className="w-4/5 md:px-0 md:w-2/3 my-8 h-full pt-12">
+                <div className="h-full max-h-full w-full flex flex-col justify-start items-center">
+                  <div className="flex justify-center">
+                    <DeviceImage size={150} isIPad={isIPad} />
+                  </div>
+                  <div className="w-full">
+                    <DeviceInfo isIPad={isIPad} editFlag={true} />
+                  </div>
+                  <div className="flex w-full text-center my-16">
+                    <Button
+                      className="mx-4"
+                      size="lg"
+                      variant="flat"
+                      fullWidth
+                      onClick={handleReset}>
+                      Return
+                    </Button>
+                    <Button
+                      className="mx-4"
+                      size="lg"
+                      variant="flat"
+                      fullWidth
+                      onClick={handleSumbit}>
+                      Submit
+                    </Button>
+                  </div>
+                  <div className="py-4">&nbsp;</div>
                 </div>
-                <div className="w-full">
-                  <DeviceInfo isIPad={isIPad} editFlag={true} />
-                </div>
-                <div className="flex w-full text-center my-16">
-                  <Button
-                    className="mx-4"
-                    size="lg"
-                    variant="flat"
-                    fullWidth
-                    onClick={handleReset}>
-                    Return
-                  </Button>
-                  <Button
-                    className="mx-4"
-                    size="lg"
-                    variant="flat"
-                    fullWidth
-                    onClick={handleSumbit}>
-                    Submit
-                  </Button>
-                </div>
-                <div className="py-4">&nbsp;</div>
               </div>
-            </div>
-          </motion.div>
-        )}
-      </div>
-    </AnimatePresence>
-  );
+            </motion.div>
+          )}
+        </div>
+      </AnimatePresence>
+    );
+  } else {
+    router.push('/api/auth/signin')
+  }
 }

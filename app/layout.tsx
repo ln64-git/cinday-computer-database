@@ -21,24 +21,26 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
-  }) {
+}) {
   return (
-    <html lang="en" >
-      <body className='font-sans antialiased h-full '>
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className=" flex flex-col h-screen">
+    <html lang="en">
+      <body className="font-sans antialiased h-full">
+        <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }} >
+          <div className="flex flex-col h-screen">
+            {/* Include the Navbar component */}
             <Navbar />
-              {children}
+            {children}
           </div>
         </Providers>
       </body>
     </html>
   )
 }
+
 
 {
   /* <footer className="w-full flex items-center justify-center py-3">
