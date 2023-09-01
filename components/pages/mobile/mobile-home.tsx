@@ -12,7 +12,7 @@ import { setLaptopNoteArray } from '@/util/lib/redux-toolkit/reducers/laptop-not
 import convertToStringIPadArray from '@/util/function/convert/to-string/convert-to-string-ipad-array'
 import convertToStringLaptopArray from '@/util/function/convert/to-string/convert-to-string-laptop-array'
 import convertToStringIPadNoteArray from '@/util/function/convert/to-string/convert-to-string-ipad-note-array'
-import convertToStringLaptopNoteArray from '@/util/function/laptop-note/convert-to-string-laptop-note-array'
+import convertToStringLaptopNoteArray from '@/util/function/convert/to-string/convert-to-string-laptop-note-array'
 import HomeCard from '@/components/interface/home-card'
 import { PlusIcon } from '@/components/interface/icons'
 
