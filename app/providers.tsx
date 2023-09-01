@@ -4,6 +4,7 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import { ThemeProviderProps } from 'next-themes/dist/types'
 import { PersistGate } from 'redux-persist/integration/react';
 import { motion, AnimatePresence } from 'framer-motion'
+import { SessionProvider } from "next-auth/react"
 
 import { Provider } from 'react-redux'
 import { persistor, store } from '@/util/lib/redux-toolkit/store'
@@ -29,9 +30,9 @@ export function Providers({ children, themeProps, session }: ProvidersProps) {
           <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
               <NextThemesProvider {...themeProps}>
-
+                <SessionProvider session={session}>
                   {children}
-
+                </SessionProvider >
               </NextThemesProvider>
             </PersistGate>
           </Provider>

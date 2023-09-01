@@ -3,6 +3,8 @@ import { Metadata } from 'next'
 import { siteConfig } from '@/util/config/site'
 import { Providers } from './providers'
 import { Navbar } from '@/components/interface/navbar'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/util/lib/nextAuth/authOptions'
 
 export const metadata: Metadata = {
   title: {
@@ -25,13 +27,15 @@ export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
-}) {
+  }) {
+  
+  const session = await getServerSession(authOptions)
+
   return (
     <html lang="en">
       <body className="font-sans antialiased h-full">
-        <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }} >
+        <Providers session={session} themeProps={{ attribute: 'class', defaultTheme: 'dark' }} >
           <div className="flex flex-col h-screen">
-            {/* Include the Navbar component */}
             <Navbar />
             {children}
           </div>

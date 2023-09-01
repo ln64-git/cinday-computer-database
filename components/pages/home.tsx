@@ -28,10 +28,13 @@ interface HomeProps {
   iPadNotesArray?: any[];
   laptopArray?: any[];
   laptopNotesArray?: any[];
+  verifiedUser: boolean
 }
 
 export default function Home(data: HomeProps) {
   const dispatch = useDispatch();
+
+  console.log(data.iPadArray)
 
   if (data.iPadArray || data.laptopArray) {
     dispatch(setIPadArray(convertToStringIPadArray(data.iPadArray)));
@@ -81,8 +84,7 @@ export default function Home(data: HomeProps) {
     }
   };
 
-  if (data.iPadArray || data.laptopArray) {
-
+  if (data.verifiedUser) {
     return (
       <AnimatePresence>
         <div className="relative h-full w-full flex flex-grow flex-wrap">

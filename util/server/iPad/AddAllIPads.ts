@@ -1,17 +1,15 @@
 import AddIPad from './AddIPad'
-
+import ipadData from 'C:/Users/Lucian/Desktop/desktop pre homeless/cinday backup/ipads.json'
 const AddAllIPads = async () => {
-  // const ipads = stringToDate(ipadData)
-
-
-  // try {
-  //   for (const ipad of ipads) {
-  //     await AddIPad(ipad)
-  //   }
+  const ipads = stringToDate(ipadData)
+  try {
+    for (const ipad of ipads) {
+      await AddIPad(ipad)
+    }
   console.log('All iPads added successfully!')
-  // } catch (error) {
-  // console.log('Error adding iPads to the database:', error)
-  // }
+  } catch (error) {
+  console.log('Error adding iPads to the database:', error)
+  }
 }
 
 export default AddAllIPads

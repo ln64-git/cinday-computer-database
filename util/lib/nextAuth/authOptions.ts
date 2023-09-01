@@ -2,14 +2,15 @@ import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import prisma from "@/util/config/prisma"
 
+
 export const authOptions = {
-  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
+  adapter: PrismaAdapter(prisma),
 }
 //   async authorize(credentials, req) {
 //   const res = await fetch("/your/endpoint", {
