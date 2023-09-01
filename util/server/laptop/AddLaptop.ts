@@ -7,7 +7,7 @@ export default async function AddLaptop(newLaptop: laptop) {
 
   try {
     const inputData: any = {
-      laptop_id: getNextDeviceId({ deviceArray: await prisma.laptop.findMany(), isIPad: false }),
+      laptop_id: getNextDeviceId({ deviceArray: await prisma.laptop.findMany(), deviceType: 'laptop' }),
       name: newLaptop.name,
       serial_number: newLaptop.serial_number,
       springboro_tag_id: newLaptop.springboro_tag_id,
