@@ -103,6 +103,13 @@ function IPadFields(props: FieldsProps) {
         editFlag={props.editFlag}
         onChange={props.onChange}
       />
+      <DeviceInfoField
+        label="Serial Number"
+        name="serial_number"
+        value={props.userDeviceState.serial_number}
+        editFlag={props.editFlag}
+        onChange={props.onChange}
+      />
     </div>
   );
 }
