@@ -16,14 +16,6 @@ export const siteConfig = {
       label: "Laptops",
       href: "/laptops",
     },
-    // {
-    //   label: "iPads (repair)",
-    //   href: "/repair/ipads",
-    // },
-    // {
-    //   label: "Laptops (repair)",
-    //   href: "/repair/laptops",
-    // },
   ],
   navMenuItems: [
     {

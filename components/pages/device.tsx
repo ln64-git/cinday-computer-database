@@ -10,7 +10,7 @@ import { RootState } from '@/util/lib/redux-toolkit/store';
 import { setUserDevice } from '@/util/lib/redux-toolkit/reducers/user-device-slice';
 import { ipad_note, laptop_note } from '@prisma/client';
 import DeviceImage from '@/util/config/device-logo';
-import DeviceInfo from '../features/device/device-info';
+import DeviceInfo from '../interface/device-info';
 import GetDevice from '@/util/function/device/get-device';
 import EditIPad from '@/util/server/iPad/EditIPad';
 import EditLaptop from '@/util/server/laptop/EditLaptop';

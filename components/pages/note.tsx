@@ -18,7 +18,6 @@ import EditLaptopNote from '@/util/server/laptopNote/EditILaptopNote';
 import EditIPadNote from '@/util/server/iPadNote/EditIPadNote';
 
 export default function Note() {
-  const dispatch = useDispatch();
   const router = useRouter()
   const pathname = usePathname();
   const pathArray = pathname.split('/');
@@ -29,10 +28,9 @@ export default function Note() {
   const device = GetDevice(deviceId, isIPad);
   const deviceNote = GetDeviceNote(deviceNoteId, isIPad)
 
+  const editFlag = useSelector((state: RootState) => state.edit.status,)
 
-  const editFlag = useSelector(
-    (state: RootState) => state.edit.status,
-  )
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setEditFlag(false))
@@ -108,10 +106,10 @@ export default function Note() {
   if (device) {
     return (
       <motion.div
-        initial={{ opacity: 0 }} // Start with opacity 0 and y offset
-        animate={{ opacity: 1 }} // Fade-in and move up to original position
-        exit={{ opacity: 0 }} // Fade-out and move up during exit
-        transition={{ duration: .8 }} // Animation duration and type
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: .8 }}
         className="w-full h-full flex flex-wrap justify-center "
       >
         <div className='w-full h-full flex justify-center'>
@@ -139,7 +137,7 @@ export default function Note() {
                             classNames={{ input: ["text-left"] }}
                           />
                         ) : (
-                        <p className="font-bold">{deviceNote.note.name}</p>
+                          <p className="font-bold">{deviceNote.note.name}</p>
                         )}
                       </div>
                     </div>
