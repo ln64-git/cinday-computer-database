@@ -23,7 +23,6 @@
     ".prettierignore",
     "LICENSE",
     "next-env.d.ts",
-    "postcss.config.js",
-    "README.md"
+    "postcss.config.js"
   ]
 }
