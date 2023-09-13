@@ -25,6 +25,7 @@ export default function HomeCard(data: HomeCardProps) {
     laptopDevice = GetDevice(data.deviceId, false)
     laptopNote = GetLatestDeviceNote(data.deviceId, true)
   }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -35,12 +36,12 @@ export default function HomeCard(data: HomeCardProps) {
     >
       <Card
         key={data.isIPad ? iPadDevice?.ipad_id : laptopDevice?.laptop_id}
-        className=" h-full justify-center "
+        className=" h-full"
       >
-        <CardHeader className="flex justify-center items-center gap-3   ">
+        <CardHeader className="  ">
           <DeviceImage size={60} isIPad={data.isIPad} />
-          <div className="min-h-[55px] flex flex-row justify-between items-center w-full ">
-            <div className="flex flex-col items-start ">
+          <div className="min-h-[55px] mx-2 flex flex-row justify-between items-center w-full ">
+            <div className="flex flex-col mx-2 items-start ">
               <p className="text-md">
                 {data.isIPad ? iPadDevice?.name : laptopDevice?.name}
               </p>

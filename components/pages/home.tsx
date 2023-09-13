@@ -22,6 +22,7 @@ import convertDeviceToIPad from '@/util/function/convert/to-device/convet-device
 import convertDeviceToLaptop from '@/util/function/convert/to-device/convert-device-to-laptop';
 import AddIPad from '@/util/server/iPad/AddIPad';
 import AddLaptop from '@/util/server/laptop/AddLaptop';
+import { RootState } from '@/util/lib/redux-toolkit/store';
 
 interface HomeProps {
   iPadArray?: ipad[];
@@ -44,18 +45,78 @@ export default function Home(data: HomeProps) {
     dispatch(setLaptopNoteArray(convertToStringLaptopNoteArray(data.laptopNotesArray)));
   }
 
-  const searchText = useSelector((state: any) => state.search.text);
-  const repairFlag = useSelector((state: any) => state.repair.status);
+  const searchText = useSelector((state: RootState) => state.search.text);
+  const repairFlag = useSelector((state: RootState) => state.repair.status);
 
-  const filteredIPadArray = data.iPadArray.filter((device) =>
-    device.flag_repair === repairFlag && device.name.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const filterOptions = useSelector((state: RootState) => state.filterOptions.array);
+  const sortOptions = useSelector((state: RootState) => state.sortOptions.text);
+  let filteredIPadArray = data.iPadArray.slice();
+  let filteredLaptopArray = data.laptopArray.slice();
 
-  const filteredLaptopArray = data.laptopArray.filter((device) =>
-    device.flag_repair === repairFlag && device.name.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const filterDevices = () => {
+    if (filterOptions.includes('name')) {
+      filteredIPadArray = data.iPadArray.filter((device) =>
+        device.flag_repair === repairFlag && device.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+      filteredLaptopArray = data.laptopArray.filter((device) =>
+        device.flag_repair === repairFlag && device.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+    }
+    if (filterOptions.includes('internal_model_id')) {
+      filteredIPadArray = data.iPadArray.filter((device) =>
+        device.flag_repair === repairFlag && device.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+      filteredLaptopArray = []
+    }
+    if (filterOptions.includes('external_model_id')) {
+      filteredIPadArray = data.iPadArray.filter((device) =>
+        device.flag_repair === repairFlag && device.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+      filteredLaptopArray = []
+    }
+    if (filterOptions.includes('serial_number')) {
+      filteredIPadArray = data.iPadArray.filter((device) =>
+        device.flag_repair === repairFlag && device.serial_number.toLowerCase().includes(searchText.toLowerCase())
+      );
+      filteredLaptopArray = data.laptopArray.filter((device) =>
+        device.flag_repair === repairFlag && device.serial_number.toLowerCase().includes(searchText.toLowerCase())
+      );
+    }
+    console.log(data.laptopArray[0])
+    console.log(searchText)
+  }
+  const sortDevices = () => {
+    const dateSort = (a: { date_modified: Date; }, b: { date_modified: Date; }) => {
+      const dateA = new Date(a.date_modified).getTime();
+      const dateB = new Date(b.date_modified).getTime();
+      return dateA - dateB;
+    };
 
-  const userDevice = useSelector((state: any) => state.userDevice.state);
+    switch (sortOptions) {
+      case 'name':
+        filteredIPadArray = filteredIPadArray.sort((a, b) => a.name.localeCompare(b.name));
+        filteredLaptopArray = filteredLaptopArray.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'date-modified':
+        filteredIPadArray = filteredIPadArray.sort(dateSort);
+        filteredLaptopArray = filteredLaptopArray.sort(dateSort);
+        break;
+      case 'date-created':
+        filteredIPadArray = filteredIPadArray.sort(dateSort);
+        filteredLaptopArray = filteredLaptopArray.sort(dateSort);
+        break;
+      default:
+        // Default sorting logic, e.g., by name
+        filteredIPadArray = filteredIPadArray.sort((a, b) => a.name.localeCompare(b.name));
+        filteredLaptopArray = filteredLaptopArray.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+    }
+  };
+  filterDevices();
+  sortDevices()
+
+
+  const userDevice = useSelector((state: RootState) => state.userDevice.state);
 
   const handleReset = () => {
     dispatch(resetUserDevice());
@@ -87,20 +148,19 @@ export default function Home(data: HomeProps) {
     <div className={`relative h-full w-full flex flex-grow flex-wrap ${overlay ? 'filter blur-sm pointer-events-none overflow-hidden' : ''}`}>
       <div className="absolute inset-0 h-full w-full flex flex-col items-center pt-4">
         <Tabs aria-label="Options" className="mt-4">
-          <Tab key="ipads" title="iPads" onFocus={() => setIsIPad(true)}>
+          <Tab key="ipads" title="iPads" onFocus={() => setIsIPad(true)} className="w-full flex flex-wrap justify-center">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="w-full h-full flex flex-wrap justify-center"
+              className="w-full flex flex-wrap justify-center"
             >
               {filteredIPadArray?.map((device) => (
                 <HomeCard isIPad={isIPad} deviceId={device.ipad_id} key={device.ipad_id} />
               ))}
             </motion.div>
             {!repairFlag && (
-              <div className="flex justify-center">
                 <Card className="justify-center w-1/4 my-2">
                   <div className="w-full flex justify-center items-center">
                     <div className="min-h-[55px] flex flex-row items-center w-2/3">
@@ -110,7 +170,6 @@ export default function Home(data: HomeProps) {
                     </div>
                   </div>
                 </Card>
-              </div>
             )}
           </Tab>
           <Tab onFocus={() => setIsIPad(false)} key="laptops" title="Laptops" className="w-full flex flex-wrap justify-center">

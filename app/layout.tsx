@@ -1,6 +1,5 @@
 import '@/util/styles/globals.css'
 import { Metadata } from 'next'
-import { siteConfig } from '@/util/config/site'
 import { Providers } from './providers'
 import { Navbar } from '@/components/interface/navbar'
 import { getServerSession } from 'next-auth'
@@ -8,10 +7,10 @@ import { authOptions } from '@/util/lib/nextAuth/authOptions'
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    default: 'CinDay Computer Database',
+    template: `%s - 'CinDay Computer Database'`,
   },
-  description: siteConfig.description,
+  description: '',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' },
@@ -27,8 +26,8 @@ export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
-  }) {
-  
+}) {
+
   const session = await getServerSession(authOptions)
 
   return (
