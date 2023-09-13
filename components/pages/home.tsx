@@ -22,6 +22,7 @@ import convertDeviceToIPad from '@/util/function/convert/to-device/convet-device
 import convertDeviceToLaptop from '@/util/function/convert/to-device/convert-device-to-laptop';
 import AddIPad from '@/util/server/iPad/AddIPad';
 import AddLaptop from '@/util/server/laptop/AddLaptop';
+import { RootState } from '@/util/lib/redux-toolkit/store';
 
 interface HomeProps {
   iPadArray?: ipad[];
@@ -44,8 +45,8 @@ export default function Home(data: HomeProps) {
     dispatch(setLaptopNoteArray(convertToStringLaptopNoteArray(data.laptopNotesArray)));
   }
 
-  const searchText = useSelector((state: any) => state.search.text);
-  const repairFlag = useSelector((state: any) => state.repair.status);
+  const searchText = useSelector((state: RootState) => state.search.text);
+  const repairFlag = useSelector((state: RootState) => state.repair.status);
 
   const filteredIPadArray = data.iPadArray.filter((device) =>
     device.flag_repair === repairFlag && device.name.toLowerCase().includes(searchText.toLowerCase())
@@ -55,7 +56,7 @@ export default function Home(data: HomeProps) {
     device.flag_repair === repairFlag && device.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const userDevice = useSelector((state: any) => state.userDevice.state);
+  const userDevice = useSelector((state: RootState) => state.userDevice.state);
 
   const handleReset = () => {
     dispatch(resetUserDevice());

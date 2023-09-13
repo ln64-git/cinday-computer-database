@@ -40,8 +40,8 @@ export default function HomeCard(data: HomeCardProps) {
       >
         <CardHeader className="  ">
           <DeviceImage size={60} isIPad={data.isIPad} />
-          <div className="min-h-[55px] flex flex-row justify-between items-center w-full ">
-            <div className="flex flex-col items-start ">
+          <div className="min-h-[55px] mx-2 flex flex-row justify-between items-center w-full ">
+            <div className="flex flex-col mx-2 items-start ">
               <p className="text-md">
                 {data.isIPad ? iPadDevice?.name : laptopDevice?.name}
               </p>

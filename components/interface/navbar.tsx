@@ -28,17 +28,14 @@ import { ThemeSwitch } from './theme-switch'
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { setRepairFlag } from '@/util/lib/redux-toolkit/reducers/interface/repair-slice'
+import { RootState } from '@/util/lib/redux-toolkit/store'
 
 export const Navbar = () => {
   const dispatch = useDispatch()
   const path = usePathname()
-  const repairStatus = useSelector((state: any) => state.repair.status)
-  const searchToggle = useSelector(
-    (state: any) => state.search.status,
-  )
-  const searchText = useSelector(
-    (state: any) => state.search.text,
-  )
+  const repairStatus = useSelector((state: RootState) => state.repair.status)
+  const searchToggle = useSelector((state: RootState) => state.search.status,)
+  const searchText = useSelector((state: RootState) => state.search.text,)
 
   const searchInput = (
     <Input
@@ -62,7 +59,7 @@ export const Navbar = () => {
               <DownArrowIcon />
             </Button>
           </DropdownTrigger>
-          <DropdownMenu  aria-label="Static Actions" closeOnSelect={false} color='primary'>
+          <DropdownMenu aria-label="Static Actions" closeOnSelect={false} color='primary'>
             <DropdownSection title="filter">
               <DropdownItem color='primary'>
                 <Checkbox defaultSelected>filter by Name</Checkbox>

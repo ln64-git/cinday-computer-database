@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-interface SearchState {
+export interface SearchState {
   status: boolean
   text: string
 }
