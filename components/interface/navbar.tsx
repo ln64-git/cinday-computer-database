@@ -29,6 +29,8 @@ import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { setRepairFlag } from '@/util/lib/redux-toolkit/reducers/interface/repair-slice'
 import { RootState } from '@/util/lib/redux-toolkit/store'
+import { toggleFilterOption } from '@/util/lib/redux-toolkit/reducers/interface/filter-options-slice'
+import { setSortOption } from '@/util/lib/redux-toolkit/reducers/interface/sort-options-slice'
 
 export const Navbar = () => {
   const dispatch = useDispatch()
@@ -36,6 +38,10 @@ export const Navbar = () => {
   const repairStatus = useSelector((state: RootState) => state.repair.status)
   const searchToggle = useSelector((state: RootState) => state.search.status,)
   const searchText = useSelector((state: RootState) => state.search.text,)
+
+  const filterOptions = useSelector((state: RootState) => state.filterOptions.array);
+  const sortOptions = useSelector((state: RootState) => state.sortOptions.text);
+
 
   const searchInput = (
     <Input
@@ -62,30 +68,68 @@ export const Navbar = () => {
           <DropdownMenu aria-label="Static Actions" closeOnSelect={false} color='primary'>
             <DropdownSection title="filter">
               <DropdownItem color='primary'>
-                <Checkbox defaultSelected>filter by Name</Checkbox>
+                <Checkbox
+                  defaultSelected={filterOptions.includes('name')}
+                  onClick={() => dispatch(toggleFilterOption('name'))}
+                >
+                  filter by Name
+                </Checkbox>
               </DropdownItem>
               <DropdownItem>
-                <Checkbox defaultSelected color='primary'>filter by Internal Model ID</Checkbox>
+                <Checkbox
+                  defaultSelected={filterOptions.includes('internal_model_id')}
+                  onClick={() => dispatch(toggleFilterOption('internal_model_id'))}
+                >
+                  filter by Internal Model ID
+                </Checkbox>
               </DropdownItem>
               <DropdownItem>
-                <Checkbox defaultSelected color='primary'>filter by External Model ID</Checkbox>
+                <Checkbox
+                  defaultSelected={filterOptions.includes('external_model_id')}
+                  onClick={() => dispatch(toggleFilterOption('external_model_id'))}
+                >
+                  filter by External Model ID
+                </Checkbox>
               </DropdownItem>
               <DropdownItem>
-                <Checkbox defaultSelected color='primary'>filter by Serial Number</Checkbox>
+                <Checkbox
+                  defaultSelected={filterOptions.includes('serial_number')}
+                  onClick={() => dispatch(toggleFilterOption('serial_number'))}
+                >
+                  filter by Serial Number
+                </Checkbox>
               </DropdownItem>
             </DropdownSection>
 
             <DropdownSection title="sort" >
               <DropdownItem variant="light">
                 <RadioGroup>
-                  <Radio value="date-modified">Date Modified</Radio>
-                  <Radio value="date-created">Date Created</Radio>
-                  <Radio value="name">Name</Radio>
+                  <Radio
+                    data-selected={sortOptions === 'date-modified'}
+                    onChange={() => dispatch(setSortOption('date-modified'))}
+                    value="date-modified"
+                  >
+                    Date Modified
+                  </Radio>
+                  <Radio
+                    data-selected={sortOptions === 'date-created'}
+                    onChange={() => dispatch(setSortOption('date-created'))}
+                    value="date-created"
+                  >
+                    Date Created
+                  </Radio>
+                  <Radio
+                    data-selected={sortOptions === 'name'}
+                    onChange={() => dispatch(setSortOption('name'))}
+                    value="name"
+                  >
+                    Name
+                  </Radio>
                 </RadioGroup>
               </DropdownItem>
             </DropdownSection>
           </DropdownMenu>
-        </Dropdown>
+        </Dropdown >
       }
     />
   )

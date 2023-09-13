@@ -13,6 +13,8 @@ import pageReducer from './reducers/interface/page-slice';
 import repairReducer from './reducers/interface/repair-slice';
 import searchReducer from './reducers/interface/search-slice';
 import editReducer from './reducers/interface/edit-flag-slice';
+import filterOptionsReducer from './reducers/interface/filter-options-slice';
+import sortOptionsReducer from './reducers/interface/sort-options-slice';
 
 const persistConfig = {
   key: 'root', // key for the localStorage
@@ -32,7 +34,9 @@ const rootReducer = combineReducers({
   laptopArray: laptopArrayReducer,
   laptopNoteArray: laptopNoteArrayReducer,
   userDevice: userDeviceReducer,
-  userNote: userNoteReducer
+  userNote: userNoteReducer,
+  filterOptions: filterOptionsReducer,
+  sortOptions: sortOptionsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
