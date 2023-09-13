@@ -166,11 +166,11 @@ export default function Device() {
                     <Button size='lg' variant='flat' fullWidth onClick={() => dispatch(setEditFlag(!editFlag))}>edit</Button>
                   </div>
                 )}
-                <div className='w-full h-full text-l   '>
+                <div className='w-full h-full text-l'>
                   {deviceNotes?.map((note: ipad_note | laptop_note, index: number) => (
                     <Card
                       key={index}
-                      className="justify-center w-full"
+                      className="justify-center w-full my-4"
                     >
                       <CardHeader className="flex justify-center items-center gap-3">
                         <DeviceImage size={60} isIPad={isIPad} />

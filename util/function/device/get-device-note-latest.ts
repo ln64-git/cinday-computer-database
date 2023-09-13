@@ -7,6 +7,7 @@ export default function GetLatestDeviceNote(deviceId: number, isIPad: boolean) {
   );
   const deviceNoteArray = noteArray.filter((note: ipad_note) => note.ipad_id === deviceId)
 
+
   const latestModifiedNote = deviceNoteArray.reduce(
     (latestNote: laptop_note | ipad_note, currentNote: laptop_note | ipad_note) =>
       !latestNote || currentNote.date_modified > latestNote.date_modified
