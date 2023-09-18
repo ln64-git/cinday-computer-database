@@ -163,7 +163,6 @@ export const Navbar = () => {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="flex  w-full" justify="center">
-        {/* <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0 invisible" /> */}
         <AnimatePresence>
           {searchToggle && path === '/' && (
             <NavbarItem className="flex w-full justify-center ">

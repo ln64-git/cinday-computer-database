@@ -82,8 +82,6 @@ export default function Home(data: HomeProps) {
         device.flag_repair === repairFlag && device.serial_number.toLowerCase().includes(searchText.toLowerCase())
       );
     }
-    console.log(data.laptopArray[0])
-    console.log(searchText)
   }
   const sortDevices = () => {
     const dateSort = (a: { date_modified: Date; }, b: { date_modified: Date; }) => {
@@ -133,14 +131,12 @@ export default function Home(data: HomeProps) {
         await AddLaptop(userLaptop);
       }
     } finally {
-      console.log("made it");
       setOverlay(false);
       router.refresh();
     }
   };
 
   if (!data.verifiedUser) {
-    router.push('/api/auth/signin');
     return null;
   }
 
@@ -157,19 +153,21 @@ export default function Home(data: HomeProps) {
               className="w-full flex flex-wrap justify-center"
             >
               {filteredIPadArray?.map((device) => (
-                <HomeCard isIPad={isIPad} deviceId={device.ipad_id} key={device.ipad_id} />
+                <>
+                  <HomeCard isIPad={isIPad} deviceId={device.ipad_id} key={device.ipad_id} />
+                </>
               ))}
             </motion.div>
             {!repairFlag && (
-                <Card className="justify-center w-1/4 my-2">
-                  <div className="w-full flex justify-center items-center">
-                    <div className="min-h-[55px] flex flex-row items-center w-2/3">
-                      <Button onClick={() => setOverlay(!overlay)} fullWidth variant="light" color="default">
-                        <PlusIcon />
-                      </Button>
-                    </div>
+              <Card className="justify-center w-1/4 my-2">
+                <div className="w-full flex justify-center items-center">
+                  <div className="min-h-[55px] flex flex-row items-center w-2/3">
+                    <Button onClick={() => setOverlay(!overlay)} fullWidth variant="light" color="default">
+                      <PlusIcon />
+                    </Button>
                   </div>
-                </Card>
+                </div>
+              </Card>
             )}
           </Tab>
           <Tab onFocus={() => setIsIPad(false)} key="laptops" title="Laptops" className="w-full flex flex-wrap justify-center">
@@ -195,6 +193,15 @@ export default function Home(data: HomeProps) {
                 </div>
               </Card>
             )}
+            <Card className="relative right-0">
+              <div className="w-full flex justify-center items-center">
+                <div className="min-h-[55px] flex flex-row items-center w-2/3">
+                  <Button onClick={() => setOverlay(!overlay)} fullWidth variant="light" color="default">
+                    <PlusIcon />
+                  </Button>
+                </div>
+              </div>
+            </Card>
           </Tab>
         </Tabs>
       </div>

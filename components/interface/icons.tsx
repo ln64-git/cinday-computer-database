@@ -1,5 +1,5 @@
+import React from 'react';
 import { IconSvgProps } from '@/util/types'
-import * as React from 'react'
 
 export const Logo: React.FC<IconSvgProps> = ({
   size = 36,
@@ -157,3 +157,4 @@ export const NextUILogo: React.FC<IconSvgProps> = (props) => {
     </svg>
   )
 }
+

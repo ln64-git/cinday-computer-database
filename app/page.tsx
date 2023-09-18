@@ -1,16 +1,11 @@
 import Home from '@/components/pages/home'
 import { authOptions } from '@/util/lib/nextAuth/authOptions'
 import GetAllVerifiedUsers from '@/util/server/Users/GetAllVerifiedUsers'
-import { PrismaClient } from '@prisma/client'
 import { getServerSession } from 'next-auth'
-import mockIPadData from '../data/ipads.json';
-import mockIPadNotesData from '../data/ipad_note.json';
-import mockLaptopData from '../data/laptops.json';
-import mockLaptopNotesData from '../data/laptop_note.json';
-import convertToStringIPadArray from '@/util/function/convert/to-string/convert-to-string-ipad-array'
-import convertToStringIPadNoteArray from '@/util/function/convert/to-string/convert-to-string-ipad-note-array'
-import convertToStringLaptopArray from '@/util/function/convert/to-string/convert-to-string-laptop-array'
-import convertToStringLaptopNoteArray from '@/util/function/convert/to-string/convert-to-string-laptop-note-array'
+import GreetingOverlay from '@/components/pages/overlay/greeting-overlay'
+import { getData } from '@/util/server/get-data'
+import { useSelector } from 'react-redux'
+
 
 export default async function HomePage() {
   const session = await getServerSession(authOptions)
@@ -19,29 +14,20 @@ export default async function HomePage() {
     (user) => user.email === session?.user?.email
   )
 
-  const data = await getData(false);
+  const data = isUserAuth ? await getData(true) : null;
+  const mockData = await getData(false);
+  const overlay = true;
 
-
-  return (
-    <section className="h-full flex flex-col items-center justify-center gap-4">
-      <Home {...data} verifiedUser={isUserAuth} />
-    </section>
-  )
-}
-
-async function getData(isUserAuth: boolean) {
-  if (isUserAuth) {
-    const prisma = new PrismaClient()
-    const iPadArray = await prisma.ipad.findMany()
-    const iPadNotesArray = await prisma.ipad_note.findMany()
-    const laptopArray = await prisma.laptop.findMany()
-    const laptopNotesArray = await prisma.laptop_note.findMany()
-    return { iPadArray, iPadNotesArray, laptopArray, laptopNotesArray }
+  if (overlay) {
+    return (
+      <GreetingOverlay {...mockData} />
+    )
   } else {
-    const iPadArray = convertToStringIPadArray(mockIPadData)
-    const iPadNotesArray = convertToStringIPadNoteArray(mockIPadNotesData)
-    const laptopArray = convertToStringLaptopArray(mockLaptopData)
-    const laptopNotesArray = convertToStringLaptopNoteArray(mockLaptopNotesData)
-    return { iPadArray, iPadNotesArray, laptopArray, laptopNotesArray }
+    return (
+      <section className="h-full flex flex-col items-center justify-center gap-4">
+        <Home {...data} verifiedUser={isUserAuth} />
+      </section>
+    )
   }
 }
+

@@ -9,20 +9,24 @@
     "**/Thumbs.db": true,
     "README.md": true,
     "node_modules": true,
-    ".vscode": true,
     ".next": true,
     ".prettierignore": true,
     "LICENSE": true,
     "next-env.d.ts": true,
-    "postcss.config.js": true
+    "postcss.config.js": true,
+    "package-lock.json": true,
+    ".gitignore": true,
+    ".prettierrc": true
   },
   "hide-files.files": [
     "node_modules",
-    ".vscode",
     ".next",
     ".prettierignore",
     "LICENSE",
     "next-env.d.ts",
-    "postcss.config.js"
+    "postcss.config.js",
+    "package-lock.json",
+    ".gitignore",
+    ".prettierrc"
   ]
 }

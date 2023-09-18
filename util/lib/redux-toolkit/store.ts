@@ -15,6 +15,7 @@ import searchReducer from './reducers/interface/search-slice';
 import editReducer from './reducers/interface/edit-flag-slice';
 import filterOptionsReducer from './reducers/interface/filter-options-slice';
 import sortOptionsReducer from './reducers/interface/sort-options-slice';
+import demoReducer from './reducers/demo-slice';
 
 const persistConfig = {
   key: 'root', // key for the localStorage
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   userNote: userNoteReducer,
   filterOptions: filterOptionsReducer,
   sortOptions: sortOptionsReducer,
+  demo: demoReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
