@@ -5,7 +5,6 @@ import { getServerSession } from 'next-auth'
 import GreetingOverlay from '@/components/pages/overlay/greeting-overlay'
 import { getData } from '@/util/server/get-data'
 
-
 export default async function HomePage() {
   const session = await getServerSession(authOptions)
   const verifiedUsers = await GetAllVerifiedUsers()
@@ -17,16 +16,16 @@ export default async function HomePage() {
   const mockData = await getData(false);
   const overlay = true;
 
-  if (overlay) {
-    return (
-      <GreetingOverlay {...mockData} />
-    )
-  } else {
-    return (
-      <section className="h-full flex flex-col items-center justify-center gap-4">
-        <Home {...data} verifiedUser={isUserAuth} />
-      </section>
-    )
-  }
+  // if (overlay) {
+  //   return (
+  //     <GreetingOverlay {...mockData} />
+  //   )
+  // } else {
+  return (
+    <section className="h-full flex flex-col items-center justify-center gap-4">
+      <Home {...mockData} verifiedUser={isUserAuth} />
+    </section>
+  )
 }
+// }
 
