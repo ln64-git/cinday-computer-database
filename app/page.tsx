@@ -4,7 +4,6 @@ import GetAllVerifiedUsers from '@/util/server/Users/GetAllVerifiedUsers'
 import { getServerSession } from 'next-auth'
 import GreetingOverlay from '@/components/pages/overlay/greeting-overlay'
 import { getData } from '@/util/server/get-data'
-import { useSelector } from 'react-redux'
 
 
 export default async function HomePage() {
