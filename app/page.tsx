@@ -23,7 +23,7 @@ export default async function HomePage() {
   // } else {
   return (
     <section className="h-full flex flex-col items-center justify-center gap-4">
-      <Home {...data} verifiedUser={true} />
+      <Home {...data} verifiedUser={isUserAuth} />
     </section>
   )
 }
