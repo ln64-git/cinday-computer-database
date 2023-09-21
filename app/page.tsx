@@ -14,19 +14,31 @@ export default async function HomePage() {
 
   // const data = isUserAuth ? await getData(true) : null;
   // const data = await getData(true);
-  const mockData = await getData(false);
-  // const overlay = true;
-
-  // if (overlay) {
-  //   return (
-  //     <GreetingOverlay {...mockData} />
-  //   )
-  // } else {
-  return (
-    <section className="h-full flex flex-col items-center justify-center gap-4">
-      <Home {...mockData} verifiedUser={true} />
-    </section>
-  )
+  try {
+    const mockData = await getData(false);
+    return (
+      <section className="h-full flex flex-col items-center justify-center gap-4">
+        <Home {...mockData} verifiedUser={true} />
+      </section>
+    );
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return (
+      <section className="h-full flex flex-col items-center justify-center gap-4">
+        <h1 className='text-2xl'>Oops! Something went wrong...</h1>
+        <h1 className='text-2xl'>{error}</h1>
+      </section>
+    );
+  }
 }
+// const overlay = true;
+
+// if (overlay) {
+//   return (
+//     <GreetingOverlay {...mockData} />
+//   )
+// } else {
+
+
 // }
 
