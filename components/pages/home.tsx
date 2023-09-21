@@ -193,15 +193,6 @@ export default function Home(data: HomeProps) {
                 </div>
               </Card>
             )}
-            <Card className="relative right-0">
-              <div className="w-full flex justify-center items-center">
-                <div className="min-h-[55px] flex flex-row items-center w-2/3">
-                  <Button onClick={() => setOverlay(!overlay)} fullWidth variant="light" color="default">
-                    <PlusIcon />
-                  </Button>
-                </div>
-              </div>
-            </Card>
           </Tab>
         </Tabs>
       </div>
