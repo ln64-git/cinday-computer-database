@@ -13,8 +13,8 @@ export default async function HomePage() {
   // )
 
   // const data = isUserAuth ? await getData(true) : null;
-  const data = await getData(true);
-  // const mockData = await getData(false);
+  // const data = await getData(true);
+  const mockData = await getData(false);
   // const overlay = true;
 
   // if (overlay) {
@@ -24,7 +24,7 @@ export default async function HomePage() {
   // } else {
   return (
     <section className="h-full flex flex-col items-center justify-center gap-4">
-      <Home {...data} verifiedUser={true} />
+      <Home {...mockData} verifiedUser={true} />
     </section>
   )
 }
