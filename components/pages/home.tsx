@@ -137,6 +137,7 @@ export default function Home(data: HomeProps) {
   };
 
   if (!data.verifiedUser) {
+    router.push('/api/auth/signin');
     return null;
   }
 
