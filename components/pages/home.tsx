@@ -168,10 +168,6 @@ export default function Home(data: HomeProps) {
     return null
   }
 
-  useEffect(() => {
-    console.log(overlay)
-  }, [overlay])
-
   return (
     <>
       <div
