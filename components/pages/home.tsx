@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Button, Card, Tab, Tabs } from '@nextui-org/react'
 import { useDispatch, useSelector } from 'react-redux'
