@@ -2,6 +2,9 @@
 
 Full-stack React application using Next.js and Prisma to track student laptops and iPads, leveraging Redux state management, automated ORM, and the benefits of server-side rendering (SSR) for improved performance and user experience.
 
+Demo is accessible here:
+https://computer-database-demo.vercel.app/
+
 ## Technologies Used
 
 - [React.js](https://react.dev/)
