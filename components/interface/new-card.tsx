@@ -5,7 +5,7 @@ import { PlusIcon } from './icons'
 export default function NewCard() {
   return (
     <Card
-      className="justify-center w-full "
+      className="justify-center  w-full "
     >
       <CardHeader className="flex justify-start items-center gap-3">
         <div className='w-full  flex justify-center items-center'>

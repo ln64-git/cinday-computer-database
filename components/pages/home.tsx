@@ -267,7 +267,7 @@ export default function Home(data: HomeProps) {
           transition={{ duration: 0.5 }}
           className="z-10 absolute inset-0 flex justify-center items-center mt-0 bg-background backdrop-blur bg-background/90"
         >
-          <div className="w-4/5 md:px-0 md:w-2/3 my-8 h-full pt-12">
+          <div className="w-4/5 md:px-0 md:w-2/3 my-8 h-full pt-[150px]">
             <div className="h-full max-h-full w-full flex flex-col justify-start items-center">
               <div className="flex justify-center">
                 <DeviceImage size={150} isIPad={isIPad} />
